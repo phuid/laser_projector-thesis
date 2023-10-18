@@ -1,0 +1,16 @@
+*.aux
+*.blg
+*.fls
+*.xml
+*.gz
+*.toc
+*.bib
+*.fdb_latexmk
+*.lot
+*.out
+*.log
+*.lolistedequation
+*.lof
+*.bbl
+
+.vscode
