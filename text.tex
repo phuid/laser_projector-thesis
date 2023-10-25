@@ -143,14 +143,16 @@ V této práci se zaměřuji na návrh a výrobu laserového projektoru, který 
 definice pojmů a zkratek
 \begin{center}
   \begin{tabular}{c c c}
-    CLGS & closed loop galvanometer system & systém galvanometru se zpětnou vazbou \\
+    CLGS & Closed Loop Galvanometer System & systém galvanometru se zpětnou vazbou \\
+    SPI & Serial Peripheral Interface & sériové periferní rozhraní \\
   \end{tabular}
 \end{center}
 
 \chapter{hardware}
-\section{promítání lol}
 
-\subsection{Galvanometr a zrcátko}
+\section{Raspberry Pi}
+
+\section{Galvanometr a zrcátko}
 \begin{itemize}
   \item
         Galvanometry, často nazývané galva, s časem nachází uplatnění ve více a více odvětvích práce s lasery.
@@ -213,39 +215,52 @@ definice pojmů a zkratek
 
 ovládá se variabilním proudem
 
-\subsection{hlavice}
+\section{hlavice}
 \href{https://elenlaser.com/blog/galvo-head-laser-focus-tool.html}{The mirrors, mounted perpendicularly on the engines, move the laser beam along the X and Y axes according to the input received from the motor.
   The big advantage of these devices is that they can reach a very high acceleration and speed of movement.}
-\subsection{řídící deska galv}
+\section{řídící deska galv}
 well asi patří do sekce galvanometr
 
-\subsection{moje deska na napětí}
+\section{moje deska na napětí}
 Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí -15--+15~V udávající vychýlení galvanometru v daném směru.
 
 Vytváření tohoto signálu jsem rozdělil do dvou částí, nejdříve pomocí DAC (digital-to-analog converter, D/A převodník) připojeného k RPi vytvořím signál v rozpětí 0--5~V a následně tento signál pomocí operačního zesilovače převedu na požadované rozpětí.
-\subsubsection{dac}
+Celé zapojení je vidět na obrázku \ref{fig:dac_board}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/dac_board.png} %unreadable text, make schem more compact
+  \caption{\label{fig:dac_board}Zapojení DAC a zesilovačů k RPi a řídící desce galvanometrů}
+\end{figure}
+
+\subsection{dac}
 K generování signálu v rozpětí 0--5V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}%TODO tečka?
-Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V s 12bitovým rozlišením (je schopen vygenerovat 4096 různých napětí).
-\subsubsection{amps}
+Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4096 různých napětí) na dvou kanálech.
 
-\subsection{laser}
-\subsection{if rgb: 3 dacs}
+Komunikace mezi RPi a čipem je zprostředkována rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com/pawel-kusinski/mcp4822-linux}; staženo 28.~12.~2023. %TODO tečka?
+%TODO more spec
+Tato knihovna poskytuje funkce \lstinline[language=C]!bool mcp4822_initialize();bool mcp4822_set_voltage(mcp4822_channel_t channel, uint16_t value_mV);void mcp4822_deinitialize();!, se kterými pracuji v mém kódu.
+\subsection{amps}
+K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
+%TODO more spec
+Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na -15--+15~V.
+
+\section{laser}
+\section{if rgb: 3 dacs}
 
 
-%//TODO cos udelal svyho vlastne a jak to facha
-\section{ovládání}
-\subsection{lasershow exec}
-\subsection{lcd + encoder}
-\subsection{web ui}
-\subsection{discord bot}
-\subsection{HOTSPOT}
+%TODO cos udelal svyho vlastne a jak to facha
 
 \section{napájení}
-%//TODO ay tak co, zvladls to dat na baterky?
+%TODO ay tak co, zvladls to dat na baterky?
 
 \chapter{software}
+\section{lasershow exec}
+\section{lcd + encoder}
+\section{web ui}
+\section{discord bot}
+\section{HOTSPOT}
 
-%//TODO udelals to vubec dobre? porovnej se s ostatnima
+%TODO udelals to vubec dobre? porovnej se s ostatnima
 \chapter{Diskuze}
 \section{další zpracování tématu}
 udelal jsem to dobre? vybral jsem si dobry technky?
@@ -292,8 +307,8 @@ also to delala hromada dalsich lidi na internetu ten hw, also od gh.com/tteskac 
 
 \newpage
 \chapter*{Závěr}
-\addcontentsline{toc}{chapter}{Závěr} %//FIXME proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou??
-%//TODO závěr
+\addcontentsline{toc}{chapter}{Závěr} %FIXME proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou??
+%TODO závěr
 proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou
 
 \newpage
