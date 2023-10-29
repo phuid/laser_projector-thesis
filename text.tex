@@ -133,6 +133,10 @@ literate=%
 \setcounter{table}{0}
 \newpage
 
+%TODO 3. osoba - Práce sse zaměřuje
+https://www.sciencedirect.com/search?qs=galvanometer
+muzu rict, ze jsem neco nezvladl dohledat :)
+
 \chapter*{Úvod}
 \addcontentsline{toc}{chapter}{Úvod} % přidá položku úvod do obsahu
 V této práci se zaměřuji na návrh a výrobu laserového projektoru, který za bude za pomoci páru zrcátek připevněných na galvanometrech rsychle měnit směr laserového paprsku a tím vykreslovat obraz na promítací plochu.
@@ -144,6 +148,7 @@ definice pojmů a zkratek
 \begin{center}
   \begin{tabular}{c c c}
     CLGS & Closed Loop Galvanometer System & systém galvanometru se zpětnou vazbou \\
+    OLGS & Open Loop Galvanometer System & systém galvanometru bez zpětné vazby \\
     SPI & Serial Peripheral Interface & sériové periferní rozhraní \\
   \end{tabular}
 \end{center}
@@ -158,7 +163,10 @@ definice pojmů a zkratek
         Galvanometry, často nazývané galva, s časem nachází uplatnění ve více a více odvětvích práce s lasery.
         Oproti jiným možnostem nabízí flexibilitu, rychlost a přesnost za nízkou cenu.
 
-        V práci používám galvanometry s uzavřenou smyčkou zpětné vazby (CLGS). (nikde nemůžu najít nejaky normalni rozdělení opne loop a closed loop, vsechny clanky mluvi rovnou o closed loop)
+        Dají se rozdělit mezi galvanometry s uzavřenou smyčkou zpětné vazby (CLGS) a galvanometry bez uzavřené smyčky zpětné vazby (OLGS). %TODO ?zdroj?
+        Druhé zmíňěné mají velice specifické využití - barcode scanners a jsou zdokumentované pouze ve zdroji \cite{how-ls-work}.
+        V této práci jsou ale využívány CLGS, které jsou lépe zdokumentované.
+
         V CLGS jsou potřeba 3 hlavní prvky, %pohybový akční člen, senzor a kontrolní desku - vycucáno z prstu
 
         Nejmodernější galvanometrové polohovací systémy jsou založené na principech elektromotorů s permanentními magnety, kde
