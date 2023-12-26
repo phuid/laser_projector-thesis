@@ -7,6 +7,7 @@
 
 % my own code
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
+\usepackage[czech]{babel}
 
 %%%%%% podbarvení bloků kódu / vygenerovaných ai
 \usepackage{xcolor}
@@ -143,6 +144,8 @@ muzu rict, ze jsem neco nezvladl dohledat :)
 \addcontentsline{toc}{chapter}{Úvod} % přidá položku úvod do obsahu
 V této práci se zaměřuji na návrh a výrobu laserového projektoru, který za bude za pomoci páru zrcátek připevněných na galvanometrech rsychle měnit směr laserového paprsku a tím vykreslovat obraz na promítací plochu.
 
+Laser scanning je vyuzivan v mnoha oblastech, například v brýlích pro míšenou realitu nebo v Heads Up Displejích pro piloty.
+V této  práci jsem se proto rozhodl tuto technologii využít ve vlastním projektu a vytvořit prostředí, ve kterém si i začínající kutil může vyzkoušet jak tato technologie funguje.
 
 \newpage
 
@@ -150,8 +153,8 @@ definice pojmů a zkratek
 \begin{center}
   \begin{tabular}{c c c}
     CLGS & Closed Loop Galvanometer System & systém galvanometru se zpětnou vazbou \\
-    OLGS & Open Loop Galvanometer System & systém galvanometru bez zpětné vazby \\
-    SPI & Serial Peripheral Interface & sériové periferní rozhraní \\
+    OLGS & Open Loop Galvanometer System   & systém galvanometru bez zpětné vazby  \\
+    SPI  & Serial Peripheral Interface     & sériové periferní rozhraní            \\
   \end{tabular}
 \end{center}
 
@@ -162,17 +165,22 @@ definice pojmů a zkratek
 \section{Galvanometr a zrcátko}
 \begin{itemize}
   \item
-        Galvanometry, často nazývané galva, s časem nachází uplatnění ve více a více odvětvích práce s lasery.
+        Galvanometry, často nazývané galva, jsou elektronické součástky používané k měření intenzity a směru elektrického proudu. \cite{galvo}
+
+        Můžeme je rozdělit mezi galvanometry s uzavřenou smyčkou zpětné vazby (CLGS) a galvanometry bez uzavřené smyčky zpětné vazby (OLGS). \cite{how-ls-work}
+        % Druhé zmíňěné mají velice specifické využití - barcode scanners a jsou zdokumentované pouze ve zdroji .
+
+        \cite{advanced-galvo}
+        ale postupně nachází uplatnění ve více a více odvětvích práce s lasery.
         Oproti jiným možnostem nabízí flexibilitu, rychlost a přesnost za nízkou cenu.
 
-        Dají se rozdělit mezi galvanometry s uzavřenou smyčkou zpětné vazby (CLGS) a galvanometry bez uzavřené smyčky zpětné vazby (OLGS). %TODO ?zdroj?
-        Druhé zmíňěné mají velice specifické využití - barcode scanners a jsou zdokumentované pouze ve zdroji \cite{how-ls-work}.
+
         V této práci jsou ale využívány CLGS, které jsou lépe zdokumentované.
 
         V CLGS jsou potřeba 3 hlavní prvky, %pohybový akční člen, senzor a kontrolní desku - vycucáno z prstu
 
         Nejmodernější galvanometrové polohovací systémy jsou založené na principech elektromotorů s permanentními magnety, kde
-        \cite{galva}
+        \cite{advanced-galvo}
   \item
         \url{https://en.wikipedia.org/wiki/Galvanometer}\\
         \url{https://en.wikipedia.org/wiki/Laser_scanning}\\
@@ -264,9 +272,52 @@ Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$ až +15~V.
 %TODO ay tak co, zvladls to dat na baterky?
 
 \chapter{software}
+Tento laserový projektor využívá se skládá ze dvou částí, jednou je software pro řízení galvanometrů a druhou je software pro interakci s uživatelem.
+
+O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program je zaměřená kapitola lasershow. %TODO: odkaz
+
+O interakci s uživatelem se starají programy UI, který spravuje OLED displej a je psaný v c++ pro jednodušší interakci s hardwarem, web\_ui využívající runtime Nodejs, ve kterém je jednoduché vytvořit http server, který je dostupný z lokální sítě a nakonec také discord\_bot také využívající Nodejs, který přijímá příkazy z chattovací aplikace discord a je přístupný i přes internet.
+
+\section{komunikace mezi programy}
+Všechny tyto programy jsou propojeny síťovými sockety zprostředkovynými knihovnou ZeroMQ, která nabízí \footnote{frontu}{zprávy jsou v ní seřazeny od té nejdříve odeslané} zpráv, bez potřeby samostatně běžícího brokeru.
+
+Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od ostatních programů a do druhého posílá informace ostatním programům, aby je zprostředkovaly uživateli. K prvnímu socketu 
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/tcp5556.png}
+  \caption{\label{fig:tcp5556}komunikace mezi programy socketem na portu 5556}
+\end{figure}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/tcp5557.png}
+  \caption{\label{fig:tcp5557}komunikace mezi programy socketem na portu 5557}
+\end{figure}
+
 \section{lasershow exec}
-\section{lcd + encoder}
+
+Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně považovaný za jeden z nejrychlejších jazyků. Druhé zmíněné se hodí, jelikož chceme vykreslovat co možná nejrychleji.
+
+%TODO: diagram programu
+
+Tento program zaregistruje TCP socket na portu 5556 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje socket na portu 5557, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
+
+Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do socketu na portu 5557. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze socketu s portem 5556.
+
+Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů.
+
+\subsection{ILDA soubory}
+
+\section{UI}
+
+Program UI je také psaný v jazyce c++, a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
+
+Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí k odběru zpráv z TCP socketu na portu 5557, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
+
 \section{web ui}
+
+
+
 \section{discord bot}
 \section{HOTSPOT}
 
