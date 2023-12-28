@@ -12,5 +12,6 @@
 *.lolistedequation
 *.lof
 *.bbl
+*.synctex(busy)
 
 .vscode

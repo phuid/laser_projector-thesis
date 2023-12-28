@@ -286,22 +286,22 @@ Tento laserový projektor využívá se skládá ze dvou částí, jednou je sof
 
 O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program je zaměřená kapitola lasershow. \fxnote{TODO: odkaz}
 
-O interakci s uživatelem se starají programy UI, který spravuje OLED displej a je psaný v c++ pro jednodušší interakci s hardwarem, web\_ui využívající runtime Nodejs, ve kterém je jednoduché vytvořit http server, který je dostupný z lokální sítě a nakonec také discord\_bot také využívající Nodejs, který přijímá příkazy z chattovací aplikace discord a je přístupný i přes internet.
+O interakci s uživatelem se starají programy UI, který spravuje OLED displej a je psaný v c++ pro jednodušší interakci s hardwarem, web\_ui využívající runtime Node.js, ve kterém je jednoduché vytvořit http server, který je dostupný z lokální sítě a nakonec také discord\_bot také využívající Node.js, který přijímá příkazy z chattovací aplikace discord a je přístupný i přes internet.
 
 \section{komunikace mezi programy}
-Všechny tyto programy jsou propojeny síťovými sockety zprostředkovynými knihovnou ZeroMQ, která nabízí \footnote{zprávy jsou v ní seřazeny od té nejdříve odeslané}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.
+Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí \footnote{zprávy jsou v ní seřazeny od té nejdříve odeslané}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.
 
-Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od ostatních programů a do druhého posílá informace ostatním programům, aby je zprostředkovaly uživateli. K prvnímu socketu 
+Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. K prvnímu socketu \fxnote{FIXME KONEC VETY}
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.5\textwidth]{img/tcp5556.png}
-  \caption{\label{fig:tcp5556}komunikace mezi programy socketem na portu 5556}
-\end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.5\textwidth]{img/tcp5557.png}
-  \caption{\label{fig:tcp5557}komunikace mezi programy socketem na portu 5557}
+  \caption{\label{fig:tcp5557}komunikace mezi programy vstupním socketem na portu 5557}
+\end{figure}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/tcp5556.png}
+  \caption{\label{fig:tcp5556}komunikace mezi programy výstupním socketem na portu 5556}
 \end{figure}
 
 \section{lasershow exec}
@@ -310,9 +310,9 @@ Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně pova�
 
 \fxnote{TODO: diagram programu}
 
-Tento program zaregistruje TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
+Tento program zaregistruje vstupní TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
 
-Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do socketu na portu 5556. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze socketu s portem 5557.
+Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do výstupního socketu. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze vstupního socketu.
 
 Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů.
 
@@ -322,18 +322,18 @@ Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmi
 
 Program UI je také psaný v jazyce c++, a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
 
-Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí k odběru zpráv z TCP socketu na portu 5556, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
+Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke vstupnímu socketu a k odběru zpráv z výstupního TCP socketu, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
 
 \section{web\_ui}
 
-Narozdíl od předchozích dvou zmiňovaných programů je program web\_ui psaný v jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Nodejs a knihovně express v něm bylo časově nenáročné vytořit http web server.
+Narozdíl od předchozích dvou zmiňovaných programů je program web\_ui psaný v jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Node.js a knihovně express v něm bylo časově nenáročné vytořit http web server.
 
 Tento server běží na portu 3000 a je dostupný z lokální sítě (tzn. přímo z\ Raspberry Pi na adrese http://localhost:3000 nebo z jakéhokoliv zařízení na stejné lokální síti na adrese http://IP\_ADRESA\_RPI:3000).
 Program je využíván pro jednoduchou interakci s uživatelem, který může pomocí webového prohlížeče ovládat laserový projektor pár kliknutími i zadávat vlastní příkazy klávesnicí.
 
 \fxnote{TODO: příklad express serveru}
 
-Stejně jako program UI za pomoci knihovny ZeroMQ tento program odebírá ze socketu s portem 5557 zprávy o průběhu vykreslování od programu lasershow a odesílá mu pokyny uživatele na socket s portem 5556.
+Stejně jako program UI za pomoci knihovny ZeroMQ tento program odebírá z výstupního socketu zprávy o průběhu vykreslování od programu lasershow a odesílá mu pokyny uživatele na vstupní socket.
 
 \fxnote{TODO: příklad přihlášení k socketům v js}
 
@@ -341,16 +341,18 @@ Stejně jako program UI za pomoci knihovny ZeroMQ tento program odebírá ze soc
 
 \section{discord bot}
 
-Posledním programem, který je využíván k interakci s uživatelem je discord\_bot, který je také psaný v jazyce javascript v runtime Nodejs, stejně jako předchozí programy se přihlásí k socketům knihovnou zmq, ale na rozdíl od programu nich tento program může interagovat s uživatelem přes internet ať už je kdekoliv na světě.
-Pomocí knihovny discord.js se přihlásí k předem vytvořenému bot účtu, který může na předem vytvořeném discord serveru čekat na zprávy od uživatele a posílat mu zprávy, které příjme ze socketu na portu 5557.
+Posledním programem, který je využíván k interakci s uživatelem je discord\_bot, který je také psaný v jazyce javascript v runtime Node.js, stejně jako předchozí programy se přihlásí k socketům knihovnou zmq, ale na rozdíl od nich tento program může interagovat s uživatelem přes internet ať už je kdekoliv na světě.
+Pomocí knihovny discord.js se přihlásí k předem vytvořenému bot účtu, který může na předem vytvořeném discord serveru čekat na zprávy od uživatele, ty posílat do vstupního socketu a posílat uživateli zpětnou vazbu, kterou příjme z výstupního socketu.
 
 \section{wifi\_manager}
 
 V rámci této práce byl vyvinut ještě jeden program, který se přímo nepodílí ani na projekci, ani na interakci s uživatelem.
 
-Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Podobně jako program lasershow, i wifi\_manager se registruje k socketům a přijímá příkazy týkající se nastavení WiFi na Raspberry Pi.
+Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Registruje se ke stejným socketům jako lasershow, přijímá příkazy týkající se nastavení WiFi na Raspberry Pi TCP socketem na portu 5557 a odesílá zpětnou vazbu na TCP socket s portem 5556.
 
-Hlavním tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
+\fxnote{TODO: jak se komunikace s lasershow odlisuje od wifi\_managera}
+
+Hlavním úkolem tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
 
 Stejně jako lasershow, wifi\_manager také posílá zpětnou vazbu ostatním programům, aby informoval o stavu a změnách v nastavení WiFi. Tímto způsobem je zajištěna komunikace a synchronizace mezi všemi programy v laserovém projektoru.
 
