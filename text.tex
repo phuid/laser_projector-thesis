@@ -6,13 +6,23 @@
 \usepackage{enumitem}
 
 % my own code
+\usepackage{xkvltxp}
+
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
 \usepackage[czech]{babel}
+
+\usepackage[nomargin, inline, marginclue, author=,status=draft]{fixme}
+\makeatletter
+\renewcommand*\FXLayoutInline[3]{%
+  {\@fxuseface{inline}\ignorespaces[#2]}}
+\makeatother
+
 
 %%%%%% podbarvení bloků kódu / vygenerovaných ai
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{tcolorbox}
+
 \tcbuselibrary{breakable}
 
 \definecolor{aiblue}{rgb}{127,127,255}
@@ -136,7 +146,7 @@ literate=%
 \setcounter{table}{0}
 \newpage
 
-%TODO 3. osoba - Práce sse zaměřuje
+\fxnote{TODO 3. osoba - Práce se zaměřuje}
 https://www.sciencedirect.com/search?qs=galvanometer
 muzu rict, ze jsem neco nezvladl dohledat :)
 
@@ -242,7 +252,7 @@ well asi patří do sekce galvanometr
 \section{moje deska na napětí}
 Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí $-15$ až +15~V udávající vychýlení galvanometru v daném směru.
 
-Vytváření tohoto signálu jsem rozdělil do dvou částí, nejdříve pomocí DAC (digital-to-analog converter, D/A převodník) připojeného k RPi vytvořím signál v rozpětí 0--5~V a následně tento signál pomocí operačního zesilovače převedu na požadované rozpětí.
+Vytváření tohoto signálu jsem rozdělil do dvou částí, nejdříve pomocí DAC (digital-to-analog converter, D/A převodník) připojeného k RPi vytvořím signál v rozpětí 0 až 5~V a následně tento signál pomocí operačního zesilovače převedu na požadované rozpětí.
 Celé zapojení je vidět na obrázku \ref{fig:dac_board}
 \begin{figure}[!htb]
   \centering
@@ -251,46 +261,46 @@ Celé zapojení je vidět na obrázku \ref{fig:dac_board}
 \end{figure}
 
 \subsection{dac}
-K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ %TODO tečka? ("\ " == explicitni mezera)
+K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ \fxnote{TODO tečka? ("\textbackslash " == explicitni mezera)}
 Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4096 různých napětí) na dvou kanálech.
 
-Komunikace mezi RPi a čipem je zprostředkována rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/pawel-kusinski/mcp4822-linux}; staženo 28.~12.~2023} %TODO tečka?
-%TODO more spec
+Komunikace mezi RPi a čipem je zprostředkována rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/pawel-kusinski/mcp4822-linux}; staženo 28.~12.~2023} \fxnote{TODO tečka?} \fxnote{FIXME pouzivam jinou knihovnu, bundled with lasershow}
+\fxnote{TODO more spec}
 Tato knihovna poskytuje funkce \lstinline[language=C]!bool mcp4822_initialize();bool mcp4822_set_voltage(mcp4822_channel_t channel, uint16_t value_mV);void mcp4822_deinitialize();!, se kterými pracuji v mém kódu.
 \subsection{amps}
 K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
-%TODO more spec
+\fxnote{TODO more spec}
 Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$ až +15~V.
 
 \section{laser}
 \section{if rgb: 3 dacs}
 
 
-%TODO cos udelal svyho vlastne a jak to facha
+\fxnote{TODO cos udelal svyho vlastne a jak to facha}
 
 \section{napájení}
-%TODO ay tak co, zvladls to dat na baterky?
+\fxnote{TODO ay tak co, zvladls to dat na baterky?}
 
 \chapter{software}
 Tento laserový projektor využívá se skládá ze dvou částí, jednou je software pro řízení galvanometrů a druhou je software pro interakci s uživatelem.
 
-O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program je zaměřená kapitola lasershow. %TODO: odkaz
+O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program je zaměřená kapitola lasershow. \fxnote{TODO: odkaz}
 
 O interakci s uživatelem se starají programy UI, který spravuje OLED displej a je psaný v c++ pro jednodušší interakci s hardwarem, web\_ui využívající runtime Nodejs, ve kterém je jednoduché vytvořit http server, který je dostupný z lokální sítě a nakonec také discord\_bot také využívající Nodejs, který přijímá příkazy z chattovací aplikace discord a je přístupný i přes internet.
 
 \section{komunikace mezi programy}
-Všechny tyto programy jsou propojeny síťovými sockety zprostředkovynými knihovnou ZeroMQ, která nabízí \footnote{frontu}{zprávy jsou v ní seřazeny od té nejdříve odeslané} zpráv, bez potřeby samostatně běžícího brokeru.
+Všechny tyto programy jsou propojeny síťovými sockety zprostředkovynými knihovnou ZeroMQ, která nabízí \footnote{zprávy jsou v ní seřazeny od té nejdříve odeslané}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.
 
 Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od ostatních programů a do druhého posílá informace ostatním programům, aby je zprostředkovaly uživateli. K prvnímu socketu 
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=1\textwidth]{img/tcp5556.png}
+  \includegraphics[width=0.5\textwidth]{img/tcp5556.png}
   \caption{\label{fig:tcp5556}komunikace mezi programy socketem na portu 5556}
 \end{figure}
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=1\textwidth]{img/tcp5557.png}
+  \includegraphics[width=0.5\textwidth]{img/tcp5557.png}
   \caption{\label{fig:tcp5557}komunikace mezi programy socketem na portu 5557}
 \end{figure}
 
@@ -298,11 +308,11 @@ Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijí
 
 Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně považovaný za jeden z nejrychlejších jazyků. Druhé zmíněné se hodí, jelikož chceme vykreslovat co možná nejrychleji.
 
-%TODO: diagram programu
+\fxnote{TODO: diagram programu}
 
-Tento program zaregistruje TCP socket na portu 5556 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje socket na portu 5557, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
+Tento program zaregistruje TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
 
-Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do socketu na portu 5557. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze socketu s portem 5556.
+Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do socketu na portu 5556. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze socketu s portem 5557.
 
 Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů.
 
@@ -312,16 +322,41 @@ Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmi
 
 Program UI je také psaný v jazyce c++, a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
 
-Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí k odběru zpráv z TCP socketu na portu 5557, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
+Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí k odběru zpráv z TCP socketu na portu 5556, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
 
-\section{web ui}
+\section{web\_ui}
 
+Narozdíl od předchozích dvou zmiňovaných programů je program web\_ui psaný v jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Nodejs a knihovně express v něm bylo časově nenáročné vytořit http web server.
 
+Tento server běží na portu 3000 a je dostupný z lokální sítě (tzn. přímo z\ Raspberry Pi na adrese http://localhost:3000 nebo z jakéhokoliv zařízení na stejné lokální síti na adrese http://IP\_ADRESA\_RPI:3000).
+Program je využíván pro jednoduchou interakci s uživatelem, který může pomocí webového prohlížeče ovládat laserový projektor pár kliknutími i zadávat vlastní příkazy klávesnicí.
+
+\fxnote{TODO: příklad express serveru}
+
+Stejně jako program UI za pomoci knihovny ZeroMQ tento program odebírá ze socketu s portem 5557 zprávy o průběhu vykreslování od programu lasershow a odesílá mu pokyny uživatele na socket s portem 5556.
+
+\fxnote{TODO: příklad přihlášení k socketům v js}
+
+\fxnote{TODO: xterm + ssh}
 
 \section{discord bot}
-\section{HOTSPOT}
 
-%TODO udelals to vubec dobre? porovnej se s ostatnima
+Posledním programem, který je využíván k interakci s uživatelem je discord\_bot, který je také psaný v jazyce javascript v runtime Nodejs, stejně jako předchozí programy se přihlásí k socketům knihovnou zmq, ale na rozdíl od programu nich tento program může interagovat s uživatelem přes internet ať už je kdekoliv na světě.
+Pomocí knihovny discord.js se přihlásí k předem vytvořenému bot účtu, který může na předem vytvořeném discord serveru čekat na zprávy od uživatele a posílat mu zprávy, které příjme ze socketu na portu 5557.
+
+\section{wifi\_manager}
+
+V rámci této práce byl vyvinut ještě jeden program, který se přímo nepodílí ani na projekci, ani na interakci s uživatelem.
+
+Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Podobně jako program lasershow, i wifi\_manager se registruje k socketům a přijímá příkazy týkající se nastavení WiFi na Raspberry Pi.
+
+Hlavním tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
+
+Stejně jako lasershow, wifi\_manager také posílá zpětnou vazbu ostatním programům, aby informoval o stavu a změnách v nastavení WiFi. Tímto způsobem je zajištěna komunikace a synchronizace mezi všemi programy v laserovém projektoru.
+
+Celkově wifi\_manager přispívá k plynulému a efektivnímu provozu laserového projektoru tím, že umožňuje snadnou správu a konfiguraci WiFi připojení na Raspberry Pi.
+
+\fxnote{TODO udelals to vubec dobre? porovnej se s ostatnima}
 \chapter{Diskuze}
 \section{další zpracování tématu}
 udelal jsem to dobre? vybral jsem si dobry technky?
@@ -337,7 +372,7 @@ also to delala hromada dalsich lidi na internetu ten hw, also od gh.com/tteskac 
         \begin{itemize}
           \item \url{https://github.com/marcan/openlase/blob/master/tools/svg2ild.py}
           \item \url{https://github.com/tteskac/rpi-lasershow}
-          \item \url{https://github.com/sabhiram/raspberry-wifi-conf/blob/master/app/wifi_manager.js}
+          \item \url{https://github.com/sabhiram/raspberry-wifi-conf/blob/master/app/wifi\_manager.js}
           \item \url{http://www.electronicayciencia.com/wPi_soft_lcd/}
           \item \href{https://dspace.vutbr.cz/bitstream/handle/11012/38621/final-thesis.pdf?sequence=-1}{typek z vut}
         \end{itemize}
@@ -368,9 +403,9 @@ also to delala hromada dalsich lidi na internetu ten hw, also od gh.com/tteskac 
 
 \newpage
 \chapter*{Závěr}
-\addcontentsline{toc}{chapter}{Závěr} %FIXME proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou??
-%TODO závěr
-proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou
+\addcontentsline{toc}{chapter}{Závěr} \fxnote{FIXME proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou??}
+\fxnote{TODO závěr}
+
 
 \newpage
 \printbibliography[title=Literatura]
