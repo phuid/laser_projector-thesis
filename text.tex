@@ -47,6 +47,31 @@
     tabsize=2
 }
 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{code}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+
 % https://tex.stackexchange.com/questions/24528/having-problems-with-listings-and-utf-8-can-it-be-fixed
 \lstset{style=aistyle,
 inputencoding=utf8,
@@ -245,8 +270,7 @@ ovládá se variabilním proudem
 
 \section{hlavice}
 \href{https://elenlaser.com/blog/galvo-head-laser-focus-tool.html}{The mirrors, mounted perpendicularly on the engines, move the laser beam along the X and Y axes according to the input received from the motor.
-  The big advantage of these devices is that they can reach a very high acceleration and speed of movement.}
-\section{řídící deska galv}
+The big advantage of these devices is that they can reach a very high acceleration and speed of}
 well asi patří do sekce galvanometr
 
 \section{moje deska na napětí}
@@ -288,10 +312,16 @@ O řízení galvanometrů se stará program lasershow, který je psaný v jazyce
 
 O interakci s uživatelem se starají programy UI, který spravuje OLED displej a je psaný v c++ pro jednodušší interakci s hardwarem, web\_ui využívající runtime Node.js, ve kterém je jednoduché vytvořit http server, který je dostupný z lokální sítě a nakonec také discord\_bot také využívající Node.js, který přijímá příkazy z chattovací aplikace discord a je přístupný i přes internet.
 
+Nakonec je tu program wifi\_manager, který spravuje wifi připojení RPI, je psaný v Node.js a komunikuje s programy, které interagují s uživatelem stejně jako program lasershow.
+
 \section{komunikace mezi programy}
 Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí \footnote{zprávy jsou v ní seřazeny od té nejdříve odeslané}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.
 
-Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. K prvnímu socketu \fxnote{FIXME KONEC VETY}
+Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. Do prvního zmíněného posílají prorgamy interagující s uživatelem příkazy pro programy lasershow a wifi\_manager, do druhého posílá lasershow informace o stavu a změnách nastavení  a také wifi\_manager informace o stavu a změnách v nastavení WiFi.
+
+Příkazy pro programy lasershow a wifi\_manager vypadají následovně
+\fxnote{TODO: příklady příkazů pro lasershow a wifi\_manager z \url{https://github.com/phuid/laser_projector/blob/master/README.md}}
+\fxnote{TODO: příklady status infos od lasershow a wifi\_manager z \url{https://github.com/phuid/laser_projector/blob/master/README.md}}
 
 \begin{figure}[!htb]
   \centering
@@ -308,21 +338,26 @@ Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijí
 
 Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně považovaný za jeden z nejrychlejších jazyků. Druhé zmíněné se hodí, jelikož chceme vykreslovat co možná nejrychleji.
 
-\fxnote{TODO: diagram programu}
-
 Tento program zaregistruje vstupní TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
 
 Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do výstupního socketu. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze vstupního socketu.
 
-Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů.
+Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných Do prvního zmíněného posílají prorgamy interagující s uživatelem příkazy
 
-\subsection{ILDA soubory}
+\fxnote{TODO: diagram programu}
+
+\fxnote{TODO: priklad zmq}
+
+\lstinputlisting[language=c++, style=code]{code_examples/zmq_server.cpp}
+\lstinputlisting[language=c++, style=code]{code_examples/zmq_client.cpp}
 
 \section{UI}
 
 Program UI je také psaný v jazyce c++, a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
 
 Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke vstupnímu socketu a k odběru zpráv z výstupního TCP socketu, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
+
+\fxnote{TODO: diagram programu}
 
 \section{web\_ui}
 
