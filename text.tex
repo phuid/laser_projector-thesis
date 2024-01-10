@@ -421,7 +421,7 @@ The big advantage of these devices is that they can reach a very high accelerati
 well asi patří do sekce galvanometr
 
 \section{moje deska na napětí}
-Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí $-15$ až +15~V udávající vychýlení galvanometru v daném směru.
+Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí $-15$~V až $+15$~V udávající vychýlení galvanometru v daném směru.
 
 Vytváření tohoto signálu jsem rozdělil do dvou částí, nejdříve pomocí DAC (digital-to-analog converter, D/A převodník) připojeného k RPi vytvořím signál v rozpětí 0 až 5~V a následně tento signál pomocí operačního zesilovače převedu na požadované rozpětí.
 Celé zapojení je vidět na obrázku \ref{fig:dac_board}
@@ -433,7 +433,7 @@ Celé zapojení je vidět na obrázku \ref{fig:dac_board}
 
 \subsection{dac}
 K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ \fxnote{TODO tečka? ("\textbackslash " == explicitni mezera)}
-Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4096 různých napětí) na dvou kanálech.
+Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na dvou kanálech.
 
 Komunikace mezi RPi a čipem je zprostředkována rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/pawel-kusinski/mcp4822-linux}; staženo 28.~12.~2023} \fxnote{TODO tečka?} \fxnote{FIXME pouzivam jinou knihovnu, bundled with lasershow}
 \fxnote{TODO more spec}
@@ -441,7 +441,7 @@ Tato knihovna poskytuje funkce \lstinline[language=C]!bool mcp4822_initialize();
 \subsection{amps}
 K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
 \fxnote{TODO more spec}
-Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$ až +15~V.
+Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$~V až $+15$~V.
 
 \section{laser}
 \section{if rgb: 3 dacs}
@@ -459,14 +459,14 @@ O řízení galvanometrů se stará program lasershow, který je psaný v jazyce
 
 Dále jsou tu programy, které se starají o interakci s uživatelem. Tyto programy přijímají příkazy od uživatele a posílají je programu lasershow. Navíc od lasershow získávají výstup, který následně zprostředkovávají uživateli; důkladněji popsáno v kapitole \ref{comms}.
 
-Mezi tyto programy patří program UI, který spravuje OLED displej, přijímá od uživatele vstup rotačním enkodérem a je psaný v c++ pro jednodušší interakci s hardwarem, program web\_ui využívající runtime Node.js, ve kterém je nenáročné vytvořit http server, který je dostupný z lokální sítě a nakonec také program discord\_bot také využívající Node.js, který přijímá příkazy z chatovací aplikace discord a je přístupný i přes internet.
+Mezi tyto programy patří programy UI, web\_ui a discord\_bot. Program UI spravuje OLED displej, přijímá od uživatele vstup rotačním enkodérem a je psaný v c++ pro jednodušší interakci s hardwarem. Program web\_ui využívá runtime Node.js, ve kterém je nenáročné vytvořit http server dostupný z lokální sítě. \fxnote{(A)?} Program discord\_bot, také využívající Node.js, přijímá příkazy z chatovací aplikace discord a je přístupný i přes internet.
 
 Nakonec je tu program wifi\_manager, ten spravuje wifi připojení RPi, je psaný v Node.js a komunikuje s programy, které interagují s uživatelem stejně jako program lasershow.
 
 \section{komunikace mezi programy} \label{comms}
-Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí \footnote{Ve frontě jsou zprávy seřazeny od té nejdříve odeslané.}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.
+Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí \footnote{Ve frontě jsou zprávy seřazeny od té nejdříve odeslané.}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.\fxnote{TODO: divna jednicka}
 
-Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. Do prvního zmíněného posílají prorgamy interagující s uživatelem příkazy pro programy lasershow a wifi\_manager, do druhého posílá lasershow informace o stavu a změnách nastavení  a také wifi\_manager informace o stavu a změnách v nastavení WiFi.
+Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. Do prvního zmíněného posílají progamy interagující s uživatelem příkazy pro programy lasershow a wifi\_manager. Do druhého posílá lasershow informace o stavu a změnách nastavení  a také wifi\_manager informace o stavu a změnách v nastavení WiFi.
 
 Příkazy pro programy lasershow a wifi\_manager vypadají následovně
 \fxnote{TODO: příklady příkazů pro lasershow a wifi\_manager z \url{https://github.com/phuid/laser_projector/blob/master/README.md}}
