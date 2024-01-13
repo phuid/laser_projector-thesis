@@ -324,10 +324,11 @@ muzu rict, ze jsem neco nezvladl dohledat :)
 
 \chapter*{Úvod}
 \addcontentsline{toc}{chapter}{Úvod} % přidá položku úvod do obsahu
-V této práci se zaměřuji na návrh a výrobu laserového projektoru, který za bude za pomoci páru zrcátek připevněných na galvanometrech rsychle měnit směr laserového paprsku a tím vykreslovat obraz na promítací plochu.
+V této práci se zaměřuji na návrh a výrobu laserového projektoru, který bude za pomoci páru zrcátek připevněných na galvanometrech rychle měnit směr laserového paprsku a tím vykreslovat obraz na promítací plochu.
 
-Laser scanning je vyuzivan v mnoha oblastech, například v brýlích pro míšenou realitu nebo v Heads Up Displejích pro piloty.
-V této  práci jsem se proto rozhodl tuto technologii využít ve vlastním projektu a vytvořit prostředí, ve kterém si i začínající kutil může vyzkoušet jak tato technologie funguje.
+Laser scanning je vyuzivan v mnoha oblastech, například  v brýlích pro rozšířenou realitu nebo v Heads Up Displejích pro piloty. \fxnote{TODO: ozdrojovat využití laserscanningu}
++3d scanning/modeling (height mapping) \url{https://theses.hal.science/tel-00682442}
+V této  práci jsem se proto rozhodl pro tuto technologii vytvořit jednoduché uživatelské prostředí, ve kterém si i začínající kutil může vyzkoušet jak funguje.
 
 \newpage
 
@@ -452,7 +453,7 @@ Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$~V až $+15$~V.
 \section{napájení}
 \fxnote{TODO ay tak co, zvladls to dat na baterky?}
 
-\chapter{software}
+\chapter{software} \fxnote{TODO: zkrátit věty}
 Tento laserový projektor se skládá ze dvou částí. Jednou je software pro řízení galvanometrů a druhou je software pro interakci s uživatelem.
 
 O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program se zaměřuje kapitola lasershow. \fxnote{TODO: odkaz}
@@ -464,7 +465,7 @@ Mezi tyto programy patří programy UI, web\_ui a discord\_bot. Program UI sprav
 Nakonec je tu program wifi\_manager, ten spravuje wifi připojení RPi, je psaný v Node.js a komunikuje s programy, které interagují s uživatelem stejně jako program lasershow.
 
 \section{komunikace mezi programy} \label{comms}
-Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí \footnote{Ve frontě jsou zprávy seřazeny od té nejdříve odeslané.}{frontu} zpráv, bez potřeby samostatně běžícího brokeru.\fxnote{TODO: divna jednicka}
+Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí frontu\footnote{Ve frontě jsou zprávy seřazeny od té nejdříve odeslané.} zpráv, bez potřeby samostatně běžícího brokeru.\fxnote{TODO: divna jednicka}
 
 Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. Do prvního zmíněného posílají progamy interagující s uživatelem příkazy pro programy lasershow a wifi\_manager. Do druhého posílá lasershow informace o stavu a změnách nastavení  a také wifi\_manager informace o stavu a změnách v nastavení WiFi.
 
@@ -491,7 +492,7 @@ Tento program zaregistruje vstupní TCP socket na portu 5557 a knihovnou ZeroMQ 
 
 Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do výstupního socketu. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze vstupního socketu.
 
-Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných Do prvního zmíněného posílají programy interagující s uživatelem příkazy
+Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů k vykreslení.
 
 \fxnote{TODO: diagram programu}
 
@@ -502,9 +503,9 @@ Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmi
 
 \section{UI}
 
-Program UI je také psaný v jazyce c++, a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
+Program UI je také psaný v jazyce c++ a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
 
-Program při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke vstupnímu socketu a k odběru zpráv z výstupního TCP socketu, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
+Program se při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke vstupnímu socketu a k odběru zpráv z výstupního TCP socketu, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
 
 \fxnote{TODO: diagram programu}
 
@@ -536,6 +537,8 @@ V rámci této práce byl vyvinut ještě jeden program, který se přímo nepod
 Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Registruje se ke stejným socketům jako lasershow, přijímá příkazy týkající se nastavení WiFi na Raspberry Pi TCP socketem na portu 5557 a odesílá zpětnou vazbu na TCP socket s portem 5556.
 
 \fxnote{TODO: jak se komunikace s lasershow odlisuje od wifi\_managera}
+
+\fxnote{TODO: ukazka(idk what)}
 
 Hlavním úkolem tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
 

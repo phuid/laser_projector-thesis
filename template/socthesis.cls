@@ -181,7 +181,7 @@
 	\noindent Tato práce byla provedena za finanční podpory Jihomoravského kraje.
 	\begin{figure}[h]
 	\begin{subfigure}{.5\textwidth}
-  		\includegraphics[width=.8\linewidth]{template/jmk.png}
+  		\includegraphics[width=.8\linewidth]{template/jmk.jpg}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
   		\includegraphics[width=.8\linewidth]{template/jcmm.png}
