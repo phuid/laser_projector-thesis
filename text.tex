@@ -322,13 +322,7 @@ literate=%
 https://www.sciencedirect.com/search?qs=galvanometer
 muzu rict, ze jsem neco nezvladl dohledat :)
 
-\chapter*{Úvod}
-\addcontentsline{toc}{chapter}{Úvod} % přidá položku úvod do obsahu
-V této práci se zaměřuji na návrh a výrobu laserového projektoru, který bude za pomoci páru zrcátek připevněných na galvanometrech rychle měnit směr laserového paprsku a tím vykreslovat obraz na promítací plochu.
-
-Laser scanning je vyuzivan v mnoha oblastech, například  v brýlích pro rozšířenou realitu nebo v Heads Up Displejích pro piloty. \fxnote{TODO: ozdrojovat využití laserscanningu}
-+3d scanning/modeling (height mapping) \url{https://theses.hal.science/tel-00682442}
-V této  práci jsem se proto rozhodl pro tuto technologii vytvořit jednoduché uživatelské prostředí, ve kterém si i začínající kutil může vyzkoušet jak funguje.
+\input{01-uvod.tex}
 
 \newpage
 
@@ -341,213 +335,13 @@ definice pojmů a zkratek
   \end{tabular}
 \end{center}
 
-\chapter{hardware}
+\input{10-hardware.tex}
 
-\section{Raspberry Pi}
-
-\section{Galvanometr a zrcátko}
-\begin{itemize}
-  \item
-        Galvanometry, často nazývané galva, jsou elektronické součástky používané k měření intenzity a směru elektrického proudu. \cite{galvo}
-
-        Můžeme je rozdělit mezi galvanometry s uzavřenou smyčkou zpětné vazby (CLGS) a galvanometry bez uzavřené smyčky zpětné vazby (OLGS). \cite{how-ls-work}
-        % Druhé zmíňěné mají velice specifické využití - barcode scanners a jsou zdokumentované pouze ve zdroji .
-
-        \cite{advanced-galvo}
-        ale postupně nachází uplatnění ve více a více odvětvích práce s lasery.
-        Oproti jiným možnostem nabízí flexibilitu, rychlost a přesnost za nízkou cenu.
-
-
-        V této práci jsou ale využívány CLGS, které jsou lépe zdokumentované.
-
-        V CLGS jsou potřeba 3 hlavní prvky, %pohybový akční člen, senzor a kontrolní desku - vycucáno z prstu
-
-        Nejmodernější galvanometrové polohovací systémy jsou založené na principech elektromotorů s permanentními magnety, kde
-        \cite{advanced-galvo}
-  \item
-        \url{https://en.wikipedia.org/wiki/Galvanometer}\\
-        \url{https://en.wikipedia.org/wiki/Laser_scanning}\\
-        \url{https://en.wikipedia.org/wiki/Mirror_galvanometer}\\
-        \url{https://en.wikipedia.org/wiki/Laser_lighting_display}
-
-        A mirror galvanometer is an ammeter that indicates it has sensed an electric current by deflecting a light beam with a mirror.
-        The mirror galvanometer consists of a long fine coil of silk-covered copper wire. %wtf silk == hedvábí??
-        In the heart of that coil, within a little air-chamber, a small round mirror is hung by a single fibre of floss silk, with four tiny magnets cemented to its back
-        The small weight of the mirror and magnets which form the moving part of this instrument, and the range to which the minute motions of the mirror can be magnified on the screen by the reflected beam of light, which acts as a long impalpable hand or pointer, render the mirror galvanometer marvellously sensitive to the current, especially when compared with other forms of receiving instruments.
-
-        Zrcadlový galvanometr je měřič proudu, který reaguje na měřený proud vychýlením světelného paprsku zrcátkem připevněném na jeho konci.
-        % Skládá se z dlouhé  tenké cívky měděného drátu potaženého hedvábím %wtf silk == hedvábí??
-        % Ve středu této cívky je v malé vzduchové komůrce na jediném vláknu hedvábí
-
-        Skládá se z cívky a
-        \cite{zrcadlovy-galvanometr-wiki}
-
-  \item
-        \bardgen{2023-10-20}{popiš mi jak je sestaven a jak funguje galvanometr se zrcátkem k odrážení světelného paprsku}{
-          Galvanometr se zrcátkem je sestaven z následujících komponent:
-
-          * **Cívka:** Cívka je navinuta na jádře z feromagnetického materiálu, jako je železo nebo nikl. Cívkou prochází elektrický proud, který vytváří magnetické pole.
-          * **Ukazatel:** Ukazatel je připojen k cívce a je vyroben z lehkého materiálu, jako je hliník nebo plast. Ukazatel je vychýlen magnetickým polem vytvářeným cívkou.
-          * **Zrcátko:** Zrcátko je připojeno k ukazateli a odráží světelný paprsek.
-          * **Okulár:** Okulár je umístěn tak, aby bylo možné pozorovat odraz světelného paprsku.
-
-          **Jak funguje:**
-
-          Když prochází cívkou elektrický proud, vytváří magnetické pole. Toto magnetické pole působí na ukazatel a vychýlí ho. Velikost výchylky ukazatele je přímo úměrná velikosti proudu procházejícího cívkou.
-
-          Zrcátko je připojeno k ukazateli a odráží světelný paprsek. Když se ukazatel vychýlí, odraz světelného paprsku se také vychýlí.
-
-          Okulár je umístěn tak, aby bylo možné pozorovat odraz světelného paprsku. Velikost vychýlení světelného paprsku je přímo úměrná velikosti proudu procházejícího cívkou.
-
-          **Výhody:**
-
-          * Galvanometr se zrcátkem je citlivější než galvanometr bez zrcátka.
-          * Galvanometr se zrcátkem lze použít k měření velmi malých proudů.
-
-          **Nevýhody:**
-
-          * Galvanometr se zrcátkem je dražší než galvanometr bez zrcátka.
-
-          **Použití:**
-
-          Galvanometr se zrcátkem se používá k měření velmi malých proudů. Používá se například v elektrotechnice, lékařství a fyzice.
-        }
-\end{itemize}
-
-ovládá se variabilním proudem
-
-\section{hlavice}
-\href{https://elenlaser.com/blog/galvo-head-laser-focus-tool.html}{The mirrors, mounted perpendicularly on the engines, move the laser beam along the X and Y axes according to the input received from the motor.
-The big advantage of these devices is that they can reach a very high acceleration and speed of}
-well asi patří do sekce galvanometr
-
-\section{moje deska na napětí}
-Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí $-15$~V až $+15$~V udávající vychýlení galvanometru v daném směru.
-
-Vytváření tohoto signálu jsem rozdělil do dvou částí, nejdříve pomocí DAC (digital-to-analog converter, D/A převodník) připojeného k RPi vytvořím signál v rozpětí 0 až 5~V a následně tento signál pomocí operačního zesilovače převedu na požadované rozpětí.
-Celé zapojení je vidět na obrázku \ref{fig:dac_board}
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=1\textwidth]{img/dac_board.png} %unreadable text, make schem more compact
-  \caption{\label{fig:dac_board}Zapojení DAC a zesilovačů k RPi a řídící desce galvanometrů}
-\end{figure}
-
-\subsection{dac}
-K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ \fxnote{TODO tečka? ("\textbackslash " == explicitni mezera)}
-Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na dvou kanálech.
-
-Komunikace mezi RPi a čipem je zprostředkována rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/pawel-kusinski/mcp4822-linux}; staženo 28.~12.~2023} \fxnote{TODO tečka?} \fxnote{FIXME pouzivam jinou knihovnu, bundled with lasershow}
-\fxnote{TODO more spec}
-Tato knihovna poskytuje funkce \lstinline[language=C]!bool mcp4822_initialize();bool mcp4822_set_voltage(mcp4822_channel_t channel, uint16_t value_mV);void mcp4822_deinitialize();!, se kterými pracuji v mém kódu.
-\subsection{amps}
-K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
-\fxnote{TODO more spec}
-Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$~V až $+15$~V.
-
-\section{laser}
-\section{if rgb: 3 dacs}
-
-
-\fxnote{TODO cos udelal svyho vlastne a jak to facha}
-
-\section{napájení}
-\fxnote{TODO ay tak co, zvladls to dat na baterky?}
-
-\chapter{software} \fxnote{TODO: zkrátit věty}
-Tento laserový projektor se skládá ze dvou částí. Jednou je software pro řízení galvanometrů a druhou je software pro interakci s uživatelem.
-
-O řízení galvanometrů se stará program lasershow, který je psaný v jazyce c++ pro maximální rychlost. Tento program běží na pozadí a čeká na příkazy od programů určených k interakci s uživatelem. Na tento program se zaměřuje kapitola lasershow. \fxnote{TODO: odkaz}
-
-Dále jsou tu programy, které se starají o interakci s uživatelem. Tyto programy přijímají příkazy od uživatele a posílají je programu lasershow. Navíc od lasershow získávají výstup, který následně zprostředkovávají uživateli; důkladněji popsáno v kapitole \ref{comms}.
-
-Mezi tyto programy patří programy UI, web\_ui a discord\_bot. Program UI spravuje OLED displej, přijímá od uživatele vstup rotačním enkodérem a je psaný v c++ pro jednodušší interakci s hardwarem. Program web\_ui využívá runtime Node.js, ve kterém je nenáročné vytvořit http server dostupný z lokální sítě. \fxnote{(A)?} Program discord\_bot, také využívající Node.js, přijímá příkazy z chatovací aplikace discord a je přístupný i přes internet.
-
-Nakonec je tu program wifi\_manager, ten spravuje wifi připojení RPi, je psaný v Node.js a komunikuje s programy, které interagují s uživatelem stejně jako program lasershow.
-
-\section{komunikace mezi programy} \label{comms}
-Všechny tyto programy jsou propojeny síťovými sockety zprostředkovanými knihovnou ZeroMQ, která nabízí frontu\footnote{Ve frontě jsou zprávy seřazeny od té nejdříve odeslané.} zpráv, bez potřeby samostatně běžícího brokeru.\fxnote{TODO: divna jednicka}
-
-Tato knihovna je využita k vytvoření dvou socketů, jedním lasershow přijímá příkazy od uživatele prostřednictvím ostatních programů (vstupní socket na portu 5557, viz obr. \ref{fig:tcp5557}) a do druhého posílá informace ostatním programům (výstupní socket na portu 5556, viz obr. \ref{fig:tcp5556}), aby je zprostředkovaly uživateli. Do prvního zmíněného posílají progamy interagující s uživatelem příkazy pro programy lasershow a wifi\_manager. Do druhého posílá lasershow informace o stavu a změnách nastavení  a také wifi\_manager informace o stavu a změnách v nastavení WiFi.
-
-Příkazy pro programy lasershow a wifi\_manager vypadají následovně
-\fxnote{TODO: příklady příkazů pro lasershow a wifi\_manager z \url{https://github.com/phuid/laser_projector/blob/master/README.md}}
-\fxnote{TODO: příklady status infos od lasershow a wifi\_manager z \url{https://github.com/phuid/laser_projector/blob/master/README.md}}
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.5\textwidth]{img/tcp5557.png}
-  \caption{\label{fig:tcp5557}komunikace mezi programy vstupním socketem na portu 5557}
-\end{figure}
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.5\textwidth]{img/tcp5556.png}
-  \caption{\label{fig:tcp5556}komunikace mezi programy výstupním socketem na portu 5556}
-\end{figure}
-
-\section{lasershow exec}
-
-Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně považovaný za jeden z nejrychlejších jazyků. Druhé zmíněné se hodí, jelikož chceme vykreslovat co možná nejrychleji.
-
-Tento program zaregistruje vstupní TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
-
-Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do výstupního socketu. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze vstupního socketu.
-
-Část tohoto programu, která komunikuje s DAC, je převzatá z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, z tohoto projektu je převzatá i část, která čte ILDA soubory, ale ta byla v rámci této práce upravena, pro podporu barevných obrazů k vykreslení.
-
-\fxnote{TODO: diagram programu}
-
-\fxnote{TODO: priklad zmq}
-
-\lstinputlisting[language=c++, style=code]{code_examples/zmq_server.cpp}
-\lstinputlisting[language=c++, style=code]{code_examples/zmq_client.cpp}
-
-\section{UI}
-
-Program UI je také psaný v jazyce c++ a využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je připojený na Raspberry Pi pomocí rozhraní I2C, a přijímá vstup od uživatele čtením rotačního enkodéru s tlačítkem.
-
-Program se při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke vstupnímu socketu a k odběru zpráv z výstupního TCP socketu, kam publikuje zprávy o stavu vykreslování program lasershow. Dále si pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z enkodéru a tlačítka na něm a čeká buď na interakci s uživatelem, který by skrz něj poslal zprávy programu lasershow, nebo na zprávy od lasershow, které by zobrazil uživateli.
-
-\fxnote{TODO: diagram programu}
-
-\section{web\_ui}
-
-Narozdíl od předchozích dvou zmiňovaných programů je program web\_ui psaný v jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Node.js a knihovnám http a formidable v něm bylo časově nenáročné vytořit http web server.
-
-Tento server běží na portu 3000 a je dostupný z lokální sítě (tzn. přímo z\ Raspberry Pi na adrese http://localhost:3000 nebo z jakéhokoliv zařízení na stejné lokální síti na adrese http://IP\_ADRESA\_RPI:3000).
-Program je využíván pro jednoduchou interakci s uživatelem, který může pomocí webového prohlížeče ovládat laserový projektor pár kliknutími i zadávat vlastní příkazy klávesnicí.
-
-\fxnote{TODO: příklad http serveru}
-\lstinputlisting[language=JavaScript, style=code]{code_examples/http_static_files.js}
-
-Stejně jako program UI za pomoci knihovny ZeroMQ tento program odebírá z výstupního socketu zprávy o průběhu vykreslování od programu lasershow a odesílá mu pokyny uživatele na vstupní socket.
-
-\fxnote{TODO: příklad přihlášení k socketům v js}
-
-\fxnote{TODO: xterm + ssh}
-
-\section{discord bot}
-
-Posledním programem, který je využíván k interakci s uživatelem je discord\_bot, který je také psaný v jazyce javascript v runtime Node.js, stejně jako předchozí programy se přihlásí k socketům knihovnou zmq, ale na rozdíl od nich tento program může interagovat s uživatelem přes internet ať už je kdekoliv na světě.
-Pomocí knihovny discord.js se přihlásí k předem vytvořenému bot účtu, který může na předem vytvořeném discord serveru čekat na zprávy od uživatele, ty posílat do vstupního socketu a posílat uživateli zpětnou vazbu, kterou příjme z výstupního socketu.
-
-\section{wifi\_manager}
-
-V rámci této práce byl vyvinut ještě jeden program, který se přímo nepodílí ani na projekci, ani na interakci s uživatelem.
-
-Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Registruje se ke stejným socketům jako lasershow, přijímá příkazy týkající se nastavení WiFi na Raspberry Pi TCP socketem na portu 5557 a odesílá zpětnou vazbu na TCP socket s portem 5556.
-
-\fxnote{TODO: jak se komunikace s lasershow odlisuje od wifi\_managera}
-
-\fxnote{TODO: ukazka(idk what)}
-
-Hlavním úkolem tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
-
-Stejně jako lasershow, wifi\_manager také posílá zpětnou vazbu ostatním programům, aby informoval o stavu a změnách v nastavení WiFi. Tímto způsobem je zajištěna komunikace a synchronizace mezi všemi programy v laserovém projektoru.
-
-Celkově wifi\_manager přispívá k plynulému a efektivnímu provozu laserového projektoru tím, že umožňuje snadnou správu a konfiguraci WiFi připojení na Raspberry Pi.
+\input{20-software.tex}
 
 \fxnote{TODO udelals to vubec dobre? porovnej se s ostatnima}
 \chapter{Diskuze}
+\section{ruzne technologie}
 \section{další zpracování tématu}
 udelal jsem to dobre? vybral jsem si dobry technky?
 like byl by lepsi ten harddrive z yt?
@@ -594,7 +388,8 @@ also to delala hromada dalsich lidi na internetu ten hw, also od gh.com/tteskac 
 \newpage
 \chapter*{Závěr}
 \addcontentsline{toc}{chapter}{Závěr} \fxnote{FIXME proc vsichni maji zaver v obsahu jako section, kdyz pak vypada, ze je pod posledni kapitolou??}
-\fxnote{TODO závěr}
+\fxnote{TODO závěr}\fxnote{TODO muj projekt je dostupný na githubu}
+\fxnote{tim ze mam linux lasershow obcas zpomali, obcas zrychli, samozrejme mam osetreny, aby nezrychlily framy, ale pointy ano}
 
 
 \newpage
