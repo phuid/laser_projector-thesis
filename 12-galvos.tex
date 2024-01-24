@@ -69,7 +69,22 @@
 
 ovládá se variabilním proudem
 
-\section{hlavice}
+\section{galvanometer set i got} \label{sec:my-galvos}
+\fxnote{TODO: specs}
+
+ma ridici desku lol
+
+Řídící deska galvanometrů přijímá dva bipolární diferenciální analogové signály s maximálním diferenciálním napětím $-5$~V až $+5$~V. Každý signál udává vychýlení jednoho ze dvou galvanometrů, což obvykle znamená výslednou pozici laserového paprsku v osách X a Y.
+
+\subsection{bipolární diferenciální analogový signál~\cite{ilda-signal-spec}}
+Diferenciální signál je signál přenášený dvěmi vodiči, každý z nich přenáší stejný signál, jen s opačnou polaritou. Kontakt označený $(+)$ je brán za nosič základního signálu, zatímco kontakt označený $(-)$ je brán za nosič obráceného signálu. Výsledné diferenciální napětí je napětí na základním nosiči vůči napětí na obráceném nosiči, tzn.~$V = V_{(+)} - V_{(-)}$
+
+Bipolární signál znamená, že na napětí každém z kontaktů $(+)$ a $(-)$ může dosahovat kladných i záporných hodnot.
+
+Tudíž cheme-li disáhnout diferenciálního napětí $+10~V$, musí mít základní signál napětí $+5~V$ a obrácený signál $-5~V$. Záporné diferenciální napětí bude ve chvíli, kdy je napětí základního signálu záporné a napětí obráceného signálu kladné.
+
+
+
 \href{https://elenlaser.com/blog/galvo-head-laser-focus-tool.html}{The mirrors, mounted perpendicularly on the engines, move the laser beam along the X and Y axes according to the input received from the motor.
 The big advantage of these devices is that they can reach a very high acceleration and speed of}
 well asi patří do sekce galvanometr
