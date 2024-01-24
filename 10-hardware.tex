@@ -2,49 +2,19 @@
 \chapter{hardware}
 
 \section{Raspberry Pi}
+\fxnote{TODO: rpi specs}
 
 \input{12-galvos.tex}
 
-\section{moje deska na napětí}
-Galvanometry v obou osách pohybu potřebujeí analogový vstupní signál v rozpětí $-15$~V až $+15$~V udávající vychýlení galvanometru v daném směru.
+\input{13-laser.tex}
 
-Obvod, který se stará o vytváření tohoto signálu je založený na obvodu ze zdroje \cite{lasershow-with-real-galvos}.
-Vytváření tohoto signálu je rozděleno do dvou částí. Nejdříve DAC (digital-to-analog converter, D/A převodník) připojený k RPi vytvoří signál v rozpětí 0 až 5~V a následně je tento signál pomocí operačního zesilovače převeden na požadované rozpětí, tj. $-15$~V až $+15$~V.
-Jednotlivé části tohoto obvodu jsou blíže popsány v následujících kapitolách. Celé zapojení je vidět na obrázku \ref{fig:dac_board}.
-\fxnote{unreadable text, make schem more compact}
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=1\textwidth]{img/dac_board.png} 
-  \caption{\label{fig:dac_board}Zapojení DAC a zesilovačů k RPi a řídící desce galvanometrů}
-\end{figure}
+\input{14-LCD_enc.tex}
 
-\subsection{dac}
-K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ \fxnote{TODO tečka? ("\textbackslash " == explicitni mezera)}
-Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na dvou kanálech.
-
-RPi komunikuje s čipem pomocí rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/abelectronicsuk/ABElectronics_CPP_Libraries/tree/master/ADCDACPi}; staženo 2.~1.~2024} \fxnote{TODO tečka?}
-\fxnote{TODO more spec}
-Tato knihovna poskytuje následující funkce, se kterými pracuji v mém kódu.
-\begin{itemize}
-\item
-\lstinline[language=C]!bool mcp4822_initialize();!
-\item
-\lstinline[language=C]!bool mcp4822_set_voltage(mcp4822_channel_t channel, uint16_t value_mV);!
-\item
-\lstinline[language=C]!void mcp4822_deinitialize();!
-\end{itemize}
-\subsection{amps}
-K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
-\fxnote{TODO more spec}
-Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$~V až $+15$~V.
-
-zesilovac - cteni baterek \url{https://is.muni.cz/el/sci/jaro2017/F5090/um/E17_P8.pdf}
-
-\section{laser}
-\section{if rgb: 3 dacs}
-
+\input{15-pcb.tex}
 
 \fxnote{TODO cos udelal svyho vlastne a jak to facha}
+
+\section{cooler}
 
 \section{napájení}
 \fxnote{TODO ay tak co, zvladls to dat na baterky?}
