@@ -8,6 +8,7 @@ Kromě nich byly na desku přidány konektory k jednotlivým barevným vstupům 
 Deska byla designována jako tzv. HAT, to znamená, že sama na tomto konektoru drží a nezabírá o moc víc místa, než samotné Raspberry Pi.
 \fxnote{TODO: obrazek desky (maybe mounted)}
 
+\subsection{Zdroj $-15$~V}
 
 \subsection{obvod pro generování analogového signálu}
 Jak popsáno v sekci \ref{sec:my-galvos}, řídící deska galvanometrů přijmá dva bipolární diferenciální analogové signály v rozpětí $-5$~V až $+5$~V.
@@ -22,8 +23,8 @@ Jednotlivé části tohoto obvodu jsou blíže popsány v následujících kapit
   \caption{\label{fig:dac_board}Zapojení DAC a zesilovačů k RPi a řídící desce galvanometrů}
 \end{figure}
 
-\subsubsection{dac}
-K generování signálu v rozpětí 0--5~V jsem využil DAC MCP4822 od firmy \href{https://www.microchip.com}{Microchip Technology Inc.}\ \fxnote{TODO tečka? ("\textbackslash " == explicitni mezera)}
+\subsubsection{dac\cite{mcp4822-dsh}}
+K generování signálu v rozpětí 0--5~V byl využit dvoukanálový D/A převodník\footnote{obvod, který na základě instrukcí přijatých digitálně generuje analogové napětí} MCP4822.
 Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s napájecím napětím 5~V a s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na dvou kanálech.
 
 RPi komunikuje s čipem pomocí rozhraním SPI, toto rozhraní využívám pomocí knihovny ze serveru \url{https://github.com}\footnote{\url{https://github.com/abelectronicsuk/ABElectronics_CPP_Libraries/tree/master/ADCDACPi}; staženo 2.~1.~2024} \fxnote{TODO tečka?}
@@ -37,8 +38,17 @@ Tato knihovna poskytuje následující funkce, se kterými pracuji v mém kódu.
 \item
 \lstinline[language=C]!void mcp4822_deinitialize();!
 \end{itemize}
-\subsubsection{amps}
-K rozšíření signálu z DAC jsem využil dva operační zesilovače TL082 od firmy \href{https://www.ti.com/}{Texas Instruments Incorporated}. Každý z nich je připojený na jeden kanál DAC čipu mcp4822.
+\subsubsection{amps\cite{tl082-dsh}}
+K modifikaci signálu z DAC na bipolární diferenciální analogový signál slouží pro každý kanál jeden čip TL082, který obsahují dva operační zesilovače. Ty jsou zapojeny dle schématu na obrázku \ref{fig:ilda_amps-scheme}.
+
+Signál první operační zesilovač zesílí a posune dle nastavení potenciometrů Ygain(zesílení) a Yoffset(posun) a zároveň invertuje. Tento invertovaný signál následně druhý operační zesilovač opět invertuje, získav základní signál pro řídící desku galvanometrů.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/ilda_amps.png} 
+  \caption{\label{fig:ilda_amps-scheme} Zapojení čipu TL082 pro jeden kanál řídící desky galvanometrů}
+\end{figure}
+
 \fxnote{TODO more spec}
 Tyto čipy mi napěťové rozpětí zvýší z 0--5~V na $-15$~V až $+15$~V.
 
