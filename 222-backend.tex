@@ -1,0 +1,34 @@
+\section{lasershow}
+
+Program lasershow je psaný v jazyce c++, který je kompilovaný a obecně považovaný za jeden z nejrychlejších jazyků. Druhé zmíněné se hodí, jelikož chceme vykreslovat co možná nejrychleji.
+
+Tento program zaregistruje vstupní TCP socket na portu 5557 a knihovnou ZeroMQ se na něm přihlásí k odběru zpráv, které do něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na portu 5556, do kterého později bude posílat zprávy pro programy, které interagují s uživatelem.
+
+Následně se připojí k DAC a čeká na zprávy od ostatních programů. Jakmile zprávu obdrží, zpracuje ji a pokud je požadována změna nastavení, okamžitě ji provede a aktuální nastavení si uloží do souboru, jestliže je požadováno vykreslení obrazu ze souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o stavu vykreslování do výstupního socketu. I při vykreslování obrazu tento program zpracovává zprávy a pokyny ze vstupního socketu.
+
+Program byl původně převzat z projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, následně byl ale přepsán skoro ve všech ohledech a z původního programu zbylo asi 20 řádků.
+\fxnote{TODO: odkud jsem to vzal a prepsal a jak moc jsem toho udelal a s jakymy vysledky}
+
+\fxnote{TODO: diagram programu}
+
+\fxnote{TODO: priklad zmq}\
+
+\lstinputlisting[language=c++, style=code]{code_examples/zmq_server.cpp}
+\lstinputlisting[language=c++, style=code]{code_examples/zmq_client.cpp}
+
+
+\section{wifi\_manager}
+
+V rámci této práce byl vyvinut ještě jeden program, který se přímo nepodílí ani na projekci, ani na interakci s uživatelem.
+
+Program wifi\_manager je také napsaný v jazyce JavaScript s využitím runtime Node.js. Registruje se ke stejným socketům jako lasershow, přijímá příkazy týkající se nastavení WiFi na Raspberry Pi TCP socketem na portu 5557 a odesílá zpětnou vazbu na TCP socket s portem 5556.
+
+\fxnote{TODO: jak se komunikace s lasershow odlisuje od wifi\_managera}
+
+\fxnote{TODO: ukazka(idk what)}
+
+Hlavním úkolem tohoto programu je správa a konfigurace WiFi připojení na Raspberry Pi. Přijímá příkazy od ostatních programů a nastavuje WiFi parametry na základě těchto příkazů. Tím umožňuje uživatelům snadno a pohodlně nastavit WiFi připojení na svém zařízení.
+
+Stejně jako lasershow, wifi\_manager také posílá zpětnou vazbu ostatním programům, aby informoval o stavu a změnách v nastavení WiFi. Tímto způsobem je zajištěna komunikace a synchronizace mezi všemi programy v laserovém projektoru.
+
+Celkově wifi\_manager přispívá k plynulému a efektivnímu provozu laserového projektoru tím, že umožňuje snadnou správu a konfiguraci WiFi připojení na Raspberry Pi.
