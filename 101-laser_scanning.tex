@@ -4,10 +4,10 @@ Jako Laser scanning se označuje technologie využívající rychle pohybující
 
 Dle stylu pohybu zrcátek se technologie dají rozdělit na, polygonové skenery, galvanometrové skenery a MEMS skenery.
 
-\section{Polygonové skenery}
-Polygonové skenery se vyznačují rotujícím polygonem se zrcadlivými stranami. Při rotaci polygonu se mění úhel dopadu laserového paprsku na zrcátko, a díky tomu se mění směr odraženého paprsku, viz. \ref{fig:polygon-scanner}.
+\section{Hranolové skenery}
+Hranolové skenery se vyznačují rotujícím hranolem se zrcadlivými stranami. Při rotaci hranolu se mění úhel dopadu laserového paprsku na zrcátko, a díky tomu se mění směr odraženého paprsku, viz. obrázek \ref{fig:polygon-scanner}. \fxnote{adiky carka?}
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{img/polygon-scanner.jpg}
   \caption{\label{fig:polygon-scanner} mechanika polygonových skenerů}
@@ -26,7 +26,10 @@ Polygonové skenery se vyznačují rotujícím polygonem se zrcadlivými stranam
 % \end{figure}
 %
 
-Pouze s jedním hranolem jsou polygonové skenery schopny směřovat paprsek pouze v jedné rovině - při projekci by bylo možné vykreslit maximálně přímku. Pokud je potřeba paprsek směřovat 
+S jedním hranolem by hranolové skenery byly schopny směřovat paprsek pouze v jedné rovině - při projekci by bylo možné vykreslit maximálně čáru. Tuto limitaci lze kompenzovat přidáním melého rozdílu ve směřování každé strany hranolu, viz. obrázek \ref{fig:polygon-angular-variation}. S touto úpravou každá strana hranolu "vykreslí" jednu, svoji, přímku lehce posunutou vůči přímkách ostatních stran. Hranol s n-úhelníkovou podstavou je schopen vykreslit n přímek.
+Další možností je kombinovat původní pravidelný hranol s galvanometrem (popsáno níže), kdy galvanometr nastaví jednu souřadnici paprsku a hranol na této souřadnici vykreslí přímku.
+
+Tento typ skeneru se využívá hlavně pro senzory skenující na přímce (např. skenery čárových kódů~\cite{history-of-barcode-scanning}), nebo při rastrovém laser scanningu. Příklad rastrové projekce je vidět na obrázku \ref{fig:harddrive-projector-youtube}
 
 \begin{figure}[!htb]
   \centering
@@ -42,5 +45,7 @@ Pouze s jedním hranolem jsou polygonové skenery schopny směřovat paprsek pou
 \end{figure}
 
 \section{Galvanometrové skenery}
+
+
 
 ja vyuzivam galva, protoze se s nima da nejlip pohrat, jsou nejuniverzalnejsi a tim padem nejvic zaujmou - cil

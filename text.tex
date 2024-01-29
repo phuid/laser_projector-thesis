@@ -10,6 +10,7 @@
 
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
 \usepackage[czech]{babel}
+\usepackage{float}
 
 \usepackage[nomargin, inline, marginclue, author=,status=draft]{fixme}
 \makeatletter
@@ -17,7 +18,9 @@
   {\@fxuseface{inline}\ignorespaces[#2]}}
 \makeatother
 
-
+% \widowpenalty=5000
+% \clubpenalty=5000
+% \brokenpenalty=5000
 
 %%%%%% podbarvení bloků kódu / vygenerovaných ai
 \usepackage{xcolor}
@@ -265,7 +268,7 @@ literate=%
 \titleen{Laser projector}
 \author{Šimon Hrouda}
 \field{10}
-\school{Gymnázium Brno-Řečkovice}
+\school{Gymnázium Brno-Řečkovice, p.~o., Terezy Novákové 2, 621 00 Brno}
 \exmentor{Tomáš Rohlínek}
 \exmentorstatement{Tomáše Rohlínka}
 \inmentor{Mgr. Kateřina Vídenková}
@@ -288,6 +291,7 @@ literate=%
 
 
 \maketitle
+\fxnote{}
 
 \makecopyrightstatement{V~Brně}
 
