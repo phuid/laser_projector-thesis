@@ -1,11 +1,12 @@
 \chapter{Laser scanning~\cite{scanning-handbook}}
+Všechny obrázky v této kapitole pocházejí ze~zdroje~\cite{scanning-handbook}, pokud není uvedeno jinak.
 
-Jako Laser scanning se označuje technologie využívající rychle pohybující laserový paprsek, tento pohyb je často zprostředkovaný pohyblivými zrcátky.
+Jako Laser scanning se~označuje technologie využívající rychle pohybující laserový paprsek, tento pohyb je~často zprostředkovaný pohyblivými zrcátky.
 
-Dle stylu pohybu zrcátek se technologie dají rozdělit na, polygonové skenery, galvanometrové a MEMS skenery.
+Dle stylu pohybu zrcátek se~technologie dají rozdělit na, polygonové skenery, galvanometrové a~MEMS skenery.
 
 \section{Hranolové skenery}
-Hranolové skenery se vyznačují rotujícím hranolem se zrcadlivými stranami. Při rotaci hranolu se mění úhel dopadu laserového paprsku na zrcátko, a díky tomu se mění směr odraženého paprsku, viz. obrázek \ref{fig:polygon-scanner}. \fxnote{adiky carka?}
+Hranolové skenery se~vyznačují rotujícím hranolem se~zrcadlivými stranami (dále \uv{zrcátky}). Při rotaci hranolu se~mění úhel dopadu laserového paprsku na~zrcátko, a~díky tomu se~mění směr odraženého paprsku, viz. obrázek \ref{fig:polygon-scanner}. \fxnote{adiky carka?}
 
 \begin{figure}[H]
   \centering
@@ -26,34 +27,46 @@ Hranolové skenery se vyznačují rotujícím hranolem se zrcadlivými stranami.
 % \end{figure}
 %
 
-S jedním hranolem by hranolové skenery byly schopny směřovat paprsek pouze v jedné rovině - při projekci by bylo možné vykreslit maximálně čáru. Tuto limitaci lze kompenzovat přidáním melého rozdílu ve směřování každé strany hranolu, viz. obrázek \ref{fig:polygon-angular-variation}. S touto úpravou každá strana hranolu "vykreslí" jednu, svoji, přímku lehce posunutou vůči přímkách ostatních stran. Hranol s n-úhelníkovou podstavou je schopen vykreslit n přímek.
-Další možností je kombinovat původní pravidelný hranol s galvanometrem (popsáno níže), kdy galvanometr nastaví jednu souřadnici paprsku a hranol na této souřadnici vykreslí přímku.
+S jedním hranolem by~hranolové skenery byly schopny směřovat paprsek pouze v~jedné rovině - při projekci by~bylo možné vykreslit maximálně čáru. Tuto limitaci lze kompenzovat přidáním melého rozdílu ve~směřování každé strany hranolu, viz. obrázek \ref{fig:polygon-angular-variation}. S~touto úpravou každá strana hranolu "vykreslí" jednu, svoji, přímku lehce posunutou vůči přímkách ostatních stran. Hranol s~n-úhelníkovou podstavou je~schopen vykreslit n~přímek.
+Další možností je~kombinovat původní pravidelný hranol s~galvanometrem (popsáno níže), kdy galvanometr nastaví jednu souřadnici paprsku a~hranol na~této souřadnici vykreslí přímku.
 
-Tento typ skeneru se využívá hlavně pro senzory skenující na přímce (např. skenery čárových kódů~\cite{history-of-barcode-scanning}), nebo při rastrovém laser scanningu. Příklad rastrové projekce je vidět na obrázku \ref{fig:harddrive-projector-youtube}
+Tento typ skeneru se~využívá hlavně pro senzory skenující na~přímce (např. skenery čárových kódů~\cite{history-of-barcode-scanning}), nebo při rastrovém procházení plochy (například 3D skenování, nebo promítání ploch, viz. Obrázek \ref{fig:harddrive-projector-youtube}).
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{img/polygon-angular-variation.jpg}
-  \caption{\label{fig:polygon-angular-variation} úhlová rozdílnost polygonového skeneru}
+  \caption{\label{fig:polygon-angular-variation} úhlová rozdílnost zrcátek polygonového skeneru a~paprsky od~nich odražené}
 \end{figure}
 
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.5\textwidth]{img/harddrive-projection.jpg}
-  \caption{\label{fig:harddrive-projection} příklad projekce laserového projektoru s polygonovým skenerem; zdroj \cite{harddrive-projector-youtube}}
+  \caption{\label{fig:harddrive-projection} příklad projekce laserového projektoru s~polygonovým skenerem; zdroj~\cite{harddrive-projector-youtube}}
 \end{figure}
 
 \section{Galvanometrové skenery}
+V galvanometrových skenerech paprsek odráží zrcátka/o připevněná/o na~páru galvanometrů.
 
-Základní součástku galvanometrového skeneru je galvanometr.
+\subsection{Galvanometr}
+Slovem galvanometr se~označuje přístroj úrčený k~detekci nebo měření velice malého elektrického proudu~\cite{galvo-definition}. Galvanometry při měření využívají interakce magnetického pole trvalého magnetu a~cívky protéké proudem. Tato interakce vychýlí ručičku ukazující na~stupnici, nebo zrcátko odrážející paprsek, který dopadá na~stupnici.~\cite{wiki-galvo}
 
-\subsection{Galvanometr~\cite{some stuff}}      
+Galvanometry se~dají rozdělit na~galvanometry bez zpětné vazby (open-loop) a~se zpětnou vazbou. K~těm bývají připojeny ovládací obvody, které z~galvanometrů získávají informace o~jejich pohybu a~podle nich regulují signál posílaný do~galvanometrů.~\cite{wiki-galvo}
 
-\subsection{Konstrukce galvanometrových skenerů}
-Jeden galvanometrový skener 
+Dále se dělí dle pohyblivé součástky. V galvanometru je buď trvalý magnet pevně ukotven a cívka pohyblivá (moving coil), nebo naopak (moving magnet). % https://prirucka.ujc.cas.cz/?id=151#nadpis3
 
-Narozdíl od hranolových skenerů je s galvanometrovým skenerem možné zastavit obě osy pohybu - vykreslovat na sebe kolmé čáry.
+Dnes se~v~kontextu laserových skenerů prakticky vždy používají galvanometry s~pohyblivým magnetem a se~zpětnou vazbou. Ta je zajištěna čtením z variabilního kondenzátoru umístěného v galvanometru.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/galvanometer-detail.jpg}
+  \caption{\label{fig:galvanometer-detail} zapojení a vnitřní konstrukce galvanometrů}
+\end{figure}
+
+\subsection{Konstrukce galvanometrových skenerů\label{sec:galvo-scanner-construction}}
+Jeden galvanometrový skener vždy ovládá jednu osu pohybu paprsku, buď X~nebo Y.
+
+Narozdíl od~hranolových skenerů je~s galvanometrovým skenerem možné zastavit obě osy pohybu - vykreslovat na~sebe kolmé čáry.
 
 \begin{figure}[!htb]
   \centering
@@ -62,5 +75,5 @@ Narozdíl od hranolových skenerů je s galvanometrovým skenerem možné zastav
 \end{figure}
 
 \section{Má volba skeneru}
-
-ja vyuzivam galva, protoze se s nima da nejlip pohrat, jsou nejuniverzalnejsi a tim padem nejvic zaujmou - cil
+\fxnote{sekce mozna patri do~prakticke}
+ja vyuzivam galva, protoze se~s nima da~nejlip pohrat, jsou nejuniverzalnejsi a~tim padem nejvic zaujmou - cil
