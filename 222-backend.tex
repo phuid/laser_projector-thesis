@@ -6,7 +6,7 @@ Tento program zaregistruje vstupní TCP socket na~portu 5557 a~knihovnou ZeroMQ 
 
 Následně se~připojí k~DAC a~čeká na~zprávy od~ostatních programů. Jakmile zprávu obdrží, zpracuje ji~a pokud je~požadována změna nastavení, okamžitě ji~provede a~aktuální nastavení si~uloží do~souboru, jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu. I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
 
-Program byl původně převzat z~projektu \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}, následně byl ale přepsán skoro ve~všech ohledech a~z původního programu zbylo asi 20 řádků.
+Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}.
 \fxnote{TODO: odkud jsem to~vzal a~prepsal a~jak moc jsem toho udelal a~s jakymy vysledky}
 
 \fxnote{TODO: diagram programu}
