@@ -1,15 +1,24 @@
-\section{lasershow}
+\section{Lasershow}
+\subsection{Úvod}
 
-Program lasershow je~psaný v~jazyce c++, který je~kompilovaný a~obecně považovaný za~jeden z~nejrychlejších jazyků. Druhé zmíněné se~hodí, jelikož chceme vykreslovat co~možná nejrychleji.
+Program lasershow je~psaný v~jazyce c++. Tento jazyk je~kompilovaný a~díky tomu je rychlý a běží samostatně.
+Kdybych využil interpretovaný jazyk, přidal bych k~operačnímu systému další vrstvu neovlivnitelných záseků -- interpreter~\cite{wiki-interpret}.
 
-Tento program zaregistruje vstupní TCP socket na~portu 5557 a~knihovnou ZeroMQ se~na něm přihlásí k~odběru zpráv, které do~něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na~portu 5556, do~kterého později bude posílat zprávy pro programy, které interagují s~uživatelem.
-
-Následně se~připojí k~DAC a~čeká na~zprávy od~ostatních programů. Jakmile zprávu obdrží, zpracuje ji~a pokud je~požadována změna nastavení, okamžitě ji~provede a~aktuální nastavení si~uloží do~souboru, jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat. Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu. I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
+\fxnote{TODO: co dela - co do projektu dava ig}
+Lasershow obsluhuje samotné vykreslování. Dostane-li od UI programů 
 
 Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}.
-\fxnote{TODO: odkud jsem to~vzal a~prepsal a~jak moc jsem toho udelal a~s jakymy vysledky}
+Velkou výhodou oproti zmíněnému programu je možnost s~programem interagovat i~v~průběhu promítání. Díky tomu je možné měnit nastavení promítání bez nutnosti zastavit program a~ztratit všechny jeho data.
 
-\fxnote{TODO: diagram programu}
+\subsection{Využité knihovny}
+\subsubsection{ZeroMQ}
+\subsubsection{ADCACDASFASDFAH sassyyy}
+, toto rozhraní využívám pomocí knihovny ze~serveru \url{https://github.com}\footnote{\url{https://github.com/abelectronicsuk/ABElectronics_CPP_Libraries/tree/master/ADCDACPi}; staženo 2.~1.~2024}
+\subsubsection{pigpio}
+pwm
+
+\subsection{Chování programu}
+Tento program pomocí knihovny ZeroMQ zaregistruje vstupní TCP socket na~portu~5557 a~přihlásí se~na něm k~odběru zpráv, které do~něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na~portu~5556, do~kterého později bude posílat zprávy pro programy, které interagují s~uživatelem.
 
 \fxnote{TODO: priklad zmq}\
 
@@ -17,6 +26,15 @@ Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}
 
 \lstinputlisting[language=c++, style=code]{code_examples/zmq_server.cpp}
 \lstinputlisting[language=c++, style=code]{code_examples/zmq_client.cpp}
+
+Následně se~pomocí připojí k~D/A převodníku skrz rozhraní SPI\cite{wiki-SPI} a~čeká na~zprávy od~ostatních programů. Jakmile zprávu obdrží, zpracuje ji.
+Pokud je~požadována změna nastavení, okamžitě ji~provede, aktuální nastavení si~uloží do~souboru lasershow.cfg a přepočítá informace o promítaném obrazu, je-li to nutné.
+(Například, změní-li se nastavení trapezoid-horizontal, přepočítá souřadnice vykreslovaných bodů.) Jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat.
+Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu. I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
+
+\fxnote{TODO: co to vlastne umi - umoznuje zive skrz UI menit nastaveni - laseru, trapezoid souradnic, v UI je viditelny stav vykreslovani}
+
+\fxnote{TODO: diagram programu}
 
 
 \section{wifi\_manager}
@@ -27,7 +45,7 @@ Program wifi\_manager je~také napsaný v~jazyce JavaScript s~využitím runtime
 
 \fxnote{TODO: jak se~komunikace s~lasershow odlisuje od~wifi\_managera}
 
-\fxnote{TODO: ukazka(idk what)}
+\fxnote{TODO: ukazka(jak interaguje se systemem, aby toho vseho dosahl lol)}
 
 Hlavním úkolem tohoto programu je~správa a~konfigurace WiFi připojení na~Raspberry Pi. Přijímá příkazy od~ostatních programů a~nastavuje WiFi parametry na~základě těchto příkazů. Tím umožňuje uživatelům snadno a~pohodlně nastavit WiFi připojení na~svém zařízení.
 

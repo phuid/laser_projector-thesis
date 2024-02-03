@@ -27,7 +27,7 @@ Jednotlivé části tohoto obvodu jsou blíže popsány v~následujících kapit
 K generování signálu v~rozpětí 0--5~V byl využit dvoukanálový D/A převodník\footnote{obvod, který na~základě instrukcí přijatých digitálně generuje analogové napětí} MCP4822.
 Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s~napájecím napětím 5~V a~s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na~dvou kanálech.
 
-RPi komunikuje s~čipem pomocí rozhraním SPI, toto rozhraní využívám pomocí knihovny ze~serveru \url{https://github.com}\footnote{\url{https://github.com/abelectronicsuk/ABElectronics_CPP_Libraries/tree/master/ADCDACPi}; staženo 2.~1.~2024} \fxnote{TODO tečka?}
+RPi komunikuje s~čipem pomocí rozhraním SPI.
 \fxnote{TODO more spec}
 Tato knihovna poskytuje následující funkce, se~kterými pracuji v~mém kódu.
 \begin{itemize}
