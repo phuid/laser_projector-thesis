@@ -1,14 +1,14 @@
 \section{Lasershow}
 \subsection{Úvod}
 
-Program lasershow je~psaný v~jazyce c++. Tento jazyk je~kompilovaný a~díky tomu je rychlý a běží samostatně.
+Program lasershow je~psaný v~jazyce c++. Tento jazyk je~kompilovaný a~díky tomu je~rychlý a~běží samostatně.
 Kdybych využil interpretovaný jazyk, přidal bych k~operačnímu systému další vrstvu neovlivnitelných záseků -- interpreter~\cite{wiki-interpret}.
 
-\fxnote{TODO: co dela - co do projektu dava ig}
-Lasershow obsluhuje samotné vykreslování. Dostane-li od UI programů 
+\fxnote{TODO: co~dela - co~do projektu dava ig}
+Lasershow obsluhuje samotné vykreslování. Dostane-li od~UI programů 
 
 Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}.
-Velkou výhodou oproti zmíněnému programu je možnost s~programem interagovat i~v~průběhu promítání. Díky tomu je možné měnit nastavení promítání bez nutnosti zastavit program a~ztratit všechny jeho data.
+Velkou výhodou oproti zmíněnému programu je~možnost s~programem interagovat i~v~průběhu promítání. Díky tomu je~možné měnit nastavení promítání bez nutnosti zastavit program a~ztratit všechny jeho data.
 
 \subsection{Využité knihovny}
 \subsubsection{ZeroMQ}
@@ -28,11 +28,11 @@ Tento program pomocí knihovny ZeroMQ zaregistruje vstupní TCP socket na~portu~
 \lstinputlisting[language=c++, style=code]{code_examples/zmq_client.cpp}
 
 Následně se~pomocí připojí k~D/A převodníku skrz rozhraní SPI\cite{wiki-SPI} a~čeká na~zprávy od~ostatních programů. Jakmile zprávu obdrží, zpracuje ji.
-Pokud je~požadována změna nastavení, okamžitě ji~provede, aktuální nastavení si~uloží do~souboru lasershow.cfg a přepočítá informace o promítaném obrazu, je-li to nutné.
-(Například, změní-li se nastavení trapezoid-horizontal, přepočítá souřadnice vykreslovaných bodů.) Jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat.
+Pokud je~požadována změna nastavení, okamžitě ji~provede, aktuální nastavení si~uloží do~souboru lasershow.cfg a~přepočítá informace o~promítaném obrazu, je-li to~nutné.
+(Například, změní-li se~nastavení trapezoid-horizontal, přepočítá souřadnice vykreslovaných bodů.) Jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat.
 Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu. I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
 
-\fxnote{TODO: co to vlastne umi - umoznuje zive skrz UI menit nastaveni - laseru, trapezoid souradnic, v UI je viditelny stav vykreslovani}
+\fxnote{TODO: co~to vlastne umi - umoznuje zive skrz UI~menit nastaveni - laseru, trapezoid souradnic, v~UI je~viditelny stav vykreslovani}
 
 \fxnote{TODO: diagram programu}
 
@@ -45,7 +45,7 @@ Program wifi\_manager je~také napsaný v~jazyce JavaScript s~využitím runtime
 
 \fxnote{TODO: jak se~komunikace s~lasershow odlisuje od~wifi\_managera}
 
-\fxnote{TODO: ukazka(jak interaguje se systemem, aby toho vseho dosahl lol)}
+\fxnote{TODO: ukazka(jak interaguje se~systemem, aby toho vseho dosahl lol)}
 
 Hlavním úkolem tohoto programu je~správa a~konfigurace WiFi připojení na~Raspberry Pi. Přijímá příkazy od~ostatních programů a~nastavuje WiFi parametry na~základě těchto příkazů. Tím umožňuje uživatelům snadno a~pohodlně nastavit WiFi připojení na~svém zařízení.
 

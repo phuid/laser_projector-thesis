@@ -1,28 +1,28 @@
 \section{Pouzdro}
 
-V~rámci popularizace technologie se může hodit projektor předvádět na různých místech. Proto bude potřeba, aby byl projektor přenosný a při přemisťování se nerozbil.
+V~rámci popularizace technologie se~může hodit projektor předvádět na~různých místech. Proto bude potřeba, aby byl projektor přenosný a~při přemisťování se~nerozbil.
 
-Pouzdro je tedy navrženo tak, aby bylo odolné proti nárazům a~zachovalo všechny součásti v~bezpečí. Každá součástka má své místo, kde je držena ze všech stran. Pro výrobu pouzdra by bylo vhodné využít technologii 3D tisku. Ta umožňuje tvorbu komplexních geometrických tvarů přímo pro potřeby konkrétního modelu a zároveň umožňuje snadnou iteraci a úpravu designu pouzdra při nalezení chyb.
+Pouzdro je~tedy navrženo tak, aby bylo odolné proti nárazům a~zachovalo všechny součásti v~bezpečí. Každá součástka má své místo, kde je~držena ze~všech stran. Pro výrobu pouzdra by~bylo vhodné využít technologii 3D tisku. Ta~umožňuje tvorbu komplexních geometrických tvarů přímo pro potřeby konkrétního modelu a~zároveň umožňuje snadnou iteraci a~úpravu designu pouzdra při nalezení chyb.
 
 \subsection{Priority designu} \label{sec:krabick-design-priorities}
 \subsubsection{Chlazení}
-Největší část projektoru je hliníkový chladič s větrákem. Už od začátku práce byl tento chladič vybrán, aby byl připevněn k řídící desce galvanometrů. Problematika jejího zahřívání je popsaná v kapitole \ref{sec:galvoboard-chips-heating-up}.
-Jak bylo popsáno v této kapitole, na řídící desce galvanometrů je připevněna hliníková destička, která chladí čipy. Chladič byl připevněn právě na ni.
+Největší část projektoru je~hliníkový chladič s~větrákem. Už od~začátku práce byl tento chladič vybrán, aby byl připevněn k~řídící desce galvanometrů. Problematika jejího zahřívání je~popsaná v~kapitole \ref{sec:galvoboard-chips-heating-up}.
+Jak bylo popsáno v~této kapitole, na~řídící desce galvanometrů je~připevněna hliníková destička, která chladí čipy. Chladič byl připevněn právě na~ni.
 
-Aktivní chladič\footnote{chladič s větrákem, který aktivně vytváří proud vzduchu} se ale hodí i pro ostatní součástky. Vzduch, který nasaje je totiž distribuován celou vnitřní konstrukcí projektoru a chladí tak všechny vnitřní součástky. Tomuto proudění byla věnována zvláštní pozornost při designu konstrukce pouzdra.
+Aktivní chladič\footnote{chladič s~větrákem, který aktivně vytváří proud vzduchu} se~ale hodí i~pro ostatní součástky. Vzduch, který nasaje je~totiž distribuován celou vnitřní konstrukcí projektoru a~chladí tak všechny vnitřní součástky. Tomuto proudění byla věnována zvláštní pozornost při designu konstrukce pouzdra.
 
-\subsubsection{Přístup k portům Raspberry Pi}
+\subsubsection{Přístup k~portům Raspberry Pi}
 
-\fxnote {TODO: +oddělení nabíjecího portu od nich}
+\fxnote {TODO: +oddělení nabíjecího portu od~nich}
 
 \subsubsection{Modularita, jednoduchá konstrukce}
-Pouzdro bylo designováno také aby bylo modulární. Aby bylo možné při prototypování vyměnit pouze jednu součástku, která nesedí místo tisknutí celého pouzdra od začátku. S modularitou bylo zároveň dosaženo jednoduché konstrukce, v jakékoliv části stavby je možné dočasně odstranit díly, aby bylo možné upravit připevnění vnitřní elektroniky.
+Pouzdro bylo designováno také aby bylo modulární. Aby bylo možné při prototypování vyměnit pouze jednu součástku, která nesedí místo tisknutí celého pouzdra od~začátku. S~modularitou bylo zároveň dosaženo jednoduché konstrukce, v~jakékoliv části stavby je~možné dočasně odstranit díly, aby bylo možné upravit připevnění vnitřní elektroniky.
 
 \subsection{Konstrukce}
-Pouzdro se skládá ze čtyř vertikálních stěn s otvory, do kterých zapadají horizontální desky. Horizontální desky v sobě mají vždy z vrchní strany vyhloubené prohlubně, do kterých pasují elektronické součástky, které na nich leží. Ze spodí strany pak mají výstupky, které přidržují elementy na deskách pod nimi. Díky tomu se elektronické součástky při pohybu projektoru volně nepohybují ve vnitřních prostorách.
+Pouzdro se~skládá ze~čtyř vertikálních stěn s~otvory, do~kterých zapadají horizontální desky. Horizontální desky v~sobě mají vždy z~vrchní strany vyhloubené prohlubně, do~kterých pasují elektronické součástky, které na~nich leží. Ze~spodí strany pak mají výstupky, které přidržují elementy na~deskách pod nimi. Díky tomu se~elektronické součástky při pohybu projektoru volně nepohybují ve~vnitřních prostorách.
 
-Tyto prohlubně a výstupky jsou hlavní důvod, proč byl k výrobě dílů využit 3D tisk místo například laserového řezání.
-% (v odstavci vys zmineno) I~horizontální desky na sobě musí mít vertikální elementy, které přidržují součástky.
+Tyto prohlubně a~výstupky jsou hlavní důvod, proč byl k~výrobě dílů využit 3D tisk místo například laserového řezání.
+% (v odstavci vys zmineno) I~horizontální desky na~sobě musí mít vertikální elementy, které přidržují součástky.
 
 \fxnote {TODO: PHOTOSS}
 

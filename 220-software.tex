@@ -1,12 +1,12 @@
 % !TeX root = text.tex
 \chapter{software}
 
-Tato kapitola se zabývá softwarovou výbavou laserového projektoru. Detailně popisuje klíčové programy, jejich funkce a způsob, jakým mezi sebou komunikují.
-Mezi tyto programy patří program lasershow, který obsluhuje vykreslování, programy pro interakci s uživatelem (dále \uv{UI programy}) jako UI, web\_ui a discord\_bot, a také program wifi\_manager, který spravuje wifi připojení Raspberry Pi.
+Tato kapitola se~zabývá softwarovou výbavou laserového projektoru. Detailně popisuje klíčové programy, jejich funkce a~způsob, jakým mezi sebou komunikují.
+Mezi tyto programy patří program lasershow, který obsluhuje vykreslování, programy pro interakci s~uživatelem (dále \uv{UI programy}) jako UI, web\_ui a~discord\_bot, a~také program wifi\_manager, který spravuje wifi připojení Raspberry Pi.
 
-V neposlední řadě popisuje také instalační skript, který výrazně zjednodušuje instalaci všech zmíněných programů a jejich závislostí.
+V neposlední řadě popisuje také instalační skript, který výrazně zjednodušuje instalaci všech zmíněných programů a~jejich závislostí.
 
-% O řízení galvanometrů se~stará program lasershow, který je~psaný v~jazyce c++ pro maximální rychlost. Tento program běží na~pozadí a~čeká na~příkazy od~programů určených k~interakci s~uživatelem. Na~tento program se~zaměřuje kapitola lasershow. \fxnote{TODO: odkaz}
+% O~řízení galvanometrů se~stará program lasershow, který je~psaný v~jazyce c++ pro maximální rychlost. Tento program běží na~pozadí a~čeká na~příkazy od~programů určených k~interakci s~uživatelem. Na~tento program se~zaměřuje kapitola lasershow. \fxnote{TODO: odkaz}
 
 % Dále jsou tu~programy, které se~starají o~interakci s~uživatelem. Tyto programy přijímají příkazy od~uživatele a~posílají je~programu lasershow. Navíc od~lasershow získávají výstup, který následně zprostředkovávají uživateli; důkladněji popsáno v~kapitole \ref{sec:comms}.
 % Mezi tyto programy patří programy UI, web\_ui a~discord\_bot. Program UI~spravuje OLED displej, přijímá od~uživatele vstup rotačním enkodérem a~je psaný v~c++ pro jednodušší interakci s~hardwarem. Program web\_ui využívá runtime Node.js, ve~kterém je~nenáročné vytvořit http server dostupný z~lokální sítě. \fxnote{(A)?} Program discord\_bot, také využívající Node.js, přijímá příkazy z~chatovací aplikace discord a~je přístupný i~přes internet.
