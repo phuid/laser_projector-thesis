@@ -1,9 +1,15 @@
 \chapter{Laser scanning~\cite{scanning-handbook}}
 Všechny obrázky v~této kapitole pocházejí ze~zdroje~\cite{scanning-handbook}, pokud není uvedeno jinak.
 
-Jako Laser scanning se~označuje technologie využívající rychle pohybující laserový paprsek, tento pohyb je~často zprostředkovaný pohyblivými zrcátky.
+Jako Laser scanning se~označuje technologie využívající rychle se pohybující laserový paprsek. Mezi tradfiční techniky pohybu paprsku spadají akusticko-optické skenery, hranolové skenery a galvanometrové skenery~\cite{mems-review}.
 
-Dle stylu pohybu zrcátek se~technologie dají rozdělit na, polygonové skenery, galvanometrové a~MEMS skenery.
+\section{Akusticko-optické skenery}
+Akusticko-optické~(AO) skenery se využívají, se nejlépe hodí do systémů s rozlišením\footnote{Rozlišení laserových skenerů je počet všech různých pozic, do kterých je skener schopen nasměrovat paprsek.} přibližně 1000 bodů.
+Další charakteristikou AO skenerů je možnost přenést paprsek na libovolný bod v časovém úseku řádově 10~\mu.
+
+Existuje mnoho systému využívajících AO skenery, možná nejzajímavější jsou laserové tiskárny, které naplno využívají schopnosti AO skenerů.
+
+Princip AO spočívá pouze ve změně indexu lomu materiálu optiky, když ním prochází akustická vlna. Tato změna indexu lomu způsobí změnu směru paprsku.
 
 \section{Hranolové skenery}
 Hranolové skenery se~vyznačují rotujícím hranolem se~zrcadlivými stranami (dále \uv{zrcátky}). Při rotaci hranolu se~mění úhel dopadu laserového paprsku na~zrcátko, a~díky tomu se~mění směr odraženého paprsku, viz. obrázek \ref{fig:polygon-scanner}. \fxnote{adiky carka?}
@@ -73,7 +79,3 @@ Narozdíl od~hranolových skenerů je~s galvanometrovým skenerem možné zastav
   \includegraphics[width=1\textwidth]{img/scanner-constructions.jpg}
   \caption{\label{fig:scanner-constructions} různé konstrukce galvanometrových skenerů}
 \end{figure}
-
-\section{Má volba skeneru}
-\fxnote{sekce mozna patri do~prakticke}
-ja vyuzivam galva, protoze se~s nima da~nejlip pohrat, jsou nejuniverzalnejsi a~tim padem nejvic zaujmou - cil
