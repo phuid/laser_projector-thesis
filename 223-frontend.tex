@@ -1,6 +1,6 @@
 \section{UI}
 
-Program UI~je také psaný v~jazyce c++ a~využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s~GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem.
+Program UI~je~také psaný v~jazyce c++ a~využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s~GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem.
 
 Program se~při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke~vstupnímu socketu a~k odběru zpráv z~výstupního TCP socketu, kam publikuje zprávy o~stavu vykreslování program lasershow. Dále si~pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z~enkodéru a~tlačítka na~něm a~čeká buď na~interakci s~uživatelem, který by~skrz něj poslal zprávy programu lasershow, nebo na~zprávy od~lasershow, které by~zobrazil uživateli.
 
@@ -10,7 +10,7 @@ Program se~při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke~vstupn�
 
 Narozdíl od~předchozích dvou zmiňovaných programů je~program web\_ui psaný v~jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Node.js a~knihovnám http a~formidable v~něm bylo časově nenáročné vytořit http web server.
 
-Tento server běží na~portu 3000 a~je dostupný z~lokální sítě (tzn. přímo z\~Raspberry Pi~na adrese http://localhost:3000 nebo z~jakéhokoliv zařízení na~stejné lokální síti na~ip adrese RPi).
+Tento server běží na~portu 3000 a~je~dostupný z~lokální sítě (tzn. přímo z\~Raspberry Pi~na~adrese http://localhost:3000 nebo z~jakéhokoliv zařízení na~stejné lokální síti na~ip~adrese RPi).
 Program je~využíván pro jednoduchou interakci s~uživatelem, který může pomocí webového prohlížeče ovládat laserový projektor pár kliknutími i~zadávat vlastní příkazy klávesnicí.
 
 \fxnote{na webu jsou konzole pro ssh, wifiman a~lasershow, taky fast project forms}
@@ -18,7 +18,7 @@ Program je~využíván pro jednoduchou interakci s~uživatelem, který může po
 \fxnote{TODO: příklad http serveru}
 \lstinputlisting[language=JavaScript, style=code]{code_examples/http_static_files.js}
 
-Stejně jako program UI~za pomoci knihovny ZeroMQ tento program odebírá z~výstupního socketu zprávy o~průběhu vykreslování od~programu lasershow a~odesílá mu~pokyny uživatele na~vstupní socket.
+Stejně jako program UI~za~pomoci knihovny ZeroMQ tento program odebírá z~výstupního socketu zprávy o~průběhu vykreslování od~programu lasershow a~odesílá mu~pokyny uživatele na~vstupní socket.
 
 \fxnote{TODO: příklad přihlášení k~socketům v~js}
 

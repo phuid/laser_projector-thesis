@@ -2,8 +2,20 @@
 \chapter{hardware}
 Tato kapitola se~zabývá fyzickou konstrukcí a~zapojením vyrobeného laserového projektoru. Ten se~skládá z~řídící jednotky, galvanometrů s~ovládací elektronikou, laseru, chlazení a~napájení. Všechny tyto součástky jsou uloženy v~pouzdře vytisknutém na~3D tiskárně.
 
-\section{Řídící jednotka -- Raspberry Pi}
-\fxnote{TODO: rpi specs}
+\section{Řídící jednotka --- Raspberry Pi}
+Jako hlavní řídící jednotka byl použit jednodeskový počítač Raspberry Pi, který je vidět na obrázku~\ref{fig:RPi}. To hned z několika důvodů:
+\begin{itemize}
+  \item Jednoduché připojení k Wi-Fi sítím --- Raspberry Pi je možné připojit k blízké Wi-Fi síti nebo si může vytvořit vlastní, na které funguje jako wifi modem.
+  \item Operační systém Raspberry Pi OS --- Běží na něm operační systém založen na linuxu, je pro něj jednoduché programovat programy a také programy můžou jednoduše interagovat s potenciálně připojenou klávesnicí, myší nebo monitorem.
+  \item Vysoký výkon --- Oproti mikrokontrolerům nabízí podstatně vyšší výkon, ten se může hodit, potřebujeme-li spouštět několik programů zároveň nebo chceme-li procesovat video z kamery.
+\end{itemize}
+Raspberry Pi na sobě má 40 pinový GPIO header, skrze který je možné interagovat s připojenými čipy a moduly.
+
+\begin{figure}[htb]
+    \centering
+  \includegraphics[width=0.8\textwidth]{img/RPi.png}
+  \caption{\label{fig:RPi} Pohled zvrchu na Raspberry Pi; Převzato z~\cite{rpi-image}}
+\end{figure}
 
 \input{212-galvos.tex}
 
@@ -16,10 +28,3 @@ Tato kapitola se~zabývá fyzickou konstrukcí a~zapojením vyrobeného laserov�
 \input{216-napajeni.tex}
 
 \input{217-krabick.tex}
-
-\fxnote{TODO cos udelal svyho vlastne a~jak to~facha}
-
-\section{cooler}
-
-\section{napájení}
-\fxnote{TODO ay~tak co, zvladls to~dat na~baterky?}

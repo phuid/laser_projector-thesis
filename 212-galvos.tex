@@ -1,83 +1,22 @@
-\section{Galvanometr a~zrcátko}
-\begin{itemize}
-  \item
-        Galvanometry, často nazývané galva, jsou elektronické součástky používané k~měření intenzity a~směru elektrického proudu.~\cite{galvo}
+\section{Set galvanometrů se~zrcátky} \label{sec:my-galvos}
+\subsection{Výběr skeneru}
+Pro tuto práci byl vybrán galvanometrový skener, protože je~nejdostupnější a~protože potenciálním uživatelům nejlépe představí technologii.
 
-        Můžeme je~rozdělit mezi galvanometry s~uzavřenou smyčkou zpětné vazby (CLGS) a~galvanometry bez uzavřené smyčky zpětné vazby (OLGS).~\cite{how-ls-work}
-        % Druhé zmíňěné mají velice specifické využití - barcode scanners a~jsou zdokumentované pouze ve~zdroji .
+Oproti hranolovým skenerům jim tožiž dává více možností, jak s paprskem pohybovat.
+Můžou se~rozhodnout, že jej využijí jako hranolový skener, pokud nahrají soubor procházející promítací plochu po~řádcích.
 
-       ~\cite{advanced-galvo}
-        ale postupně nachází uplatnění ve~více a~více odvětvích práce s~lasery.
-        Oproti jiným možnostem nabízí flexibilitu, rychlost a~přesnost za~nízkou cenu.
+Oproti dalším typům skenerů je~názornější, ostatní typy skenerů jsou totiž příliš malé a~není na~nich vidět princip funkce nebo je~jejich fungování nadmíru abstraktní a~těžko pochopitelné.
 
+\subsection{Zapojení galvanometrového setu}
+Samotné galvanometry jsou zapojeny do~řídící desky, která s nimi byla zakoupena, ta je vidět na obrázku~\ref{fig:hw_galvoboard}.
 
-        V~této práci jsou ale využívány CLGS, které jsou lépe zdokumentované.
+Řídící deska požaduje symetrický zdroj napětí 15~V, tzn. $+15$~V a~$-15$~V a~samozřejmě připojení k GND. Také přijímá dva bipolární diferenciální analogové signály s~rozsahem diferenciálního napětí $-10$~V až $+10$~V. Každý signál udává vychýlení jednoho ze~dvou galvanometrů, což obvykle znamená výslednou pozici laserového paprsku v~osách X~a~Y.
 
-        V~CLGS jsou potřeba 3 hlavní prvky, %pohybový akční člen, senzor a~kontrolní desku - vycucáno z~prstu
-
-        Nejmodernější galvanometrové polohovací systémy jsou založené na~principech elektromotorů s~permanentními magnety, kde
-       ~\cite{advanced-galvo}
-  \item
-        \url{https://en.wikipedia.org/wiki/Galvanometer}\\
-        \url{https://en.wikipedia.org/wiki/Laser_scanning}\\
-        \url{https://en.wikipedia.org/wiki/Mirror_galvanometer}\\
-        \url{https://en.wikipedia.org/wiki/Laser_lighting_display}
-
-        A~mirror galvanometer is~an ammeter that indicates it~has sensed an~electric current by~deflecting a~light beam with a~mirror.
-        The mirror galvanometer consists of~a long fine coil of~silk-covered copper wire. %wtf silk == hedvábí??
-        In~the heart of~that coil, within a~little air-chamber, a~small round mirror is~hung by~a single fibre of~floss silk, with four tiny magnets cemented to~its back
-        The small weight of~the mirror and magnets which form the moving part of~this instrument, and the range to~which the minute motions of~the mirror can be~magnified on~the screen by~the reflected beam of~light, which acts as~a long impalpable hand or~pointer, render the mirror galvanometer marvellously sensitive to~the current, especially when compared with other forms of~receiving instruments.
-
-        Zrcadlový galvanometr je~měřič proudu, který reaguje na~měřený proud vychýlením světelného paprsku zrcátkem připevněném na~jeho konci.
-        % Skládá se~z dlouhé  tenké cívky měděného drátu potaženého hedvábím %wtf silk == hedvábí??
-        % Ve~středu této cívky je~v malé vzduchové komůrce na~jediném vláknu hedvábí
-
-        Skládá se~z cívky a
-       ~\cite{zrcadlovy-galvanometr-wiki}
-
-  \item
-        \bardgen{2023-10-20}{popiš mi~jak je~sestaven a~jak funguje galvanometr se~zrcátkem k~odrážení světelného paprsku}{
-          Galvanometr se~zrcátkem je~sestaven z~následujících komponent:
-
-          * **Cívka:** Cívka je~navinuta na~jádře z~feromagnetického materiálu, jako je~železo nebo nikl. Cívkou prochází elektrický proud, který vytváří magnetické pole.
-          * **Ukazatel:** Ukazatel je~připojen k~cívce a~je vyroben z~lehkého materiálu, jako je~hliník nebo plast. Ukazatel je~vychýlen magnetickým polem vytvářeným cívkou.
-          * **Zrcátko:** Zrcátko je~připojeno k~ukazateli a~odráží světelný paprsek.
-          * **Okulár:** Okulár je~umístěn tak, aby bylo možné pozorovat odraz světelného paprsku.
-
-          **Jak funguje:**
-
-          Když prochází cívkou elektrický proud, vytváří magnetické pole. Toto magnetické pole působí na~ukazatel a~vychýlí ho. Velikost výchylky ukazatele je~přímo úměrná velikosti proudu procházejícího cívkou.
-
-          Zrcátko je~připojeno k~ukazateli a~odráží světelný paprsek. Když se~ukazatel vychýlí, odraz světelného paprsku se~také vychýlí.
-
-          Okulár je~umístěn tak, aby bylo možné pozorovat odraz světelného paprsku. Velikost vychýlení světelného paprsku je~přímo úměrná velikosti proudu procházejícího cívkou.
-
-          **Výhody:**
-
-          * Galvanometr se~zrcátkem je~citlivější než galvanometr bez zrcátka.
-          * Galvanometr se~zrcátkem lze použít k~měření velmi malých proudů.
-
-          **Nevýhody:**
-
-          * Galvanometr se~zrcátkem je~dražší než galvanometr bez zrcátka.
-
-          **Použití:**
-
-          Galvanometr se~zrcátkem se~používá k~měření velmi malých proudů. Používá se~například v~elektrotechnice, lékařství a~fyzice.
-        }
-\end{itemize}
-
-\href{https://elenlaser.com/blog/galvo-head-laser-focus-tool.html}{The mirrors, mounted perpendicularly on~the engines, move the laser beam along the X~and Y~axes according to~the input received from the motor.
-The big advantage of~these devices is~that they can reach a~very high acceleration and speed of}
-
-ovládá se~variabilním proudem
-
-\section{galvanometer set i~got} \label{sec:my-galvos}
-\fxnote{TODO: specs}
-
-ma ridici desku lol
-
-Řídící deska galvanometrů přijímá dva bipolární diferenciální analogové signály s~maximálním diferenciálním napětím $-5$~V až $+5$~V. Každý signál udává vychýlení jednoho ze~dvou galvanometrů, což obvykle znamená výslednou pozici laserového paprsku v~osách X~a Y.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/hw_galvoboard.jpg}
+  \caption{\label{fig:hw_galvoboard} Řídící deska galvanometrů s vyznačenými konektory a hřejícími čipy}
+\end{figure}
 
 \subsection{bipolární diferenciální analogový signál~\cite{ilda-signal-spec}}
 Diferenciální signál je~signál přenášený dvěma vodiči, každý z~nich přenáší stejný signál, jen s~opačnou polaritou. Kontakt označený $(+)$ je~považován za~nosič základního signálu, zatímco kontakt označený $(-)$ je~považován za~nosič invertovaného signálu. Výsledné diferenciální napětí je~napětí na~základním nosiči vůči napětí na~obráceném nosiči, tzn.~$V_{dif} = V_{(+)} - V_{(-)}$
@@ -88,6 +27,6 @@ Tudíž cheme-li disáhnout diferenciálního napětí $+10~V$, musí mít zákl
 
 \subsection{Zahřívání čipů řídící desky galvanometrů} \label{sec:galvoboard-chips-heating-up}
 Dva z~čipů na~řídící desce při chodu systému výrazně zahřívájí. Na~tyto čipy naštěstí už od~výroby desky je~připevněna malá hliníková destička. Ta~má sloužit jako chladič, ale i~s ní se~čipy v~otevřeném prostoru zahřívají na~teploty blízké 60~\degree{}C.
-Dva zmíněné čipy jsou čipy TDA2030A od~firmy STMicroelectronics. Ty~by měly dle datasheetu vydržet až 150~\degree{}C, ale dá se~předpokládat, že v~uzavřeném pouzdru budou čipy dosahovat vyšších teplot, než v~otevřeném prostoru. I~kdyby nedosáhly pro sebe kritických 150~\degree{}C, rozhodně není žádoucí, aby uvnitř projektoru desky dosahovaly vysokých teplot.
+Dva zmíněné čipy jsou čipy TDA2030A od~firmy STMicroelectronics. Ty~by~měly dle datasheetu vydržet až 150~\degree{}C, ale dá se~předpokládat, že v~uzavřeném pouzdru budou čipy dosahovat vyšších teplot, než v~otevřeném prostoru. I~kdyby nedosáhly pro sebe kritických 150~\degree{}C, rozhodně není žádoucí, aby uvnitř projektoru desky dosahovaly vysokých teplot.
 
-I proto byl do~projektoru zabudován chladi, Více o~způsobu jeho připevnění a~distribuci chlazení mezi ostatní komponenty se~dočtete v~kapitole \ref{sec:krabick-design-priorities}.
+I proto byl do~projektoru zabudován chladič, Více o~způsobu jeho připevnění a~distribuci chlazení mezi ostatní komponenty se~dočtete v~kapitole~\ref{sec:krabick-design-priorities}.

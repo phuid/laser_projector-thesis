@@ -3,7 +3,7 @@
 \LoadClass[12pt, a4paper, oneside]{book}
 
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[czech]{babel}
+% \RequirePackage[czech]{babel}
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
 \RequirePackage{array}

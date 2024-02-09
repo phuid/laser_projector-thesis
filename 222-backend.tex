@@ -4,10 +4,10 @@
 Program lasershow je~psaný v~jazyce c++. Tento jazyk je~kompilovaný a~díky tomu je~rychlý a~běží samostatně.
 Kdybych využil interpretovaný jazyk, přidal bych k~operačnímu systému další vrstvu neovlivnitelných záseků -- interpreter~\cite{wiki-interpret}.
 
-\fxnote{TODO: co~dela - co~do projektu dava ig}
+\fxnote{TODO: co~dela - co~do~projektu dava ig}
 Lasershow obsluhuje samotné vykreslování. Dostane-li od~UI programů 
 
-Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}\footnote{staženo 28.~12.~2023}.
+Program byl inspirován projektem \url{https://github.com/tteskac/rpi-lasershow}\footnote{Staženo 28.~12.~2023}.
 Velkou výhodou oproti zmíněnému programu je~možnost s~programem interagovat i~v~průběhu promítání. Díky tomu je~možné měnit nastavení promítání bez nutnosti zastavit program a~ztratit všechny jeho data.
 
 \subsection{Využité knihovny}
@@ -18,7 +18,7 @@ Velkou výhodou oproti zmíněnému programu je~možnost s~programem interagovat
 pwm
 
 \subsection{Chování programu}
-Tento program pomocí knihovny ZeroMQ zaregistruje vstupní TCP socket na~portu~5557 a~přihlásí se~na něm k~odběru zpráv, které do~něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na~portu~5556, do~kterého později bude posílat zprávy pro programy, které interagují s~uživatelem.
+Tento program pomocí knihovny ZeroMQ zaregistruje vstupní TCP socket na~portu~5557 a~přihlásí se~na~něm k~odběru zpráv, které do~něj publikují ostatní programy. Zárověn podobně zaregistruje výstupní socket na~portu~5556, do~kterého později bude posílat zprávy pro programy, které interagují s~uživatelem.
 
 \fxnote{TODO: priklad zmq}\
 
@@ -32,19 +32,19 @@ Pokud je~požadována změna nastavení, okamžitě ji~provede, aktuální nasta
 (Například, změní-li se~nastavení trapezoid-horizontal, přepočítá souřadnice vykreslovaných bodů.) Jestliže je~požadováno vykreslení obrazu ze~souboru, začne obraz vykreslovat.
 Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu. I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
 
-\fxnote{TODO: co~to vlastne umi - umoznuje zive skrz UI~menit nastaveni - laseru, trapezoid souradnic, v~UI je~viditelny stav vykreslovani}
+\fxnote{TODO: co~to~vlastne umi - umoznuje zive skrz UI~menit nastaveni - laseru, trapezoid souradnic, v~UI je~viditelny stav vykreslovani}
 
 \fxnote{TODO: diagram programu}
 
 \subsection{lepsi, nez rpi-lasershow}
-benchmark ctvereckovanyho papiru je vlastne nanic, cuz ten kod je stejne rychlej, moje vyhoda je v tom, ze nemusim nacitat mezi snimkama, tudiz benchmark je spis kolik snimku za sekundu, ne: jak dlouho trva jeden snimek/kolik zvladnu vykreslit na jednom snimku
-->jde mi o cas straveny mezi snimky
+benchmark ctvereckovanyho papiru je~vlastne nanic, cuz ten kod je~stejne rychlej, moje vyhoda je~v tom, ze~nemusim nacitat mezi snimkama, tudiz benchmark je~spis kolik snimku za~sekundu, ne: jak dlouho trva jeden snimek/kolik zvladnu vykreslit na~jednom snimku
+->jde mi~o cas straveny mezi snimky
 
 \section{wifi\_manager}
 
 V rámci této práce byl vyvinut ještě jeden program, který se~přímo nepodílí ani na~projekci, ani na~interakci s~uživatelem.
 
-Program wifi\_manager je~také napsaný v~jazyce JavaScript s~využitím runtime Node.js. Registruje se~ke stejným socketům jako lasershow, přijímá příkazy týkající se~nastavení WiFi na~Raspberry Pi~TCP socketem na~portu 5557 a~odesílá zpětnou vazbu na~TCP socket s~portem 5556.
+Program wifi\_manager je~také napsaný v~jazyce JavaScript s~využitím runtime Node.js. Registruje se~ke~stejným socketům jako lasershow, přijímá příkazy týkající se~nastavení WiFi na~Raspberry Pi~TCP socketem na~portu 5557 a~odesílá zpětnou vazbu na~TCP socket s~portem 5556.
 
 \fxnote{TODO: jak se~komunikace s~lasershow odlisuje od~wifi\_managera}
 
