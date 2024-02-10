@@ -33,7 +33,7 @@ Pro zobrazování informací uživateli přímo na~zařízení byl využit alfan
 \section{Rotační enkodér~\cite{how-encoders-work}\cite{rotary-encoder-cvut}}
 Rotační enkodér je~typ pozičního senzoru používaný k měření rotace otáčivé hřídele. Existuje mnoho druhů enkodérů, rozdělují se~dle signálu, který vydávají a~dle technologie, kterou měří rotaci hřídele. V této práci je~použit mechanický inkrementální enkodér s tlačítkem.
 
-Na obrázku~\ref{fig:encoder-working} je~vidět, jak enkodér funguje uvnitř. Dva kontakty A~a B při rotaci získávají a~ztrácí kontakt s kontaktem C. Připojíme-li ke~kontaktu C GND a~ke~kontaktům A~a B pull-up rezistory (softwarově), dá se~toto získávání a~ztrácení kontaktu zaznamenat do~grafu na~obrázku~\ref{fig:encoder-graph} jako dva signály obdélníkového průběhu vzájemně fázově posunuté o 90 stupňů.
+Na obrázku~\ref{fig:encoder-working} je~vidět, jak enkodér funguje uvnitř. Dva kontakty A~a B při rotaci získávají a~ztrácí kontakt s kontaktem C. Připojíme-li ke~kontaktu C zem a~ke~kontaktům A~a B pull-up rezistory (klidně softwarově), dá se~toto získávání a~ztrácení kontaktu zaznamenat do~grafu na~obrázku~\ref{fig:encoder-graph} jako dva signály obdélníkového průběhu vzájemně fázově posunuté o 90 stupňů.
 
 \begin{figure}[htb]
   \centering
@@ -49,7 +49,7 @@ Na obrázku~\ref{fig:encoder-working} je~vidět, jak enkodér funguje uvnitř. D
   \end{minipage}
 \end{figure}
 
-Použitý rotační enkodér má další dva kontakty připojené k tlačítku pod rotující hřídelí. Ke~čtení stisknutí tlačítka je~potřeba připojit jeden kontakt ke GND, tedy ke~kontaktu C a~druhý kontakt na~pull-up rezistor (softwarově). Celé zapojení enkodéru je~naznačeno na~obrázku~\ref{fig:encoder-pinout}. Kontakty tlačítka jsou v něm označeny S1 a~S2. Enkodér je~k RPi připojen dle tabulky~\ref{tab:enc_conn}.
+Použitý rotační enkodér má další dva kontakty připojené k tlačítku pod rotující hřídelí. Ke~čtení stisknutí tlačítka je~potřeba připojit jeden kontakt k zemi, tedy ke~kontaktu C a~druhý kontakt na~pull-up rezistor (klidně softwarově). Celé zapojení enkodéru je~naznačeno na~obrázku~\ref{fig:encoder-pinout}. Kontakty tlačítka jsou v něm označeny S1 a~S2. Enkodér je~k RPi připojen dle tabulky~\ref{tab:enc_conn}.
 
 \begin{table}[htb]
   \centering

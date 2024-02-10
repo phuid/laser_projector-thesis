@@ -1,5 +1,5 @@
 \section{UI}
-
+\fxnote{why is wiringpi used - rewrite to pigpio is comng}
 Program UI~je~také psaný v~jazyce c++ a~využívá knihovnu WiringPi, která umožňuje jednoduchou komunikaci s~GPIO piny Raspberry Pi. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem.
 
 Program se~při začátku exekuce pomocí knihovny ZeroMQ přihlásí ke~vstupnímu socketu a~k odběru zpráv z~výstupního TCP socketu, kam publikuje zprávy o~stavu vykreslování program lasershow. Dále si~pomocí knihovny wiringPi zaregistruje zpracovávání přerušení z~enkodéru a~tlačítka na~něm a~čeká buď na~interakci s~uživatelem, který by~skrz něj poslal zprávy programu lasershow, nebo na~zprávy od~lasershow, které by~zobrazil uživateli.
@@ -16,7 +16,7 @@ Program je~využíván pro jednoduchou interakci s~uživatelem, který může po
 \fxnote{na webu jsou konzole pro ssh, wifiman a~lasershow, taky fast project forms}
 
 \fxnote{TODO: příklad http serveru}
-\lstinputlisting[language=JavaScript, style=code]{code_examples/http_static_files.js}
+\inputminted{js}{code_examples/http_static_files.js}
 
 Stejně jako program UI~za~pomoci knihovny ZeroMQ tento program odebírá z~výstupního socketu zprávy o~průběhu vykreslování od~programu lasershow a~odesílá mu~pokyny uživatele na~vstupní socket.
 
