@@ -34,43 +34,65 @@ Nastavením projekcí jsou myšleny:
 
 \subsection{Využité knihovny}
 \subsubsection{cppzmq}\label{sec:ls_cppzmq}
-Knihovna cppzmq dostupná z~\cite{cppzmq} je knihovna zprostředkující sockety ZeroMQ v jazyce c++.
+Knihovna cppzmq~\cite{cppzmq} je knihovna zprostředkující sockety ZeroMQ v jazyce c++. Následuje ukázka využití této knihovny v programu lasershow.
+\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_server.cpp}
 
-Mezi nejdůležitější mnou využité funkce této knihovny patří:
-\begin{itemize}
-  \item \mintinline{cpp}{zmq::context_t::context_t(int io_threads)} --- Kontruktor třídy \mintinline{cpp}{zmq::context_t}; Tato třída je nutná k vytvoření socketů.
-  \item \mintinline{cpp}{zmq::socket_t::socket_t(context_t &context, int type)} --- Kontruktor třídy \mintinline{cpp}{zmq::socket_t}; Ta je nutná registraci socketů, příjmání zpráv i odesílání zpráv. Argument type určuje chování socketu. Já v jeho místě využívám hodnotu \mintinline{cpp}{zmq::socket_type::pub} pro odesílání do socketu a \mintinline{cpp}{zmq::socket_type::sub} pro příjmání zpráv socketem.
-  \item \mintinline{cpp}{void zmq::socket_t::bind(const char *endpoint)} --- Funkce, která k socketu zaregistruje určitou adresu. V mém kódu vypadá například takto \mintinline{cpp}{command_receiver.bind("tcp://*:5557");}, kdy \mintinline{cpp}{command_receiver} je třída \mintinline{cpp}{zmq::socket_t} a 5557 je port, na kterém bude socket naslouchat.
-  \item \mintinline{cpp}{void zmq::socket_t::set(sockopt::array_option<Opt, NullTerm>, const std::string &buf)} --- Funkce nastavující vlastnost socketu. Ta je v mém kódu využita následovně k nastavení příjmání všech zpráv v socketu, který příjmá zprávy. \mintinline{cpp}{command_receiver.set(zmq::sockopt::subscribe, "");}
-  \item \mintinline{cpp}{bool zmq::socket_t::recv(message_t *msg, int flags = 0)} --- Funkce se pokusí příjmout zprávu ze socketu, jehož třídě náleží, a uložit ji do objektu \mintinline{cpp}{zmq::message_t}, na nějž jí byl předán pointer v prvním argumentu. Při použití této funkce v argumentu \mintinline{cpp}{flags} používám buď hodnotu \mintinline{cpp}{zmq::recv_flags::none}, nebo hodnotu \mintinline{cpp}{zmq::recv_flags_::dontwait}. V prvním případě se exekuce při zavolání této funkce zastaví do chvíle, kdy přijde socketem zpráva. V druhém případě exekuce pokračuje i přesto, že nebyla přijmuta žádná zpráva. Funkce vrací hodnotu true jestliže zpráva byla úspěšně přijata a uložena. Jindy vrací hodnotu flase.
-  \item \mintinline{cpp}{bool zmq::socket_t::send(message_t &msg, int flags = 0)} --- Funkce se pokusí poslat do socketu, jehož třídě náleží, zprávu z prvního argumentu. V druhém argumentu vždy používám hodnotu \mintinline{cpp}{zmq::send_flags::none}.
-\end{itemize}
+% Mezi nejdůležitější mnou využité funkce této knihovny patří:
+% \begin{itemize}
+%   \item \mintinline{cpp}{zmq::context_t::context_t(int io_threads)} --- Kontruktor třídy \mintinline{cpp}{zmq::context_t}; Tato třída je nutná k vytvoření socketů.
+%   \item \mintinline{cpp}{zmq::socket_t::socket_t(context_t &context, int type)} --- Kontruktor třídy \mintinline{cpp}{zmq::socket_t}; Ta je nutná registraci socketů, příjmání zpráv i odesílání zpráv. Argument type určuje chování socketu. Já v jeho místě využívám hodnotu \mintinline{cpp}{zmq::socket_type::pub} pro odesílání do socketu a \mintinline{cpp}{zmq::socket_type::sub} pro příjmání zpráv socketem.
+%   \item \mintinline{cpp}{void zmq::socket_t::bind(const char *endpoint)} --- Funkce, která k socketu zaregistruje určitou adresu. V mém kódu vypadá například takto \mintinline{cpp}{command_receiver.bind("tcp://*:5557");}, kdy \mintinline{cpp}{command_receiver} je třída \mintinline{cpp}{zmq::socket_t} a 5557 je port, na kterém bude socket naslouchat.
+%   \item \mintinline{cpp}{void zmq::socket_t::set(sockopt::array_option<Opt, NullTerm>, const std::string &buf)} --- Funkce nastavující vlastnost socketu. Ta je v mém kódu využita následovně k nastavení příjmání všech zpráv v socketu, který příjmá zprávy. \mintinline{cpp}{command_receiver.set(zmq::sockopt::subscribe, "");}
+%   \item \mintinline{cpp}{bool zmq::socket_t::recv(message_t *msg, int flags = 0)} --- Funkce se pokusí příjmout zprávu ze socketu, jehož třídě náleží, a uložit ji do objektu \mintinline{cpp}{zmq::message_t}, na nějž jí byl předán pointer v prvním argumentu. Při použití této funkce v argumentu \mintinline{cpp}{flags} používám buď hodnotu \mintinline{cpp}{zmq::recv_flags::none}, nebo hodnotu \mintinline{cpp}{zmq::recv_flags_::dontwait}. V prvním případě se exekuce při zavolání této funkce zastaví do chvíle, kdy přijde socketem zpráva. V druhém případě exekuce pokračuje i přesto, že nebyla přijmuta žádná zpráva. Funkce vrací hodnotu true jestliže zpráva byla úspěšně přijata a uložena. Jindy vrací hodnotu flase.
+%   \item \mintinline{cpp}{bool zmq::socket_t::send(message_t &msg, int flags = 0)} --- Funkce se pokusí poslat do socketu, jehož třídě náleží, zprávu z prvního argumentu. V druhém argumentu vždy používám hodnotu \mintinline{cpp}{zmq::send_flags::none}.
+% \end{itemize}
 
 \subsubsection{ADCDACPi}
-Knihovna ADCDACPi dostupná z~\cite{ADCDACPi} zjednodušuje komunikaci s D/A převodníkem mcp4822, využitém v generátoru sgnálu progalvanometry, viz \ref{sec:ilda-signal-gen}, přes rozhraní SPI.
+Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s D/A převodníkem mcp4822, využitém v generátoru sgnálu pro galvanometry, viz kapitola \ref{sec:ilda-signal-gen}, přes rozhraní SPI. Následuje příklad použití téo knihovny.
 
-Mezi nejdůležitější mnou využité funkce této knihovny patří:
-\begin{itemize}
-  \item \mintinline{cpp}{int ADCDACPi::open_dac()} --- Tuto funkci je potřeba zavolat před použitím D/A převodníku. Inicializuje SPI komunikaci s D/A převodníkem. Vrací 1, pokud je inicializace úspěšná a 0, pokud neúspěšná. komunikace musí být inicializovaná, aby bylo možné D/A převodníku posílat instrukce.
-  \item \mintinline{cpp}{void ADCDACPi::set_dac_raw(uint16_t raw, int channel)} --- Funkce, která zašle D/A převodníku insrtukci, aby nastavil na kanálu uvedeném v argumentu \mintinline{cpp}{channel} napětí odpovídající $\frac{raw}{4096} \times V_{ref}$, kdy $raw$ je parametr předaný funkci, $4096$ je rozlišení D/A převodníku a $V_{ref}$ je referenční napětí připojené k D/A převodníku.
-  \item \mintinline{cpp}{void ADCDACPi::close_dac()} --- Funkce deinicializuje SPI komunikaci s D/A převodníkem. Měla by být zavolána před ukončením programu.
-\end{itemize}
-\subsubsection{pigpio}
-Knihovna pigpio dostupná z~\cite{pigpio} umožňuje ovládání GPIO pinů Raspberry Pi. Je využita k posílání PWM signálu do laserového modulu.
+\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/adcdac.cpp}
 
-Mezi nejdůležitější mnou využité funkce této knihovny patří:
-\begin{itemize}
-  \item \mintinline{cpp}{int gpioInitialise()} --- Funkce, která inicializuje knihovnu pigpio. Musí být zavolána před použitím dalších funkcí.
-  \item \mintinline{cpp}{int gpioSetMode(unsigned gpio, unsigned mode)} --- Funkce, která pro GPIO pin z argumentu \mintinline{cpp}{gpio} nastaví mód z argumentu \mintinline{cpp}{mode}. Jako argument \mintinline{cpp}{mode} používám hodnotu \mintinline{cpp}{PI_INPUT}, která pin zaregistruje pro vstup, a hodnotu \mintinline{cpp}{PI_OUTPUT}, která pin zaregistruje pro výstup.
-  \item \mintinline{cpp}{int gpioSetPullUpDown(unsigned gpio, unsigned pud)} --- Funkce připojí na pin \mintinline{cpp}{gpio} pull-up nebo pull-down rezistor podle argumentu \mintinline{cpp}{pud}.
-  \item \mintinline{cpp}{int gpioSetPWMfrequency(unsigned user_gpio, unsigned frequency)} --- Funkce, která na pinu \mintinline{cpp}{user_gpio} nastaví frekvency PWM pulzů na parametr \mintinline{cpp}{frequency} v Hz.
-  \item \mintinline{cpp}{int gpioPWM(unsigned user_gpio, unsigned dutycycle)} --- Tato funkce na pinu \mintinline{cpp}{user_gpio} nastaví střídu PWM, pokud je pin zaregistrován pro výstup.
-  \item \mintinline{cpp}{int gpioWrite(unsigned gpio, unsigned level)} --- Pokud je pin \mintinline{cpp}{gpio} Funkce nastaví něm výstup dle parametru \mintinline{cpp}{level}. Ten může mít hodnoty \mintinline{cpp}{1}, nebo \mintinline{cpp}{0}
-  \item \mintinline{cpp}{uint32_t gpioDelay(uint32_t micros)} --- Funkce pozastaví exekuci programu na \mintinline{cpp}{micros} mikrosekund.
-\end{itemize}
+% Mezi nejdůležitější mnou využité funkce této knihovny patří:
+% \begin{itemize}
+%   \item \mintinline{cpp}{int ADCDACPi::open_dac()} --- Tuto funkci je potřeba zavolat před použitím D/A převodníku. Inicializuje SPI komunikaci s D/A převodníkem. Vrací 1, pokud je inicializace úspěšná a 0, pokud neúspěšná. komunikace musí být inicializovaná, aby bylo možné D/A převodníku posílat instrukce.
+%   \item \mintinline{cpp}{void ADCDACPi::set_dac_raw(uint16_t raw, int channel)} --- Funkce, která zašle D/A převodníku insrtukci, aby nastavil na kanálu uvedeném v argumentu \mintinline{cpp}{channel} napětí odpovídající $\frac{raw}{4096} \times V_{ref}$, kdy $raw$ je parametr předaný funkci, $4096$ je rozlišení D/A převodníku a $V_{ref}$ je referenční napětí připojené k D/A převodníku.
+%   \item \mintinline{cpp}{void ADCDACPi::close_dac()} --- Funkce deinicializuje SPI komunikaci s D/A převodníkem. Měla by být zavolána před ukončením programu.
+% \end{itemize}
+\subsubsection{pigpio}\label{sec:ls_pigpio}
+Knihovna pigpio~\cite{pigpio} umožňuje ovládání GPIO pinů Raspberry Pi. Je využita k posílání PWM signálu do laserového modulu. Následuje příklad využití PWM funkcí knihovny.
 
-\subsection{Chování programu}
-Chování programu je vidět ve zjedonušeném diagramu~\cite{fig:lasershow-flowchart}, který je k nalezení mezi přílohami.
+\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/pigpio_pwm.cpp}
+
+% Mezi nejdůležitější mnou využité funkce této knihovny patří:
+% \begin{itemize}
+%   \item \mintinline{cpp}{int gpioInitialise()} --- Funkce, která inicializuje knihovnu pigpio. Musí být zavolána před použitím dalších funkcí.
+%   \item \mintinline{cpp}{int gpioSetMode(unsigned gpio, unsigned mode)} --- Funkce, která pro GPIO pin z argumentu \mintinline{cpp}{gpio} nastaví mód z argumentu \mintinline{cpp}{mode}. Jako argument \mintinline{cpp}{mode} používám hodnotu \mintinline{cpp}{PI_INPUT}, která pin zaregistruje pro vstup, a hodnotu \mintinline{cpp}{PI_OUTPUT}, která pin zaregistruje pro výstup.
+%   \item \mintinline{cpp}{int gpioSetPullUpDown(unsigned gpio, unsigned pud)} --- Funkce připojí na pin \mintinline{cpp}{gpio} pull-up nebo pull-down rezistor podle argumentu \mintinline{cpp}{pud}.
+%   \item \mintinline{cpp}{int gpioSetPWMfrequency(unsigned user_gpio, unsigned frequency)} --- Funkce, která na pinu \mintinline{cpp}{user_gpio} nastaví frekvency PWM pulzů na parametr \mintinline{cpp}{frequency} v Hz.
+%   \item \mintinline{cpp}{int gpioPWM(unsigned user_gpio, unsigned dutycycle)} --- Tato funkce na pinu \mintinline{cpp}{user_gpio} nastaví střídu PWM, pokud je pin zaregistrován pro výstup.
+%   \item \mintinline{cpp}{int gpioWrite(unsigned gpio, unsigned level)} --- Pokud je pin \mintinline{cpp}{gpio} Funkce nastaví něm výstup dle parametru \mintinline{cpp}{level}. Ten může mít hodnoty \mintinline{cpp}{1}, nebo \mintinline{cpp}{0}
+%   \item \mintinline{cpp}{uint32_t gpioDelay(uint32_t micros)} --- Funkce pozastaví exekuci programu na \mintinline{cpp}{micros} mikrosekund.
+% \end{itemize}
+
+\subsection{Struktura programu}
+Struktura programu je vidět ve zjedonušeném obrázku~\ref{fig:lasershow-flowchart} a je popsána na dalších stránkách.
+
+% \newgeometry{top=0mm, bottom=0mm, left=0mm, right=0mm}
+
+% Gantt diagram in four pages
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth{}, trim=0 600 0 0, clip]{img/lasershow_flowchart.jpg}
+  \caption{\label{fig:lasershow-flowchart} Diagram programu lasershow; Pokračuje na další stránce.}
+\end{figure}
+\clearpage
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth{}, trim=0 0 0 400, clip]{img/lasershow_flowchart.jpg}\clearpage
+\end{figure}
+
+
+\restoregeometry
 
 Tento program pomocí knihovny ZeroMQ zaregistruje svůj vstupní a výstupní socket a~přihlásí se na~tom~vstupním k~odběru zpráv.
 
@@ -97,14 +119,19 @@ Změna WiFi připojení na Raspberry Pi totiž není tak jednoduchá, je při n�
 WiFi manager tedy existuje, aby sjednotil toto nastavování do jednoho programu. Bylo by totiž nepraktické, kdyby musely stejnou akci provádět ostatní programy, které jsou psané v různých jazycích.
 
 \subsection{Využité knihovny}
+\subsubsection{child\_process}
 V programu je využita funkce \mintinline{bash}{execSync(command[, options])} z knihovny \mintinline{bash}{child_process} pro spouštění systémových příkazů. To je potřeba pro zastavení zmíněných systémových služeb a k umožnění změn v jejich nastavení.
 
-Dále je v programu využita knihovna zeromq.js dostupná z~\cite{zeromq.js} pro komunikaci s ostatními programy. V tomto programu je knihovna použita velice podobně jako v programu lasershow, viz kapitola \ref{ls_cppzmq}, jen s rozdílnými názvy funkcí.
+Tyto služby jsou zastavovány a spouštěny pomocí softwaru systemd a jeho nástroje v příkazovém řádku zvaném \mintinline{bash}{systemctl}.
+V mém kódu tudíž používám funkci \mintinline{js}{execSync} k zastavení služeb hostapd a dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable dnsmasq")}.
 
-\subsection{Chování programu}
+\subsubsection{zeromq.js}
+Dále je v programu využita knihovna zeromq.js dostupná z~\cite{zeromq.js} pro komunikaci s ostatními programy. V následujícím příkladu je vidět, jak je použita.
 
-Registruje pro sebe podobné sockety jako lasershow, přijímá příkazy týkající se~nastavení WiFi a~odesílá zpětnou vazbu o aktuálním WiFi připojení.
+\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/zmq_server.js}
 
-Když příjme příkaz pro změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu nevyhovuje, zastaví služby hostapd, dnsmasq a dhcpcd, změní jim nastavení na konfigurační soubory předem uložené ve složce programu wifi_manager a opět některé z nich spustí, podle toho jakého stavu WiFi připojení se snaží dosáhout. Pro \uv{Hotspot} stav je potřeba, aby byly spuštěny služby hostapd a dnsmasq, pro normální \uv{WiFi} stav je potřeba služba dhcpcd.
+\subsection{Struktura programu}
 
-\fxnote{TODO: ukazka(jak interaguje se~systemem, aby toho vseho dosahl lol)}
+Registruje pro sebe dva sockety stejně jako lasershow, přijímá příkazy týkající se~nastavení WiFi a~odesílá zpětnou vazbu o aktuálním WiFi připojení.
+
+Když příjme příkaz pro změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu nevyhovuje, zastaví služby hostapd, dnsmasq a dhcpcd, změní jim nastavení dle konfigurační soubory předem uložených ve složce programu wifi\_manager a opět některé z nich spustí, podle toho jakého stavu WiFi připojení se snaží dosáhout. Pro \uv{Hotspot} stav je potřeba, aby byly spuštěny služby hostapd, dnsmasq a dhcpcd, pro normální \uv{WiFi} stav je potřeba spuštěná pouze služba dhcpcd.

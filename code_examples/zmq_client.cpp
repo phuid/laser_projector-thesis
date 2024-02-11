@@ -3,16 +3,14 @@
 #include "zmq.hpp"
 #include "zmq_addon.hpp"
 #include <iostream>
-#include <thread>
 #include <chrono>
 
 int main(void)
 {
-    //  Prepare our context and updates socket
-    zmq::context_t ctx(1);
+    zmq::context_t ctx(1); //Třída context_t je používána k vytvoření všech soketů v programu.
 
-    zmq::socket_t subscriber(ctx, zmq::socket_type::sub);
-    subscriber.connect("tcp://localhost:5556");
+    zmq::socket_t subscriber(ctx, zmq::socket_type::sub); // Vytvoření třídy socket_t reprezentující výstupní socket. Druhý argument určuje, zda do socketu můžeme zapisovat (publish) nebo z něj číst (subscribe).
+    subscriber.connect("tcp://localhost:5556"); // Funkcí connect se socket připojí k socketu, který už jiný program zaregistroval na danou adresu.
     subscriber.set(zmq::sockopt::subscribe, "");
 
     zmq::socket_t command_sender(ctx, zmq::socket_type::pub);

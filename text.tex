@@ -19,6 +19,9 @@
 \usepackage{minted}
 \setmintedinline{breaklines}
 
+\usepackage{subcaption}
+\usepackage{caption}
+
 \usepackage[pages=some]{background}
 \backgroundsetup{
   scale=1,
@@ -114,15 +117,14 @@ literate=%
 
 \addbibresource{text.bib}
 
-\titlecz{Laserový projektor}
-\titleen{Laser projector}
+\titlecz{RGB Laserový projektor}
+\titleen{RGB Laser projector}
 \author{Šimon Hrouda}
 \field{10}
 \school{Gymnázium Brno-Řečkovice, p.~o., Terezy Novákové 2, 621 00 Brno}
-\exmentor{Tomáš Rohlínek}
-\exmentorstatement{Tomáše Rohlínka}
-\inmentor{Mgr. Kateřina Vídenková}
-\inmentorstatement{Mgr. Kateřiny Vídenkové}
+\mentor{Tomáš Rohlínek a~Mgr.~Kateřina Vídenková}
+\mentorstatement{Tomáše Rohlínka a~Mgr.~Kateřiny vídenkové}
+
 
 % Změňte, pokud se~liší
 %\region{Jihomoravský}
@@ -222,18 +224,11 @@ definice pojmů a~zkratek
 \chapter*{Přílohy}
 \addcontentsline{toc}{section}{Přílohy}
 
-\newgeometry{top=0mm, bottom=0mm, left=0mm, right=0mm}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\paperwidth]{img/pcb-schem-full.jpg}
   \caption{\label{fig:pcb-schematic-full} Celkové schéma HAT DPS v programu KiCad}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[height=\paperheight]{img/lasershow_flowchart.jpg}
-  \caption{\label{fig:lasershow_flowchart} Flowchart programu lasershow}
 \end{figure}
 
 \restoregeometry

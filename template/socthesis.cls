@@ -44,10 +44,8 @@
 \def\author#1{\def\@author{#1}}
 \def\school#1{\def\@school{#1}}
 \def\region#1{\def\@region{#1}}
-\def\inmentor#1{\def\@inmentor{#1}}
-\def\exmentor#1{\def\@exmentor{#1}}
-\def\inmentorstatement#1{\def\@inmentorstatement{#1}}
-\def\exmentorstatement#1{\def\@exmentorstatement{#1}}
+\def\mentor#1{\def\@mentor{#1}}
+\def\mentorstatement#1{\def\@mentorstatement{#1}}
 \def\placefooter#1{\def\@placefooter{#1}}
 
 \RequirePackage{xstring}
@@ -125,8 +123,7 @@
 		\large \B{AUTOR} & \large \B{\@author} & \\
 		\large \B{ŠKOLA} & \large \B{\@school} & \\
 		\large \B{KRAJ} & \large \B{\@region} & \\
-		\large \B{INTERNÍ KONZULTANT} & \large \B{\@inmentor} & \\
-		\large \B{EXTERNÍ KONZULTANT} & \large \B{\@exmentor} & \\
+		\large \B{ŠKOLITEL} & \large \B{\@mentor} & \\
 		\large \B{OBOR} & \large \B{\@field} & \\
 		\end{tabularx}
 		\setlength{\tabcolsep}{6pt}
@@ -150,7 +147,7 @@
 	\vfill
 
 	\section*{Prohlášení}
-	Prohlašuji, že svou práci na téma \It{\@titlecz} jsem vypracoval/a samostatně pod vedením {\@exmentorstatement} a~{\@inmentorstatement} a~s~použitím odborné literatury a~dalších informačních zdrojů, které jsou všechny citovány v~práci a~uvedeny v~seznamu literatury na~konci práce.
+	Prohlašuji, že svou práci na téma \It{\@titlecz} jsem vypracoval/a samostatně pod vedením {\@mentorstatement} a~s~použitím odborné literatury a~dalších informačních zdrojů, které jsou všechny citovány v~práci a~uvedeny v~seznamu literatury na~konci práce.
 
 	Dále prohlašuji, že tištěná i~elektronická verze práce SOČ jsou shodné a~nemám závažný důvod proti zpřístupňování této práce v~souladu se~zákonem č.~121/2000~Sb., o~právu autorském, o~právech souvisejících s~právem autorským a~změně některých zákonů (autorský zákon) v~platném změní.
 
