@@ -9,7 +9,7 @@
 \usepackage{xkvltxp}
 
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
-\usepackage[polutonikogreek,czech]{babel}
+\usepackage[czech]{babel}
 \usepackage{float}
 \usepackage{geometry}
 \usepackage{gensymb}
@@ -43,8 +43,8 @@
 \DeclareCaptionType{equ}[Rovnice][Seznam rovnic]
 %\captionsetup[equ]{labelformat=empty}
 
-\widowpenalty=5000
-\clubpenalty=5000
+\widowpenalty=10000
+\clubpenalty=10000
 \brokenpenalty=5000
 
 %%%%%% podbarvení bloků kódu / vygenerovaných ai
@@ -146,7 +146,7 @@ literate=%
 
 \makecopyrightstatement{V~Brně}
 
-\makethanks{Děkuji svému externímu konzultantovi Tomáši Rohlínkovi a~své interní konzultantce Mgr. Kateřině Vídenkové za~obětavou pomoc, podnětné připomínky a~nekonečnou trpělivost, kterou mi~během práce poskytovali.}
+\makethanks{Děkuji svým konzultantům Tomáši Rohlínkovi a~Mgr. Kateřině Vídenkové za~obětavou pomoc, podnětné připomínky a~nekonečnou trpělivost, kterou mi~během práce poskytovali.}
 
 \pagestyle{empty}
 
@@ -165,23 +165,17 @@ literate=%
 
 
 \newpage
-\pagestyle{plain}
 
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \tableofcontents % vysází obsah
+\pagestyle{empty}
 
 %%% Začátek práce
 \setcounter{figure}{0}
 \setcounter{table}{0}
 
 \newpage
-
-definice pojmů a~zkratek
-\begin{center}
-  \begin{tabular}{c c c}
-    SPI  & Serial Peripheral Interface     & sériové periferní rozhraní            \\
-    DPS & & deska plošných spojů \\
-  \end{tabular}
-\end{center}
+\pagestyle{plain}
 
 \input{00-uvod.tex}
 
@@ -191,11 +185,9 @@ definice pojmů a~zkratek
 
 \input{102-laser_projection.tex}
 
-\input{103-laser_safety.tex}
+% \input{103-laser_safety.tex}
 
 \input{110-technologie.tex}
-
-% \input{.tex}
 
 
 % \input{200-uvod-prak.tex}
@@ -224,6 +216,7 @@ definice pojmů a~zkratek
 \chapter*{Přílohy}
 \addcontentsline{toc}{section}{Přílohy}
 
+\newgeometry{top=0pt, bottom=0pt, left=0pt, right=0pt}
 
 \begin{figure}[H]
   \centering

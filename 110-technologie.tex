@@ -1,13 +1,34 @@
-\chapter{Použité technologie}
-spi
-i2c, slave adress https://learn.sparkfun.com/tutorials/i2c/all
+\chapter{Použité technologie, techniky, pojmy}
 nodejs
 ZeroMQ
-3d tisk
-lcd
+
+\section{SPI}\label{sec:spi}
+SPI (anglicky Serial Peripheral Interface) je komunikační rozhraní používané k přenosu dat mezi ovládajícím zařízením (často mikrokontrolerem) a jedním, nebo více periferními integrovynými obvody (periferiemi).
+Používá separátní kontakty (linky) pro hodinový signál, kterým mikrokontroler ovládá rychlost přenosu dat, a datové linky.
+Datové linky jsou fixně využívané k posílání dat buď periferií -- linka POCI (Peripheral Out, Controller In), nebo mikrokontrolerem -- linka PICO (Peripheral In, Controller Out).
+Dále používá separátní kontakt(y) pro výběr periferie, se kterou mikrokontroler komunikuje. Tomuto kontaktu se říká chip select (zkráceně CS). Pro každou periferii je potřeba připojit separátní CS kontakt.~\cite{sparkfun-spi}
+
+\section{I$^{2}$C}
+I$^{2}$C (anglicky Inter-Integrated Circuit) je komunikační protokol umožňující komunikaci mezi jednou nebo více periferiemi a jedním, nebo více mikrokontrolery.
+Podobně jako SPI je úrčen ke komunikaci na krátké vzdálenosti v jednom zařízení.
+Narozdíl od SPI využívá pouze dva kontakty k výměně informací včetně výběru připojené periferie, se kterou mikrokontroler chce komunikovat.
+Zároveň umožňuje fungování systémů s několika kontrolery.~\cite{sparkfun-i2c}
+
+Dva kontakty při použití tohoto protokolu stačí i na výběr zařízení, se kterým chce mikrokontroler komunikovat.
+Po začátku komunikace totiž sběrnicí\footnote{Sběrnice I$^{2}$C je systém zařízení propojený protokolem I$^{2}$C na dvou stejných kontaktech.} mikrokontroler pošle tzv. adresu zařízení se kterým chce komunikovat~\cite{sparkfun-i2c}.
+Adresa zařízení je sestavena ze sedmi bitů a může tedy dosahovat 127 různých hodnot (kromě systémů s 10bitovou adresou; Ty jsou ale vzácné).
+Většinou je pro danou periferii nastavena od výroby, ui některých je ale možné ji softwarově změnit.
+
+\section{Pull-up a pull-down rezistory}
+Pokud při čtení z GPIO pinů mikrokontrolerů či jiných zařízení k danému pinu není nic připojeno, je těžké předpovědět, jaký stav na tomto pinu přečteme.
+Když tento fenomén nastane, říká se, že je pin floating (plovoucí)~\cite{sparkfun-pud}.
+Může nastat například, chceme-li číst stav tlačítka, přes které by byl pin připojen na zem. Když tlačítko není zmáčknuté, pin na zem připojen není a tudíž je floating.
+
+V takových případech se k pinu připojuje tzv. pull-up rezistor, který zaručí, že z pinu v případě, že tlačítko stisknuté není, přečteme hodnotu HIGH.
+Rozdíl mezi pull-up a pull-down rezistory je pouze v tom, že pull-up rezistory připojují pin k napětí, na kterém zařízení pracuje (často 3,3 nebo 5~V) a pull-down rezistory rezistory připojují pin k zemi.~\cite{sparkfun-pud}
+
+
 obdelnikovy prubeh
-rotacni enkoder
-pull-up/down
 pwm
 power delivery
 github? - cuz it was vystaveno there and will continue to develop

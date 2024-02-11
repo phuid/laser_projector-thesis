@@ -4,17 +4,17 @@ Kvůli jejich specifičnosti tyto obvody nejsou volně dostupné k~zakoupení na
 
 Obvody byly navrženy v~programu KiCad, celé schéma desky je k nalezení mezi přílohami s označením~\ref{fig:pcb-schematic-full}. Následně pro ně v~tomtéž programu byla nadesignována deska plošných spojů. Mezi obvody patří:
 \begin{itemize}
-  \item Zdroj $-15$~V pro galvanometry
-  \item Generátor signálu pro řídící desku galvanometrů
-  \item Voltmetr baterií
+  \item Zdroj $-15$~V pro galvanometry.
+  \item Generátor signálu pro řídící desku galvanometrů.
+  \item Voltmetr baterií.
 \end{itemize}
 
 Kromě nich byly na~desku přidány konektory k~jednotlivým barevným vstupům laseru, LCD displeji a~k rotačnímu enkodéru, které jsou přímo napojeny na~40 pinový GPIO konektor Raspberry Pi.
 Deska byla designována jako tzv. HAT, to~znamená, že sama na~tomto konektoru drží a~nezabírá o~moc víc místa, než samotné Raspberry Pi.
 \fxnote{TODO: obrazek desky (maybe mounted) (deska ještě nedošla)}
 
-\subsection{Zdroj $-15$~V~\cite{ampalyzer}}\label{sec:negative-ps}
-Napětí $-15$~V je získáváno obvodem napěťového invertoru inspirovaného zdrojem~\cite{ampalyzer}. Jeho zapojení je na obrázku~\ref{fig:negative-ps}, potřebuje zdroj napětí 15V.
+\subsection{Zdroj $-15$~V}\label{sec:negative-ps}
+Napětí $-15$~V je získáváno obvodem napěťového invertoru založeném na obvodu ze zdroje~\cite{ampalyzer}. Jeho zapojení je na obrázku~\ref{fig:negative-ps}, potřebuje zdroj napětí 15V.
 
 \begin{figure}[htb]
   \centering
@@ -29,7 +29,7 @@ Dále je k němu připojený výkonový induktor L1, jehož hodnota byla zvolena
 \begin{equ}[H]
   \centering
   \begin{math}
-    L = \frac{-U_{OUT}\times U_{IN}}{0.4 \times 2 \times I_{OUT} \times f_{s} \times \left ( U_{IN} - U_{OUT} \right )} = \frac{- \left (-15 V \right )\times 15 V}{0.4 \times 2 \times 1 A \times 450 kHz \times \left ( 15 V - \left (-15 V \right ) \right )} \approx 21 \mu H
+    L = \frac{-U_{OUT}\times U_{IN}}{0,4 \times 2 \times I_{OUT} \times f_{s} \times \left ( U_{IN} - U_{OUT} \right )} = \frac{- \left (-15 V \right )\times 15 V}{0,4 \times 2 \times 1 A \times 450 kHz \times \left ( 15 V - \left (-15 V \right ) \right )} \approx 21 \mu H
   \end{math}
   \caption{\label{equ:inductor-calc} Výpočet ideální indukčnosti cívky pro invertující obvod}
 \end{equ}
@@ -49,21 +49,21 @@ Posledním prvkem je výstupní vyhlazovací filtr tvořený kondenzátory C3 a 
 Jeho úkol je minimalizovat výstupní napěťového zvlnění zdroje.~\cite{ampalyzer}
 
 \subsection{Generátor analogového signálu}\label{sec:ilda-signal-gen}
-Jak popsáno v~sekci~\ref{sec:my-galvos}, řídící deska galvanometrů přijmá dva bipolární diferenciální analogové signály v~rozpětí $-5$~V až $+5$~V.
+Jak je popsáno v~sekci~\ref{sec:my-galvos}, řídící deska galvanometrů přijmá dva bipolární diferenciální analogové signály v~rozpětí $-5$~V až $+5$~V.
 
-Obvod, který se~stará o~vytváření tohoto signálu je~založený na~obvodu ze~zdroje~\cite{lasershow-with-real-galvos}.
+Obvod, který se~stará o~vytváření tohoto signálu, je~založený na~obvodu ze~zdroje~\cite{lasershow-with-real-galvos}.
 Vytváření tohoto signálu je~rozděleno do~dvou částí. Nejdříve D/A~převodník připojený k~RPi vytvoří signál v~rozpětí 0 až 5~V a~následně je~tento signál pomocí invertujících operačních zesilovačů převeden na~požadované rozpětí a invertován.
 Jednotlivé části tohoto obvodu jsou blíže popsány v~následujících kapitolách.
 
-\subsubsection{D/A převodník~\cite{mcp4822-dsh}}
-K generování signálu v~rozpětí 0--5~V byl využit dvoukanálový D/A převodník\footnote{D/A převodník je obvod, který na~základě instrukcí přijatých digitálně generuje analogové napětí} MCP4822.
-Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s~napájecím napětím 5~V a~s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na~dvou kanálech.
+\subsubsection{D/A převodník}
+K generování signálu v~rozpětí 0--5~V byl využit dvoukanálový D/A převodník\footnote{D/A převodník je obvod, který na~základě instrukcí přijatých digitálně generuje analogové napětí.} MCP4822.
+Tento čip podporuje komunikaci přes rozhraní SPI, pracuje s~napájecím napětím 5~V a~s 12bitovým rozlišením (je schopen vygenerovat 4~096 různých napětí) na~dvou kanálech~\cite{mcp4822-dsh}.
 RPi komunikuje s~čipem pomocí rozhraní SPI popsaném v kapitole~\ref{sec:spi}.
 
 \subsubsection{Operační zesilovače~\cite{tl082-dsh}}
 K modifikaci signálu z~DAC na~bipolární diferenciální analogový signál slouží pro každý kanál jeden čip TL082, který obsahuje dva operační zesilovače. Ty~jsou zapojeny dle schématu na~obrázku~\ref{fig:ilda_amps-scheme}.
 
-Signál první operační zesilovač zesílí / zeslabí a~vertikálně posune dle nastavení potenciometrů Ygain(zesílení) a~Yoffset(posun) a~zároveň invertuje. Tento invertovaný signál následně druhý operační zesilovač opět invertuje, získav základní signál pro řídící desku galvanometrů.
+Signál první operační zesilovač zesílí/zeslabí a~vertikálně posune dle nastavení potenciometrů Ygain (zesílení) a~Yoffset (posun) a~zároveň invertuje. Tento invertovaný signál následně druhý operační zesilovač opět invertuje. Tím získavá základní signál pro řídící desku galvanometrů.
 
 \begin{figure}[htb]
   \centering

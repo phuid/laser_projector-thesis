@@ -1,6 +1,4 @@
 \section{Lasershow}
-\subsection{Úvod}
-
 Program lasershow se stará o vykreslování obrazu podle příkazů od frontendových programů, patří tedy mezi backendové programy.
 Je psán v kompilovanem jazyce c++, jeho běh je tedy rychlejší, než kdyby byl využit interpretovaný jazyk.
 Interpretované jazyky bývají pomalejší, protože interpreter musí kód překládat za běhu a tím oddaluje jeho exekuci~\cite{interpret}. To je důležité, protože při vykreslování každá ztracená milisekunda může znamenat nežádoucí efekty. I při vykreslování jednoduchých obrazců zaseknutí paprsku na jednom místě způsobí přesvětlený bod.
@@ -12,7 +10,7 @@ Velkou výhodou oproti zmíněnému programu je~možnost s~programem interagovat
 Původní program lasershow totiž po spuštění jednoduše přečetl soubor, který mu byl předán jako argument, a začal ho promítat. Promítání bylo možné přerušit pouze zastavením programu.
 
 \subsection{Funkce programu}
-Díky nově implementovaným interakcím je~možné ve frontendových programech ovládat mnoho aspektů projekce popsaných v následujících kapitolách. Program lasershow je~schopen přijímat příkazy od~frontendových programů a~reagovat na~ně i při vykreslování probíhající projekce. Program také všechny informace o probíhající a nadcházejících projekcích posíla frontendovým programům, aby je zobrazily uživateli.
+Díky nově implementovaným interakcím je~možné ve frontendových programech ovládat mnoho aspektů projekce popsaných v následujících kapitolách. Program lasershow je~schopen přijímat příkazy od~frontendových programů a~reagovat na~ně i při vykreslování probíhající projekce. Program také všechny informace o probíhající projekci a nadcházejících projekcích posíla frontendovým programům, aby je zobrazily uživateli.
 
 \subsubsection{Spouštění projekcí}
 Je možné vybrat soubor k projekci, vytvářet frontu projekcí, které se spustí za sebou, nastavit opakování jedné projekce, nebo celé fronty a také se posouvat v časové ose projekce (tzn. například skočit na 200. snímek právě probíhající projekce).
@@ -20,13 +18,13 @@ Je možné vybrat soubor k projekci, vytvářet frontu projekcí, které se spus
 \subsubsection{Nastavení projekce}
 Nastavením projekcí jsou myšleny:
 \begin{itemize}
-\item Ovládání jasu jednotlivých laserových diod
-\item Deformace obrazu pro kompenzaci úhlu vůči plátnu
-\item Změna velikosti a posun projekce,
-\item Nastavení rychlosti vykreslování -- Ta je úrčena časem, kdy projektor čeká mezi vykreslením jednotlivých bodů.
-\item Nastavení rychlosti časového průběhu projekce -- Ta je úrčena časem, po kterém projektor přeskočí na další snímek projekce.
-\item Nastavení vykreslování vždy úplných snímků -- Program může buď snímek přerušit ve chvíli, kdy je překročen čas úrčený pro snímek, nebo může po uplynutí tohoto času vždy dokreslit body snímku, které nestihl vykreslit.
-\item Nastavení časově přesného snímkování -- Při zapnutí časově přesného snímkování program vždy vybere k projekci snímek, který by se měl v danou chvíli promítat podle času, který uplynul od začátku projekce místo jednoduchého pokračování ve frontě snímků.
+\item Ovládání jasu jednotlivých laserových diod.
+\item Deformace obrazu pro kompenzaci úhlu vůči plátnu.
+\item Změna velikosti a posun projekce. 
+\item Nastavení rychlosti vykreslování -- ta je úrčena časem, kdy projektor čeká mezi vykreslením jednotlivých bodů.
+\item Nastavení rychlosti časového průběhu projekce -- ta je úrčena časem, po kterém projektor přeskočí na další snímek projekce.
+\item Nastavení vykreslování vždy úplných snímků -- program může buď snímek přerušit ve chvíli, kdy je překročen čas úrčený pro snímek, nebo může po uplynutí tohoto času vždy dokreslit body snímku, které nestihl vykreslit.
+\item Nastavení časově přesného snímkování -- při zapnutí časově přesného snímkování program vždy vybere k projekci snímek, který by se měl v danou chvíli promítat podle času, který uplynul od začátku projekce místo jednoduchého pokračování ve frontě snímků.
 \end{itemize}
 
 
@@ -43,12 +41,13 @@ Knihovna cppzmq~\cite{cppzmq} je knihovna zprostředkující sockety ZeroMQ v ja
 %   \item \mintinline{cpp}{zmq::socket_t::socket_t(context_t &context, int type)} --- Kontruktor třídy \mintinline{cpp}{zmq::socket_t}; Ta je nutná registraci socketů, příjmání zpráv i odesílání zpráv. Argument type určuje chování socketu. Já v jeho místě využívám hodnotu \mintinline{cpp}{zmq::socket_type::pub} pro odesílání do socketu a \mintinline{cpp}{zmq::socket_type::sub} pro příjmání zpráv socketem.
 %   \item \mintinline{cpp}{void zmq::socket_t::bind(const char *endpoint)} --- Funkce, která k socketu zaregistruje určitou adresu. V mém kódu vypadá například takto \mintinline{cpp}{command_receiver.bind("tcp://*:5557");}, kdy \mintinline{cpp}{command_receiver} je třída \mintinline{cpp}{zmq::socket_t} a 5557 je port, na kterém bude socket naslouchat.
 %   \item \mintinline{cpp}{void zmq::socket_t::set(sockopt::array_option<Opt, NullTerm>, const std::string &buf)} --- Funkce nastavující vlastnost socketu. Ta je v mém kódu využita následovně k nastavení příjmání všech zpráv v socketu, který příjmá zprávy. \mintinline{cpp}{command_receiver.set(zmq::sockopt::subscribe, "");}
-%   \item \mintinline{cpp}{bool zmq::socket_t::recv(message_t *msg, int flags = 0)} --- Funkce se pokusí příjmout zprávu ze socketu, jehož třídě náleží, a uložit ji do objektu \mintinline{cpp}{zmq::message_t}, na nějž jí byl předán pointer v prvním argumentu. Při použití této funkce v argumentu \mintinline{cpp}{flags} používám buď hodnotu \mintinline{cpp}{zmq::recv_flags::none}, nebo hodnotu \mintinline{cpp}{zmq::recv_flags_::dontwait}. V prvním případě se exekuce při zavolání této funkce zastaví do chvíle, kdy přijde socketem zpráva. V druhém případě exekuce pokračuje i přesto, že nebyla přijmuta žádná zpráva. Funkce vrací hodnotu true jestliže zpráva byla úspěšně přijata a uložena. Jindy vrací hodnotu flase.
+%   \item \mintinline{cpp}{bool zmq::socket_t::recv(message_t *msg, int flags = 0)} --- Funkce se pokusí příjmout zprávu ze socketu, jehož třídě náleží, a uložit ji do objektu \mintinline{cpp}{zmq::message_t}, na nějž jí byl předán pointer v prvním argumentu. Při použití této funkce v argumentu \mintinline{cpp}{flags} používám buď hodnotu \mintinline{cpp}{zmq::recv_flags::none}, nebo hodnotu \mintinline{cpp}{zmq::recv_flags_::dontwait}.
+% V prvním případě se exekuce při zavolání této funkce zastaví do chvíle, kdy přijde socketem zpráva. V druhém případě exekuce pokračuje i přesto, že nebyla přijmuta žádná zpráva. Funkce vrací hodnotu true jestliže zpráva byla úspěšně přijata a uložena. Jindy vrací hodnotu flase.
 %   \item \mintinline{cpp}{bool zmq::socket_t::send(message_t &msg, int flags = 0)} --- Funkce se pokusí poslat do socketu, jehož třídě náleží, zprávu z prvního argumentu. V druhém argumentu vždy používám hodnotu \mintinline{cpp}{zmq::send_flags::none}.
 % \end{itemize}
 
 \subsubsection{ADCDACPi}
-Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s D/A převodníkem mcp4822, využitém v generátoru sgnálu pro galvanometry, viz kapitola \ref{sec:ilda-signal-gen}, přes rozhraní SPI. Následuje příklad použití téo knihovny.
+Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s D/A převodníkem mcp4822, využitém v generátoru signálu pro galvanometry, viz kapitola \ref{sec:ilda-signal-gen}, přes rozhraní SPI. Následuje příklad použití téo knihovny.
 
 \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/adcdac.cpp}
 
@@ -100,7 +99,7 @@ Následně načte konfigurační soubor lasershow.cfg, který obsahuje uložené
 
 Jakmile přijde zpráva, přečte ji. Pokud je~požadována změna nastavení, okamžitě ji~provede, aktuální nastavení si~uloží do~souboru lasershow.cfg a~přepočítá informace o~promítaném obrazu, je-li to~nutné (Například, změní-li se~nastavení trapezoid-horizontal, přepočítá souřadnice vykreslovaných bodů).
 Jestliže je~požadováno vykreslení obrazu ze~souboru, načte soubor a začne obraz vykreslovat.
-Při tom průběžně posílá informace o~stavu vykreslování do~výstupního socketu.
+Přitom průběžně posílá informace o~stavu vykreslování do~výstupního socketu.
 I~při vykreslování obrazu tento program zpracovává zprávy a~pokyny ze~vstupního socketu.
 
 \section{wifi\_manager}
@@ -118,20 +117,25 @@ A třetím stavem je \uv{WiFi připojení vypnuto}, kdy je WiFi anténa Raspberr
 Změna WiFi připojení na Raspberry Pi totiž není tak jednoduchá, je při ní potřeba změnit nastavení dvou systémových služeb a restartovat je.
 WiFi manager tedy existuje, aby sjednotil toto nastavování do jednoho programu. Bylo by totiž nepraktické, kdyby musely stejnou akci provádět ostatní programy, které jsou psané v různých jazycích.
 
+Program má také svůj konfiguranční soubor, kam si, podobně jako lasershow, ukládá aktuální nastavení, aby si ho \uv{pamatoval} i po restartu systému.
+
 \subsection{Využité knihovny}
 \subsubsection{child\_process}
 V programu je využita funkce \mintinline{bash}{execSync(command[, options])} z knihovny \mintinline{bash}{child_process} pro spouštění systémových příkazů. To je potřeba pro zastavení zmíněných systémových služeb a k umožnění změn v jejich nastavení.
 
 Tyto služby jsou zastavovány a spouštěny pomocí softwaru systemd a jeho nástroje v příkazovém řádku zvaném \mintinline{bash}{systemctl}.
-V mém kódu tudíž používám funkci \mintinline{js}{execSync} k zastavení služeb hostapd a dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable dnsmasq")}.
+V mém kódu tudíž používám funkci \mintinline{js}{execSync} k zastavení služeb hostapd a dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable hostapd dnsmasq")}.
 
 \subsubsection{zeromq.js}
-Dále je v programu využita knihovna zeromq.js dostupná z~\cite{zeromq.js} pro komunikaci s ostatními programy. V následujícím příkladu je vidět, jak je použita.
+Dále je v programu využita knihovna zeromq.js~\cite{zeromq.js} pro komunikaci s ostatními programy. V následujícím příkladu je vidět, jak je použita.
 
 \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/zmq_server.js}
 
 \subsection{Struktura programu}
 
-Registruje pro sebe dva sockety stejně jako lasershow, přijímá příkazy týkající se~nastavení WiFi a~odesílá zpětnou vazbu o aktuálním WiFi připojení.
+Registruje pro sebe dva sockety stejně jako lasershow, jedním přijímá příkazy týkající se~nastavení WiFi a~druhým odesílá zpětnou vazbu o~aktuálním WiFi připojení. Zároveň registruje callback funkci, která se spustí při přijetí zprávy vstupním socketem.
 
-Když příjme příkaz pro změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu nevyhovuje, zastaví služby hostapd, dnsmasq a dhcpcd, změní jim nastavení dle konfigurační soubory předem uložených ve složce programu wifi\_manager a opět některé z nich spustí, podle toho jakého stavu WiFi připojení se snaží dosáhout. Pro \uv{Hotspot} stav je potřeba, aby byly spuštěny služby hostapd, dnsmasq a dhcpcd, pro normální \uv{WiFi} stav je potřeba spuštěná pouze služba dhcpcd.
+Když příjme příkaz pro změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu nevyhovuje, nejdříve si zapíše do svého konfiguračního souboru požadovaný stav wifi připojení. Následně zastaví služby hostapd, dnsmasq a dhcpcd, změní jim nastavení dle konfiguračních souborů předem uložených ve své složce a opět některé z nich spustí, podle toho jakého stavu WiFi připojení se snaží dosáhout.
+Pro \uv{Hotspot} stav je potřeba, aby byly spuštěny služby hostapd, dnsmasq a dhcpcd, pro normální \uv{WiFi} stav je potřeba spuštěná pouze služba dhcpcd.
+
+Může také příjmat příkazy, které pouze požadují hlášení o nastavení WiFi připojení a nechtějí toto nastavení nějak měnit. Při přijetí takového příkazu wifi\_manager přečte svůj konfigurační soubor a pošle do svého výstupního socketu zprávu odpovídající aktuálnímu nastavení.

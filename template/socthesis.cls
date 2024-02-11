@@ -101,7 +101,7 @@
 		{\large \B{\@placefooter}}
 	\end{center}
 	\newpage
-
+	\setcounter{page}{1}
 	\pagestyle{empty}
     \enlargethispage{40mm} % zvětší oblast tisku pro tuto stránku
 	\begin{center}
@@ -186,5 +186,4 @@
 	\end{figure}
 
 	\newpage
-	\pagestyle{plain}
 }

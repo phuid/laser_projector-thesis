@@ -1,4 +1,4 @@
-\section{komunikace mezi programy}\label{sec:comms}
+\section{Komunikace mezi programy}\label{sec:comms}
 Výše zmíněné frontendové a backendové programy jsou propojeny síťovými sockety, které zprostředkovává knihovna ZeroMQ (dostupná z~\cite{zeromq}). Ta nabízí frontu\footnote{Ve frontě jsou zprávy seřazeny od~té nejdříve odeslané.} zpráv, bez potřeby samostatně běžícího brokeru.
 
 Tato knihovna je~využita k~vytvoření dvou socketů pro každý backendový program, jedním backendový program přijímá příkazy od~uživatele prostřednictvím frontendových programů (vstupní socket) a~do~druhého posílá informace o svém stavu frontendovým programům (výstupní socket), aby je~zprostředkovaly uživateli. Toto spojení je schématicky naznačeno na obrázcích~\ref{fig:lasershow_comms} a~\ref{fig:wifiman_comms}.
@@ -17,4 +17,4 @@ Tato knihovna je~využita k~vytvoření dvou socketů pro každý backendový pr
   \end{minipage}
 \end{figure}
 
-Jednotlivé příkazy, které můžou prorgamy lasershow přijímat jsou popsány v příloze v souboru README.md. Tento soubor se totiž na serveru github.com, kam byl projekt vystaven, zobrazuje přímo na domovské stránce projektu a kdokoliv, koho by projekt zajímal je tam rychle najde.
+Jednotlivé příkazy, které můžou prorgamy lasershow přijímat, jsou popsány v příloze v souboru README.md. Tento soubor se totiž na serveru github.com, kam byl projekt vystaven, zobrazuje přímo na domovské stránce projektu a kdokoliv, koho by projekt zajímal si je tam rychle najde.

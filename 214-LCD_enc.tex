@@ -1,5 +1,6 @@
 \section{Displej z~tekutých krystalů (LCD)}
-Pro zobrazování informací uživateli přímo na~zařízení byl využit alfanumerický\footnote{Alfanumerický -- Řídící jednotka displeji místo pixelů posílá celé znaky, které sám vykresluje.} LCD s řadičem HD44780 a~s rozlišením 20x4 znaky. K displeji je~připojen také připojen I$^{2}$C převodník, který slouží jako prostředník mezi řadičem displeje a~Raspberry Pi. Komunikační protokol LCD totiž využívá podstatně více kontaktů, než I$^{2}$C sběrnice, kterou Raspberry Pi~komunikuje s převodníkem. Převodník je~k pinům Raspberry Pi~připojen dle tabulky~\ref{tab:LCD_conn}.
+Pro zobrazování informací uživateli přímo na~zařízení byl využit alfanumerický\footnote{Alfanumerický -- Řídící jednotka displeji místo pixelů posílá celé znaky, které sám vykresluje.} LCD s řadičem HD44780 a~s rozlišením 20~x~4 znaky. K displeji je~také připojen I$^{2}$C převodník, který slouží jako prostředník mezi řadičem displeje a~Raspberry Pi.
+Komunikační protokol LCD totiž využívá podstatně více kontaktů, než I$^{2}$C sběrnice, kterou Raspberry Pi~komunikuje s převodníkem. Převodník je~k pinům Raspberry Pi~připojen dle tabulky~\ref{tab:LCD_conn}.
 
 \begin{figure}[htb]
   \centering
@@ -11,7 +12,7 @@ Pro zobrazování informací uživateli přímo na~zařízení byl využit alfan
   \begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{img/LCD_back.jpg} % second figure itself
-    \caption{\label{fig:LCD_back} I$^{2}$C převodník napojený na~LCD; Převzato z~\cite{laskakit-LCD}}
+    \caption{\label{fig:LCD_back} I$^{2}$C převodník napojený na~LCD~\cite{laskakit-LCD}}
   \end{minipage}
 \end{figure}
 
@@ -40,12 +41,12 @@ Na obrázku~\ref{fig:encoder-working} je~vidět, jak enkodér funguje uvnitř. D
   \begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{img/encoder-working.jpg}
-    \caption{\label{fig:encoder-working} Vnitřní schéma enkodéru; převzato z~\cite{how-encoders-work}}
+    \caption{\label{fig:encoder-working} Vnitřní schéma enkodéru~\cite{how-encoders-work}}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{img/encoder-graph.jpg}
-    \caption{\label{fig:encoder-graph} Výstup enkodéru; převzato z~\cite{how-encoders-work}}
+    \caption{\label{fig:encoder-graph} Výstup enkodéru~\cite{how-encoders-work}}
   \end{minipage}
 \end{figure}
 
@@ -53,7 +54,7 @@ Použitý rotační enkodér má další dva kontakty připojené k tlačítku p
 
 \begin{table}[htb]
   \centering
-  \begin{tabular}{c|c}
+  \begin{tabular}{c | c}
     kontakt enkodéru & kontakt RPi \\
     \hline
     C                & GND         \\
@@ -67,7 +68,8 @@ Použitý rotační enkodér má další dva kontakty připojené k tlačítku p
 
 
 \subsection{Čtení pozice z~rotačního enkodéru}
-U rotačního enkodéru se~při každé otáčce změní připojení pinů několikkrát. Chceme-li pozorovat pouze počet těchto změn, stačí spočítat změny na~jednom kontaktu. Pokud je~ale zapotřebí pozorovat i směr otáčení, je~nutné pozorovat stav obou kontaktů. Pokud se~enkodér otáčí po~směru hodinových ručiček, kontakt A~bude fázově posunut o 90 stupňů napřed oproti kontaktu B. Pokud se~eknodér otáčí proti směru hodinových ručiček, bdue naopak kontakt B o 90 stupňů napřed oproti kontaktu A. Časový průběh stavu kontaktů je naznačen na obrázku~\ref{fig:encoder_data}.
+U rotačního enkodéru se~při každé otáčce změní připojení pinů několikkrát. Chceme-li pozorovat pouze počet těchto změn, stačí spočítat změny na~jednom kontaktu. Pokud je~ale zapotřebí pozorovat i směr otáčení, je~nutné pozorovat stav obou kontaktů. Pokud se~enkodér otáčí po~směru hodinových ručiček, kontakt A~bude fázově posunut o 90 stupňů napřed oproti kontaktu B.
+Pokud se~eknodér otáčí proti směru hodinových ručiček, bude naopak kontakt B o 90 stupňů napřed oproti kontaktu A. Časový průběh stavu kontaktů je naznačen na obrázku~\ref{fig:encoder_data}.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\textwidth]{img/encoder-pinout.jpg}
@@ -76,5 +78,6 @@ U rotačního enkodéru se~při každé otáčce změní připojení pinů něko
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1\textwidth]{img/encoder_data.jpg}
-  \caption{\label{fig:encoder_data} }
+  \centering
+  \caption{\label{fig:encoder_data} Časový průběh stavu kontaktů rotačního enkodéru při otáčení hřídelí na obě strany}
 \end{figure}
