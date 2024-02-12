@@ -129,7 +129,7 @@ Tyto služby jsou zastavovány a spouštěny pomocí softwaru systemd a jeho ná
 V mém kódu tudíž používám funkci \mintinline{js}{execSync} k zastavení služeb hostapd a dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable hostapd dnsmasq")}.
 
 \subsubsection{zeromq.js}
-Dále je v programu využita knihovna zeromq.js~\cite{zeromq.js} pro komunikaci s ostatními programy. V následujícím příkladu je vidět, jak je použita.
+Dále je v programu využita knihovna zeromq.js~\cite{zeromqjs} pro komunikaci s ostatními programy. V následujícím příkladu je vidět, jak je použita.
 
 \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/zmq_server.js}
 
