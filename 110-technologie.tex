@@ -4,14 +4,14 @@ ZeroMQ
 
 \section{SPI}\label{sec:spi}
 SPI (anglicky Serial Peripheral Interface) je komunikační rozhraní používané k přenosu dat mezi ovládajícím zařízením (často mikrokontrolerem) a jedním, nebo více periferními integrovynými obvody (periferiemi).
-Používá separátní kontakty (linky) pro hodinový signál, kterým mikrokontroler ovládá rychlost přenosu dat, a datové linky.
+Používá separátní kontakty (linky) pro hodinový signál (kontakt zvaný SCK), kterým mikrokontroler ovládá rychlost přenosu dat, a datové linky.
 Datové linky jsou fixně využívané k posílání dat buď periferií -- linka POCI (Peripheral Out, Controller In), nebo mikrokontrolerem -- linka PICO (Peripheral In, Controller Out).
 Dále používá separátní kontakt(y) pro výběr periferie, se kterou mikrokontroler komunikuje. Tomuto kontaktu se říká chip select (zkráceně CS). Pro každou periferii je potřeba připojit separátní CS kontakt.~\cite{sparkfun-spi}
 
 \section{I$^{2}$C}
 I$^{2}$C (anglicky Inter-Integrated Circuit) je komunikační protokol umožňující komunikaci mezi jednou nebo více periferiemi a jedním, nebo více mikrokontrolery.
 Podobně jako SPI je úrčen ke komunikaci na krátké vzdálenosti v jednom zařízení.
-Narozdíl od SPI využívá pouze dva kontakty k výměně informací včetně výběru připojené periferie, se kterou mikrokontroler chce komunikovat.
+Narozdíl od SPI využívá pouze dva kontakty (zvané SDA a SCL) k výměně informací včetně výběru připojené periferie, se kterou mikrokontroler chce komunikovat.
 Zároveň umožňuje fungování systémů s několika kontrolery.~\cite{sparkfun-i2c}
 
 Dva kontakty při použití tohoto protokolu stačí i na výběr zařízení, se kterým chce mikrokontroler komunikovat.
