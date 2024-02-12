@@ -9,7 +9,7 @@ Obvody byly navrženy v~programu KiCad, celé schéma desky je k nalezení mezi 
   \item Voltmetr baterií.
 \end{itemize}
 \fxnote{TODO: fotka desky}
-\fxnote{TODO: odkaz na kicad_sch a kicad_pcb soubory v priloze}
+\fxnote{TODO: odkaz na kicad\_sch a kicad\_pcb soubory v priloze}
 
 Kromě nich byly na~desku přidány konektory k~jednotlivým barevným vstupům laseru, LCD displeji a~k rotačnímu enkodéru, které jsou přímo napojeny na~40 pinový GPIO konektor Raspberry Pi.
 Deska byla designována jako tzv. HAT, to~znamená, že sama na~tomto konektoru drží a~nezabírá o~moc víc místa, než samotné Raspberry Pi.
@@ -17,6 +17,8 @@ Deska byla designována jako tzv. HAT, to~znamená, že sama na~tomto konektoru 
 
 \subsection{Zdroj $-15$~V}\label{sec:negative-ps}
 Napětí $-15$~V je získáváno obvodem napěťového invertoru založeném na obvodu ze zdroje~\cite{ampalyzer}. Jeho zapojení je na obrázku~\ref{fig:negative-ps}, potřebuje zdroj napětí 15V.
+
+V aktuálním stavu tento zdroj nefunguje, to bude brzo napraveno.
 
 \begin{figure}[htb]
   \centering
