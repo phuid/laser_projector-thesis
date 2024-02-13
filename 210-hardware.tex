@@ -1,20 +1,31 @@
 % !TeX root = text.tex
 \chapter{Hardware}
-Tato kapitola se~zabývá fyzickou konstrukcí a~zapojením vyrobeného laserového projektoru. Ten se~skládá z~řídící jednotky, galvanometrů s~ovládací elektronikou, laseru, chlazení a~napájení. Všechny tyto součástky jsou uloženy v~pouzdře vytisknutém na~3D tiskárně.
+Tato kapitola se~zabývá fyzickou konstrukcí a~zapojením vyrobeného laserového projektoru.  Ten~se~skládá z~řídící jednotky, galvanometrů s~ovládací elektronikou, laseru, chlazení a~napájení. Všechny tyto součástky jsou uloženy v~pouzdře vytisknutém na~3D tiskárně. Celkové schéma zapojení  je~vidět  na~obrázku~\ref{fig:scheme-whole}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth{}, trim=0 400 0 0, clip]{img/whole-scheme.jpg}
+\end{figure}
+\clearpage
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth{}, trim=0 0 0 300, clip]{img/whole-scheme.jpg}\clearpage
+  \caption{\label{fig:scheme-whole} Celkové schéma zapojení hardwarových komponentů; Signálové linky jsou znázorněny zeleně, napětí  z~baterie fialově, napětí 5 ~V~červeně  a~další napětí odstíny oranžové.}
+\end{figure}
 
 \section{Řídící jednotka -- Raspberry Pi}
-Jako hlavní řídící jednotka byl použit jednodeskový počítač Raspberry Pi, který je vidět na obrázku~\ref{fig:RPi}. To hned z několika důvodů:
+Jako hlavní řídící jednotka  byl~použit jednodeskový počítač Raspberry Pi, který je~vidět na~obrázku~\ref{fig:RPi}. To~hned  z~několika důvodů:
 \begin{itemize}
-  \item Jednoduché připojení k Wi-Fi sítím --- Raspberry Pi je možné připojit k blízké Wi-Fi síti nebo si může vytvořit vlastní, na které funguje jako wifi modem.
-  \item Operační systém Raspberry Pi OS --- Běží na něm operační systém založen na Linuxu, je pro něj jednoduché vytvářet programy a také programy můžou jednoduše interagovat s potenciálně připojenou klávesnicí, myší nebo monitorem.
-  \item Vysoký výkon --- Oproti mikrokontrolerům nabízí podstatně vyšší výkon, ten se může hodit, potřebujeme-li spouštět několik programů zároveň nebo chceme-li procesovat video z kamery.
+  \item Jednoduché připojení  k~Wi-Fi sítím --- Raspberry Pi ~je~možné připojit  k~blízké Wi-Fi síti nebo si~může vytvořit vlastní, na~které funguje jako wifi modem.
+  \item Operační systém Raspberry Pi ~OS~--- Běží na~něm operační systém založen na~Linuxu, je ~pro~něj jednoduché vytvářet programy  a~také programy můžou jednoduše interagovat  s~potenciálně připojenou klávesnicí, myší nebo monitorem.
+  \item Vysoký výkon --- Oproti mikrokontrolerům nabízí podstatně vyšší výkon,  ten~se~může hodit, potřebujeme-li spouštět několik programů zároveň nebo chceme-li procesovat video  z~kamery.
 \end{itemize}
-Raspberry Pi na sobě má 40 pinový GPIO header, skrze který je možné interagovat s připojenými čipy a moduly.
+Raspberry Pi ~na~sobě má 40 pinový GPIO header, skrze který je~možné interagovat  s~připojenými čipy  a~moduly.
 
 \begin{figure}[htb]
     \centering
   \includegraphics[width=0.8\textwidth]{img/RPi.png}
-  \caption{\label{fig:RPi} Pohled zvrchu na Raspberry Pi~\cite{rpi-image}}
+  \caption{\label{fig:RPi} Pohled zvrchu na~Raspberry Pi~\cite{rpi-image}}
 \end{figure}
 
 \input{212-galvos.tex}

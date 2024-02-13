@@ -1,25 +1,28 @@
 \section{UI}
-Program UI je psaný v~jazyce c++ stejně jako program lasershow. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem. Také příjmá informace od programů lasershow a wifi\_manager a posílá jim vstup od uživatele.
+Program UI ~je~psaný v~jazyce c++ stejně jako program lasershow. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem. Také příjmá informace od~programů lasershow  a~wifi\_manager  a~posílá  jim~vstup od~uživatele.
 
-Na LCD displeji má uživatel díky tomuto programu přístup k menu, kde jsou zobrazeny aktuální informace o promítání a wifi připojení a kde uživatel může měnit nastavení dvou backendových programů.
+Na  LCD~displeji má uživatel díky tomuto programu přístup  k~menu,  kde~jsou zobrazeny aktuální informace  o~promítání  a~wifi připojení  a~kde uživatel může měnit nastavení dvou backendových programů.
 
-\fxnote{TODO fotosss + popis how it exists}
+\fxnote{TODO fotosss}
 
 \subsection{Využité knihovny}
 \subsubsection{wPi\_soft\_lcd}
-Hlavní využitou knihovnou je wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umožňuje jednoduchou komunikaci s LCD prostřednictvím I$^{2}$C převodníku. Její použití je vidět na následující ukázce.
+Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umožňuje jednoduchou komunikaci  s~LCD prostřednictvím I$^{2}$C převodníku. Její použití  je~vidět  v~ukázce kódu~\ref{list:soft_lcd}.
 
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/soft_lcd.cpp}
+\begin{code}
+    \captionof{listing}{\label{list:soft_lcd} Využití knihovny wPi\_soft\_lcd  v~programu  UI~ke komunikaci  s~LCD}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/soft_lcd.cpp}
+\end{code}
 
-% Mezi nejdůležitější funkce této knihovny, které používám ve svém kódu patří:
+% Mezi nejdůležitější funkce této knihovny, které používám ve~svém kódu patří:
 % \begin{itemize}
-%     \item \mintinline{cpp}{lcd_t *lcd_create(int scl, int sda, int addr, int lines)} --- Tato funkce inicializuje komunikaci s I$^{2}$C převodníkem. Je nutné ji zavolat před jiným použitím knihovny.
-%           Příjmá čísla pinů I$^{2}$C sběrnice, na které je připojený displej, dále příjmá I$^{2}$C adresu převodníku a počet řádků displeje. Funkce vrací pointer na nově vytvořenou strukturu typu \mintinline{cpp}{lcd_t}, který je potřeba k volání dalších funkcí knihovny. Jestliže se nepodaří inicializovat knihovnu, vrací hodnotu \mintinline{cpp}{NULL}.
-%     \item \mintinline{cpp}{void lcd_printf(lcd_t *lcd, const char* format, ... )} --- K vypsání textu na LCD využívám tuto funkci. Příjmá pointer vrácený funkcí \mintinline{cpp}{lcd_create}, formátovací řetězec a případně další argumenty stejně, jako známá funkce \mintinline{cpp}{printf} ze standartní knihovny programovacího jazyka C.
-%     \item \mintinline{cpp}{void lcd_clear (lcd_t *lcd)} --- Funkce při jejím zavolání vymaže všechen text zobrazený na LCD. Příjmá pointer funkcí \mintinline{cpp}{lcd_create}.
-%     \item \mintinline{cpp}{void lcd_pos(lcd_t *lcd, int row, int col)} --- Touto funkcí je možno nastavit pozici virtuálního kurzoru, od kterého začne vypisovat funkce \mintinline{cpp}{lcd_printf}. Příjmá  pointer funkcí \mintinline{cpp}{lcd_create}, číslo řádku a číslo sloupce požadované pozice kurzoru. Obě čísla jsou počítaná od nuly.
-%     \item \mintinline{cpp}{void lcd_backlight_dim (lcd_t *lcd, float intensity)} --- Funkce, která nastaví střídu PWM signálu na GPIO pinu 18 a tím reguluje jas podsvícení LCD. Příjmá pointed vrácený funkcí \mintinline{cpp}{lcd_create} a desetinné číslo od 0 do 1, značící požadovanou intenzitu podsvícení.
-%     \item \mintinline{cpp}{void lcd_create_char(lcd_t *lcd, int n, char *data)} --- Touto funkcí je možné definovat vlastní znaky, které se zobrazí na LCD. Příjmá pointer vrácený funkcí \mintinline{cpp}{lcd_create}, číslo znaku, který má být definován a pole 8 bytů, které reprezentuje vlastní znak.
+%     \item \mintinline{cpp}{lcd_t *lcd_create(int scl,  int~sda,  int~addr,  int~lines)} --- Tato funkce inicializuje komunikaci  s~I$^{2}$C převodníkem. Je~nutné ji~zavolat před jiným použitím knihovny.
+%           Příjmá čísla pinů I$^{2}$C sběrnice, na~které je~připojený displej, dále příjmá I$^{2}$C adresu převodníku  a~počet řádků displeje. Funkce vrací pointer na~nově vytvořenou strukturu typu \mintinline{cpp}{lcd_t}, který je~potřeba  k~volání dalších funkcí knihovny. Jestliže se~nepodaří inicializovat knihovnu, vrací hodnotu \mintinline{cpp}{NULL}.
+%     \item \mintinline{cpp}{void lcd_printf(lcd_t *lcd, const char* format, ... )} ---  K~vypsání textu na ~LCD~využívám tuto funkci. Příjmá pointer vrácený funkcí \mintinline{cpp}{lcd_create}, formátovací řetězec  a~případně další argumenty stejně, jako známá funkce \mintinline{cpp}{printf} ze~standartní knihovny programovacího jazyka C.
+%     \item \mintinline{cpp}{void lcd_clear (lcd_t *lcd)} --- Funkce při jejím zavolání vymaže všechen text zobrazený na~LCD. Příjmá pointer funkcí \mintinline{cpp}{lcd_create}.
+%     \item \mintinline{cpp}{void lcd_pos(lcd_t *lcd,  int~row,  int~col)} --- Touto funkcí je~možno nastavit pozici virtuálního kurzoru, od~kterého začne vypisovat funkce \mintinline{cpp}{lcd_printf}. Příjmá  pointer funkcí \mintinline{cpp}{lcd_create}, číslo řádku  a~číslo sloupce požadované pozice kurzoru. Obě čísla jsou počítaná od~nuly.
+%     \item \mintinline{cpp}{void lcd_backlight_dim (lcd_t *lcd, float intensity)} --- Funkce, která nastaví střídu  PWM~signálu na~GPIO pinu 18  a~tím reguluje  jas~podsvícení LCD. Příjmá pointed vrácený funkcí \mintinline{cpp}{lcd_create}  a~desetinné číslo od~0 do~1, značící požadovanou intenzitu podsvícení.
+%     \item \mintinline{cpp}{void lcd_create_char(lcd_t *lcd,  int~n, char *data)} --- Touto funkcí je~možné definovat vlastní znaky, které se~zobrazí na~LCD. Příjmá pointer vrácený funkcí \mintinline{cpp}{lcd_create}, číslo znaku, který má být definován  a~pole 8 bytů, které reprezentuje vlastní znak.
 %     \item \mintinline{cpp}{}
 %     \item \mintinline{cpp}{}
 %     \item \mintinline{cpp}{}
@@ -27,52 +30,59 @@ Hlavní využitou knihovnou je wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umo�
 % \end{itemize}
 
 \subsubsection{wiringPi}
-Předchozí popsaná knihovna pro posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do jednoho programu dvě knihovny interagující s hardwarem, stejnou knihovnu využívám i pro čtení dat z enkodéru.
+Předchozí popsaná knihovna  pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující  s~hardwarem, stejnou knihovnu využívám  i~pro čtení  dat~z enkodéru. Její využití  k~detekci změn  na~pinech enkodéru  je~vidět  na~ukázce kódu~\ref{list:wiringpi}
 
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/wiringpi_isr.cpp}
+\begin{code}
+    \captionof{listing}{\label{list:wiringpi} Využití knihovny wiringPi  v~programu  UI~k registraci přerušení (interruptů)}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/wiringpi_isr.cpp}
+\end{code}
 
-Je nepraktické využívat ve dvou programech jinou knihovnu na interakci s hardwarem, proto v budoucnu budou knihovna wPi\_soft\_lcd a celý tento program přepsány tak, aby využívaly modernější knihovnu pigpio popsanou v kapitole~\ref{sec:ls_pigpio} stejně jako program lasershow.
+Je nepraktické využívat ve~dvou programech jinou knihovnu na~interakci  s~hardwarem, proto  v~budoucnu budou knihovna wPi\_soft\_lcd  a~celý tento program přepsány tak,  aby~využívaly modernější knihovnu pigpio popsanou  v~kapitole~\ref{sec:ls_pigpio} stejně jako program lasershow.
 
 % \begin{itemize}
-% \item \mintinline{cpp}{void pinMode (int pin, int mode)} --- Funkce, která pro GPIO pin z argumentu \mintinline{cpp}{pin} nastaví mód z argumentu \mintinline{cpp}{mode}. Jako argument \mintinline{cpp}{mode} používám hodnotu \mintinline{cpp}{INPUT}, která pin zaregistruje pro vstup.
-% \item \mintinline{cpp}{void pullUpDnControl (int pin, int pud)} Funkce připojí na pin \mintinline{cpp}{pin} pull-up nebo pull-down rezistor podle argumentu \mintinline{cpp}{pud}. Jako argument \mintinline{cpp}{pud} používám hodnotu \mintinline{cpp}{PUD_UP}, která k pinu připojí pull-up rezistor.
-% \item \mintinline{cpp}{int wiringPiISR (int pin, int mode, void (*function)(void))} --- Tato funkce nastaví přerušení na pin \mintinline{cpp}{pin}. Tak, aby při změně hodnoty na tomto pinu byla zavolána tzv. callback funkce z argumentu \mintinline{cpp}{function}. Argument \mintinline{cpp}{mode} úrčuje, jestli je funkce zavolána pouze při tzv. rising edge, tzv. falling edge, nebo při obou. Já v tomto argumentu používám hodnotu \mintinline{cpp}{INT_EDGE_BOTH}.
+% \item \mintinline{cpp}{void pinMode (int pin,  int~mode)} --- Funkce, která  pro~GPIO  pin~z argumentu \mintinline{cpp}{pin} nastaví mód  z~argumentu \mintinline{cpp}{mode}. Jako argument \mintinline{cpp}{mode} používám hodnotu \mintinline{cpp}{INPUT}, která  pin~zaregistruje  pro~vstup.
+% \item \mintinline{cpp}{void pullUpDnControl (int pin,  int~pud)} Funkce připojí na ~pin~\mintinline{cpp}{pin} pull-up nebo pull-down rezistor podle argumentu \mintinline{cpp}{pud}. Jako argument \mintinline{cpp}{pud} používám hodnotu \mintinline{cpp}{PUD_UP}, která  k~pinu připojí pull-up rezistor.
+% \item \mintinline{cpp}{int wiringPiISR (int pin,  int~mode, void (*function)(void))} --- Tato funkce nastaví přerušení na ~pin~\mintinline{cpp}{pin}. Tak,  aby~při změně hodnoty na~tomto pinu byla zavolána tzv. callback funkce  z~argumentu \mintinline{cpp}{function}. Argument \mintinline{cpp}{mode} úrčuje, jestli je~funkce zavolána pouze při tzv. rising edge, tzv. falling edge, nebo při obou. Já  v~tomto argumentu používám hodnotu \mintinline{cpp}{INT_EDGE_BOTH}.
 % \end{itemize}
 
 \subsubsection{cppzmq}
-Samozřejmě program také využívá knihovnu cppzmq~\cite{cppzmq} a popsanou v kapitole~\ref{sec:ls_cppzmq}. Program ji používá podobně jako program lasershow, ne však stejně.
+Samozřejmě program také využívá knihovnu cppzmq~\cite{cppzmq}  a~popsanou  v~kapitole~\ref{sec:ls_cppzmq}. Program ji~používá podobně jako program lasershow, ne~však stejně.
 
 Největším rozdílem je, že místo funkce \mintinline{cpp}{void zmq::socket_t::bind} používá funkci \mintinline{cpp}{void zmq::socket_t::connect(const char *addr_)}.
-Funkci \mintinline{cpp}{bind} je totiž potřeba zavolat přesně jednou pro každý socket.
-Jestliže ji už pro sockety zavolal program lasershow, popřípadě wifi\_manager a socket tedy už je registrovaný k danému portu, je třeba zavolat funkci \mintinline{cpp}{connect}.
+Funkci \mintinline{cpp}{bind} je~totiž potřeba zavolat přesně jednou  pro~každý socket.
+Jestliže ji~už  pro~sockety zavolal program lasershow, popřípadě wifi\_manager  a~socket tedy už je~registrovaný  k~danému portu, je~třeba zavolat funkci \mintinline{cpp}{connect}.
 
-Dále samozřejmě stejně jako všechny frontendové programy do vstupního socketu zprávy posílá a z výstupního socketu zprávy čte. Následuje celková ukázka využití knihovny frontendovým programem v jazyce c++.
+Dále samozřejmě stejně jako všechny frontendové programy do~vstupního socketu zprávy posílá  a~z výstupního socketu zprávy čte. Celková ukázka využití knihovny frontendovým programem  v~jazyce c++  je~v ukázce kódu~\ref{list:zmq_c_cpp}.
 
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_client.cpp}
+\begin{code}
+    \captionof{listing}{\label{list:zmq_c_cpp} Využití knihovny cppzmq  v~programu UI}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_client.cpp}
+\end{code}
 
 \subsection{Struktura programu}
-Program začne inicializací komunikace s LCD.
-Poté pokračuje registrací interruptů na pinech, ke kterým je připojen enkodér. A následně se připojí k socketům aplikací lasershow a wifi\_manager.
+Program začne inicializací komunikace  s~LCD.
+Poté pokračuje registrací interruptů na~pinech, ke~kterým je~připojen enkodér.  A~následně se~připojí  k~socketům aplikací lasershow  a~wifi\_manager.
 
-V další části programu je definováno samotné menu. To má podobu struktury \mintinline{cpp}{menu_option}, která je definována následovně.
-
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
-template <typename T>
-struct menu_val
+V další části programu je~definováno samotné menu. To~má podobu struktury \mintinline{cpp}{menu_option}.  V~ukázce kódu~\ref{list:menu_option}  je~vidět,  jak~je tato struktura dufinována.
+\begin{code}
+    \captionof{listing}{\label{list:menu_option} Definice struktury menu\_option  v~programu UI}
+    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
+        template <typename T>
+        struct menu_val
+        {
+             T num;
+   T min;
+   T max;
+   T change_by = 1;
+  };
+  
+  enum menu_option_style
 {
-  T num;
-  T min;
-  T max;
-  T change_by = 1;
-};
-
-enum menu_option_style
-{
-  NESTED_MENU = 0,
-  VALUE,
-  SELECTION, // all childrem are style text, nest_selected is written to value after button is pressed
-  TEXT,
-  ROOT_MENU,
+    NESTED_MENU = 0,
+    VALUE,
+    SELECTION, //  all childrem  are style text, nest_selected is written to value after button is pressed
+    TEXT,
+    ROOT_MENU,
   UNDEFINED
 };
 
@@ -80,32 +90,34 @@ struct menu_option
 {
   std::string name; // Text zobrazený uživateli
 
-  std::string command_name; // interní název položky pro komunikaci s backendovými programy
+  std::string command_name; // interní název položky  pro komunikaci  s backendovými programy
 
-  menu_option_style style = UNDEFINED; // Typ položky; od něj se odvíjí přístup k položce
+  menu_option_style style = UNDEFINED; //  Typ položky; od něj se odvíjí přístup  k položce
 
   std::vector<menu_option> nested_menu_options = {}; // Podpoložky této položky
   uint8_t nest_selected = 0; // Vybraná podpoložka
   uint8_t nest_scroll = 0; // Interní hodnota; Úrčuje které podpoložky mají zrovna být vykresleny
   bool nest_option_active = 0; // Úrčuje, jestli je zrovna vybraná podpoložka aktivní
-  bool redraw = 0; // Vlajka indikující, zda má být obsah položky znovu vykreslen, například pokud se změnil
+  bool redraw = 0; // Vlajka indikující,  zda má být obsah položky znovu vykreslen, například pokud se změnil
 
-  menu_val<float> value; // hodnota položky, například u položek typu VALUE
+  menu_val<float> value; // hodnota položky, například  u položek typu VALUE
 
   bool has_function = 0;
   void (*function)(zmq::socket_t &, menu_option &);
-};
+  };
 \end{minted}
+\end{code}
 
-Díky ní je možné definovat menu poměrně jednoduchým způsobem, například takto:
-
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
-menu_option root = {
-    .name = "ROOT",
-    .style = ROOT_MENU,
-    .nested_menu_options = {
-        {
-            .name = "progress%",
+Díky ní je~možné definovat menu poměrně jednoduchým způsobem. 7krácený příklad  je~v ukázce kódu~\ref{list:menu_def}
+\begin{code}
+    \captionof{listing}{\label{list:menu_def} Příklad definice menu  v programu UI}
+    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
+        menu_option root = {
+            .name = "ROOT",
+        .style = ROOT_MENU,
+        .nested_menu_options = {
+            {
+                .name = "progress%",
             .command_name = "progress",
             .style = VALUE,
             .value = {0, 0, 100, 0.5},
@@ -115,9 +127,9 @@ menu_option root = {
             .command_name = "current_frame",
             .style = VALUE,
             .value = {1, 1, 1, 1},
-        },
-        {
-            .name = "-no out received-",
+            },
+            {
+                .name = "-no  out received-",
             .style = TEXT
         },
         {
@@ -133,7 +145,7 @@ menu_option root = {
             .style = TEXT,
             .has_function = 1,
             .function = send_option_command
-        },
+            },
         {
             .name = "PROJECT",
             .style = NESTED_MENU,
@@ -161,8 +173,8 @@ menu_option root = {
                     .command_name = "point_delay",
                     .style = VALUE,
                     .value = {0, 0, 10000, 10},
-                },
-                {
+                    },
+                    {
                     .name = "target_frame_time",
                     .command_name = "target_frame_time",
                     .style = VALUE,
@@ -183,48 +195,57 @@ menu_option root = {
             },
             .has_function = 1,
             .function = read_options,
-        }}};
-\end{minted}
+            }}};
+        \end{minted}
+    \end{code}
+        
+        Následuje nekonečný cyklus, ve~kterém program příjmá zprávy od~programů lasershow  a~wifi\_manager  a~volá funkci \mintinline{cpp}{bool menu_interact(lcd_t *lcd, zmq::socket_t &command_sender, menu_option &parent_menu_option, bool redraw = 0)}, která rekurzivně prochází menu následujícím způsobem.
+Vždy, pokud má atribut \mintinline{cpp}{parent_menu_option.nest_option_active} hodnotu true  a~atribut \mintinline{cpp}{style} objektu \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]} je~roven \mintinline{cpp}{NESTED_MENU}, zavolá sebe samou,  ale~jako argument \mintinline{cpp}{parent_menu_option} použije právě objekt \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]}.
+\fxnote{TODO: před odevzdanim osetrit line breaks tady}
+Jakmile takto najde zrovna aktivní položku menu, přečte proměnnou,  kde~je~uložená relativní pozice enkodéru oproti poslednímu čtení  a~dle této proměnné se~změní proměnnou \mintinline{cpp}{parent_menu_option.nest_selected}.
 
-Následuje nekonečný cyklus, ve kterém program příjmá zprávy od programů lasershow a wifi\_manager a volá funkci \mintinline{cpp}{bool menu_interact(lcd_t *lcd, zmq::socket_t &command_sender, menu_option &parent_menu_option, bool redraw = 0)}, která rekurzivně prochází menu následujícím způsobem.
-Vždy, pokud má atribut \mintinline{cpp}{parent_menu_option.nest_option_active} hodnotu true a atribut \mintinline{cpp}{style} objektu \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]} je roven \mintinline{cpp}{NESTED_MENU}, zavolá sebe samou, ale jako argument \mintinline{cpp}{parent_menu_option} použije právě objekt \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]}.
-Jakmile takto najde zrovna aktivní položku menu, přečte proměnnou, kde je uložená relativní pozice enkodéru oproti poslednímu čtení a dle této proměnné se změní proměnnou \mintinline{cpp}{parent_menu_option.nest_selected}.
-
-Pokud narazí na aktivní položku menu, jejíž atribut \mintinline{cpp}{style} je roven \mintinline{cpp}{VALUE}, chování funkce se lehce změní. V takovém případě se změní hodnota, kterou tato položka menu reprezentuje. Ta je uložena v atributu \mintinline{cpp}{value} právě vybrané položky.
+Pokud narazí na~aktivní položku menu, jejíž atribut \mintinline{cpp}{style} je~roven \mintinline{cpp}{VALUE}, chování funkce se~lehce změní.  V~takovém případě se~změní hodnota, kterou tato položka menu reprezentuje. Ta ~je~uložena  v~atributu \mintinline{cpp}{value} právě vybrané položky.
 
 \section{web\_ui}
 
-Narozdíl od~předchozích dvou zmiňovaných programů je~program web\_ui psaný v~jazyce javascript, ten nepatří mezi nejrychlejší, ale díky runtime Node.js a~knihovnám http a~formidable v~něm bylo časově nenáročné vytořit http web server.
+Narozdíl od~předchozích dvou zmiňovaných programů je~program web\_ui psaný v~jazyce javascript,  ten~nepatří mezi nejrychlejší,  ale~díky runtime Node.js a~knihovnám http a~formidable v~něm bylo časově nenáročné vytořit http  web~server.
 
 Tento server běží na~portu 3000 a~je~dostupný z~lokální sítě (tzn. přímo z\~Raspberry Pi~na~adrese http://localhost:3000 nebo z~jakéhokoliv zařízení na~stejné lokální síti na~IP~adrese RPi).
-Program je~využíván pro jednoduchou interakci s~uživatelem.
+Program je~využíván  pro~jednoduchou interakci s~uživatelem.
 Ten může pomocí webového prohlížeče ovládat laserový projektor pár kliknutími nebo zadávat vlastní příkazy klávesnicí.
 
-Ve webovém prostředí jsou zatím konzole pro ssh přístup k Raspberry Pi a pro komunikaci s programy wifi\_manager a~lasershow.
-Také je v něm formulář, kde si uživatel může jednoduše vybrat soubor k projekci.
-To ve výběrovém menu, kde se mu zobrazí soubory už uložené ve složce pro ně určené. Dále se ve webovém prostředí nachází formulář, kterým uživatel do této složky může soubor nahrát. Soubory může nahrávat ve formátech .svg a .ild.
-Aktuální stav webového prostředí je vidět na obrázku~\ref{fig:web_ui_screenshot}.
+Ve webovém prostředí jsou zatím konzole  pro~ssh přístup  k~Raspberry Pi ~a~pro komunikaci  s~programy wifi\_manager a~lasershow.
+Také je ~v~něm formulář,  kde~si~uživatel může jednoduše vybrat soubor  k~projekci.
+To ve~výběrovém menu,  kde~se ~mu~zobrazí soubory už uložené ve~složce  pro~ně určené. Dále se ~ve~webovém prostředí nachází formulář, kterým uživatel do~této složky může soubor nahrát. Soubory může nahrávat ve~formátech .svg  a~.ild.
+Aktuální stav webového prostředí je~vidět na~obrázku~\ref{fig:web_ui_screenshot}.
 
 \fxnote{TODO: obrazk}
 
-V blízké budoucnosti do prostředí přibudou prvky, které mohou ovládat frontu, nastavení programů lasershow a wifi\_manager. Později by měla přibýt funkce kreslení v prohlížeči, kdy uživatel bude moct v prohlížeči nakreslit požadovaný tvar a projektor ho už v průběhu kreslení bude promítat. Tato funkce by měla v budoucnu být propojena s kamerou připojenou na Raspberry Pi. V tu chvíli uživatel bude mít možnost v prohlížeči kreslit do obrazu reálného světa.
+V blízké budoucnosti do~prostředí přibudou prvky, které mohou ovládat frontu, nastavení programů lasershow  a~wifi\_manager. Později by~měla přibýt funkce kreslení  v~prohlížeči,  kdy~uživatel bude moct  v~prohlížeči nakreslit požadovaný tvar  a~projektor ho~už  v~průběhu kreslení bude promítat. Tato funkce by~měla  v~budoucnu být propojena  s~kamerou připojenou na~Raspberry Pi.  V~tu~chvíli uživatel bude mít možnost  v~prohlížeči kreslit do~obrazu reálného světa.
 
 \subsection{Využité knihovny}
 \subsubsection{Http}
-Knihovny http, formidable, socket.io a cterm.js jsou využity k vytvoření interaktivního http serveru, ke kterému se uživatel může připojit ze svého prohlížeče. 
+Knihovna http  je~využita  k~jednoduchému vytvoření interaktivního http serveru, ke~kterému se~uživatel může připojit ze~svého prohlížeče. Příklad takového serveru  je~vidět  v~ukázce kódu~\ref{list:http}
+\begin{code}
+    \captionof{listing}{\label{list:http} Příklad http serveru  v~jazyce javascript  s~knihovnou http}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/http_static_files.js}
+\end{code}
+    
+\subsubsection{Zeromq.js, ssh2, socket.io  a~xterm.js}
+Http server tedy pošle prohlížeči uživatele kód, který  v~tomto prohlížeči běží. Poté je~knihovna socket.io je~využita ke~komunikaci mezi kódem běžícím  v~prohlížeči uživatele (klientem)  a~kódem běžícím na~Raspberry Pi~(serverem).
+Společně  s~knihovnou zeromq.js umožňují tomuto programu fungovat jako prostředník mezi klientem  a~backendovými programy. Díky knihovně ssh2 také tímto spojením je~možné přímo  z~prohlížeče psát do~příkazového řádku.
 
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/http_static_files.js}
+Knihovna xterm.js běžící  v~kódu klienta je~využita  k~dosažení interaktivity  a~vzhledu konzolí, které se~uživateli ve~webovém rozhraní zobrazují.
 
-\subsubsection{Zeromq.js, ssh2, socket.io a xterm.js}
-Http server tedy pošle prohlížeči uživatele kód, který v tomto prohlížeči běží. Poté je knihovna socket.io je využita ke komunikaci mezi kódem běžícím v prohlížeči uživatele (klientem) a kódem běžícím na Raspberry Pi (serverem).
-Společně s knihovnou zeromq.js umožňují tomuto programu fungovat jako prostředník mezi klientem a backendovými programy. Díky knihovně ssh2 také tímto spojením je možné přímo z prohlížeče psát do příkazového řádku.
-
-Knihovna xterm.js běžící v kódu klienta je využita k dosažení interaktivity a vzhledu konzolí, které se uživateli ve webovém rozhraní zobrazují.
-
-V následujících dvou ukázkách je vidět, jak server předává klientovi data od backendových programů a jak je klient uživateli vykresluje.
-
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_server.js}
-\inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_client.js}
+V ukázkách kódu \ref{list:socketio_s}  a~\ref{list:socketio_c} je~vidět,  jak~server předává klientovi data od~backendových programů  a~jak je~klient uživateli vykresluje.
+\begin{code}
+    \captionof{listing}{\label{list:socketio_s} Kód programu web\_ui běžící  na~serveru.  Ten~příjmá informace pomocí knihovny zeromq.js  a~předává  je~klientovi pomocí knihovny socket.io.}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_server.js}
+\end{code}
+\begin{code}
+    \captionof{listing}{\label{list:socketio_c} Kód programu web\_ui běžící  v~prohlížeči.  Ten~příjmá informace  od~serveru knihovny socket.io  a~zobrazuje  je~uživateli kromě jiného pomocí knihovny xterm.js.}
+    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_client.js}
+\end{code}
 
 % \subsubsection{}
 % Stejně jako program UI~za~pomoci knihovny ZeroMQ tento program odebírá z~výstupního socketu zprávy o~průběhu vykreslování od~programu lasershow a~odesílá mu~pokyny uživatele na~vstupní socket.
@@ -233,8 +254,8 @@ V následujících dvou ukázkách je vidět, jak server předává klientovi da
 
 \section{discord bot}
 
-Posledním programem, který by měl být využíván k~interakci s~uživatelem je~discord\_bot. Ten bude naprogramován a uveden do provozu v blízké budoucnosti.
+Posledním programem, který by~měl být využíván k~interakci s~uživatelem je~discord\_bot.  Ten~bude naprogramován  a~uveden do~provozu  v~blízké budoucnosti.
 
-Měl by sloužit k interakci s uživatelem v chattovací aplikaci discord. Bude~také psaný v~jazyce javascript v~runtime Node.js, stejně jako předchozí programy se~přihlásí k~socketům knihovnou zmq, ale na~rozdíl od~nich tento program bude moct interagovat s~uživatelem přes internet, ať už je~kdekoliv na~světě.
+Měl by~sloužit  k~interakci  s~uživatelem  v~chattovací aplikaci discord. Bude~také psaný v~jazyce javascript v~runtime Node.js, stejně jako předchozí programy se~přihlásí k~socketům knihovnou zmq,  ale~na~rozdíl od~nich tento program bude moct interagovat s~uživatelem přes internet, ať už je~kdekoliv na~světě.
 
-Pomocí knihovny discord.js se~přihlásí k~předem vytvořenému bot účtu, který může na~předem vytvořeném discord serveru čekat na~zprávy od~uživatele, ty~posílat do~vstupního socketu a~posílat uživateli zpětnou vazbu, kterou příjme z~výstupního socketu.
+Pomocí knihovny discord.js se~přihlásí k~předem vytvořenému  bot~účtu, který může na~předem vytvořeném discord serveru čekat na~zprávy od~uživatele, ty~posílat do~vstupního socketu a~posílat uživateli zpětnou vazbu, kterou příjme z~výstupního socketu.
