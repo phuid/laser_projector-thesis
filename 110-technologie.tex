@@ -12,22 +12,23 @@ Umožňuje tedy programovat kód pro~server ve~stejném jazyce, který běží v
 
 \section{SPI}\label{sec:spi}
 SPI (anglicky Serial Peripheral Interface) je~komunikační rozhraní používané k~přenosu dat~mezi ovládajícím zařízením (často mikrokontrolerem) a~jedním, nebo více periferními integrovynými obvody (periferiemi).
-Používá separátní kontakty (linky) pro~hodinový signál (kontakt zvaný SCK), kterým mikrokontroler ovládá rychlost přenosu dat, a~datové linky.
+Používá separátní vodič (linky) pro~hodinový signál (SCK), kterým mikrokontroler ovládá rychlost přenosu dat, a~datové linky.
 Datové linky jsou fixně využívané k~posílání dat~buď periferií -- linka POCI (Peripheral Out, Controller In), nebo mikrokontrolerem -- linka PICO (Peripheral In, Controller Out).
-Dále používá separátní kontakt(y) pro~výběr periferie, se~kterou mikrokontroler komunikuje. Tomuto kontaktu se~říká chip select (zkráceně CS). Pro~každou periferii je~potřeba připojit separátní CS~kontakt.~\cite{sparkfun-spi}
+Dále používá separátní vodič(e) pro~výběr periferie, se~kterou mikrokontroler komunikuje. Tomuto vodiči se~říká chip select (zkráceně CS). Pro~každou periferii je~potřeba připojit separátní CS~vodič.~\cite{sparkfun-spi}
 
 \section{I$^{2}$C}
 I$^{2}$C (anglicky Inter-Integrated Circuit) je~komunikační protokol umožňující komunikaci mezi jednou nebo více periferiemi a~jedním, nebo více mikrokontrolery.
 Podobně jako SPI~je~úrčen ke~komunikaci na~krátké vzdálenosti v~jednom zařízení.
-Narozdíl od~SPI~využívá pouze dva~kontakty (zvané SDA~a SCL) k~výměně informací včetně výběru připojené periferie, se~kterou mikrokontroler chce komunikovat.
+Narozdíl od~SPI~využívá pouze dva~vodiče (zvané SDA~a SCL) k~výměně informací včetně výběru připojené periferie, se~kterou mikrokontroler chce komunikovat.
 Zároveň umožňuje fungování systémů s~několika kontrolery.~\cite{sparkfun-i2c}
 
-Dva kontakty při použití tohoto protokolu stačí i~na~výběr zařízení, se~kterým chce mikrokontroler komunikovat.
-Po začátku komunikace totiž sběrnicí\footnote{Sběrnice I$^{2}$C je~systém zařízení propojený protokolem I$^{2}$C na~dvou stejných kontaktech.} mikrokontroler pošle tzv. adresu zařízení se~kterým chce komunikovat~\cite{sparkfun-i2c}.
+Dva vodiče při použití tohoto protokolu stačí i~na~výběr zařízení, se~kterým chce mikrokontroler komunikovat.
+Po začátku komunikace totiž sběrnicí\footnote{Sběrnice I$^{2}$C je~systém zařízení propojený protokolem I$^{2}$C na~dvou stejných vodičích.} mikrokontroler pošle tzv. adresu zařízení se~kterým chce komunikovat~\cite{sparkfun-i2c}.
 Adresa zařízení je~sestavena ze~sedmi bitů a~může tedy dosahovat 127 různých hodnot (kromě systémů s~10bitovou adresou; Ty~jsou ale~vzácné).
 Většinou je~pro~danou periferii nastavena od~výroby, ui~některých je~ale~možné ji~softwarově změnit.
 
 \section{Pull-up a~pull-down rezistory}
+\fxnote{possibly zbytecne TODO: oddelat}
 Pokud při čtení z~GPIO pinů mikrokontrolerů či jiných zařízení k~danému pinu není nic~připojeno, je~těžké předpovědět, jaký stav na~tomto pinu přečteme.
 Když tento fenomén nastane, říká se, že je~pin~floating (plovoucí)~\cite{sparkfun-pud}.
 Může nastat například, chceme-li číst stav tlačítka, přes které by~byl~pin připojen na~zem. Když tlačítko není zmáčknuté, pin~na~zem~připojen není a~tudíž je~floating.
@@ -48,6 +49,5 @@ Výsledný signál při využití této techniky je~ilustrován na~obrázku~\ref
   \caption{\label{fig:pwm} PWM~signál s~měnící se~střídou; Střída naznačena oranžovou křivkou. Převzato a~upraveno z~\cite{pwm-image}}
 \end{figure}
 
-čislovani GPIO
-interrupt
-
+\section{Přerušení (Interrupt)}
+Přerušení nastává, nastane-li za běhu programu náhle potřeba obsloužit hardwarovou událost. Procesor při něm přeruší vykonávání sledu instrukcí, obslouží přerušení a poté pokračuje v předchozí činnosti~\cite{wiki-interrupt}.

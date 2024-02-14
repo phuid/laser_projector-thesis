@@ -1,6 +1,6 @@
 \section{Displej z~tekutých krystalů (LCD)}
 Pro zobrazování informací uživateli přímo na~zařízení byl~využit alfanumerický\footnote{Alfanumerický -- Řídící jednotka displeji místo pixelů posílá celé znaky, které sám vykresluje.} LCD~s řadičem HD44780 a~s~rozlišením 20~x~4 znaky. K~displeji je~také připojen I$^{2}$C převodník, který slouží jako prostředník mezi řadičem displeje a~Raspberry Pi.
-Komunikační protokol LCD~totiž využívá podstatně více kontaktů, než I$^{2}$C sběrnice, kterou Raspberry Pi~komunikuje s~převodníkem.
+Komunikační protokol LCD~totiž využívá podstatně více vodičů, než I$^{2}$C sběrnice, kterou Raspberry Pi~komunikuje s~převodníkem.
 % Převodník je~k~pinům Raspberry Pi~připojen dle~tabulky~\ref{tab:LCD_conn}.
 
 \begin{figure}[htb]
@@ -35,7 +35,7 @@ Komunikační protokol LCD~totiž využívá podstatně více kontaktů, než I$
 \section{Rotační enkodér}
 Rotační enkodér je~typ~pozičního senzoru používaný k~měření rotace otáčivé hřídele~\cite{how-encoders-work}. Existuje mnoho druhů enkodérů, rozdělují se~dle~signálu, který vydávají a~dle~technologie, kterou měří rotaci hřídele~\cite{how-encoders-work}. V~této práci je~použit mechanický inkrementální enkodér s~tlačítkem.
 
-Na obrázku~\ref{fig:encoder-working} je~vidět, jak~enkodér funguje uvnitř. Dva~kontakty A~a~B při rotaci získávají a~ztrácí kontakt s~kontaktem C. Připojíme-li ke~kontaktu C~zem a~ke~kontaktům A~a~B pull-up rezistory (klidně softwarově), dá se~toto získávání a~ztrácení kontaktu zaznamenat do~grafu na~obrázku~\ref{fig:encoder-graph} jako dva~signály obdélníkového průběhu vzájemně fázově posunuté o~90 stupňů.
+Na obrázku~\ref{fig:encoder-working} je~vidět, jak~enkodér funguje uvnitř. Dva~kontakty A~a~B při rotaci získávají a~ztrácí spojení s~kontaktem C. Připojíme-li ke~kontaktu C~zem a~ke~kontaktům A~a~B pull-up rezistory (klidně softwarově), dá se~toto získávání a~ztrácení kontaktu zaznamenat do~grafu na~obrázku~\ref{fig:encoder-graph} jako dva~signály obdélníkového průběhu vzájemně fázově posunuté o~90 stupňů.
 
 \begin{figure}[htb]
   \centering
@@ -73,7 +73,7 @@ Celé zapojení enkodéru je~naznačeno na~obrázku~\ref{fig:encoder-pinout}. Ko
 
 \subsection{Čtení pozice z~rotačního enkodéru}
 U rotačního enkodéru se~při každé otáčce změní připojení pinů několikkrát. Chceme-li pozorovat pouze počet těchto změn, stačí spočítat změny na~jednom kontaktu. Pokud je~ale~zapotřebí pozorovat i~směr otáčení, je~nutné pozorovat stav obou kontaktů. Pokud se~enkodér otáčí po~směru hodinových ručiček, kontakt A~bude fázově posunut o~90 stupňů napřed oproti kontaktu B.
-Pokud se~eknodér otáčí proti směru hodinových ručiček, bude naopak kontakt B~o 90 stupňů napřed oproti kontaktu A. Časový průběh stavu kontaktů je~naznačen na~obrázku~\ref{fig:encoder_data}.
+Pokud se~eknodér otáčí proti směru hodinových ručiček, bude naopak kontakt B~o 90 stupňů napřed oproti kontaktu A. Časový průběh stavu kontaktů při~otáčení je~naznačen na~obrázku~\ref{fig:encoder_data}.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\textwidth]{img/encoder-pinout.jpg}
@@ -83,5 +83,5 @@ Pokud se~eknodér otáčí proti směru hodinových ručiček, bude naopak konta
   \centering
   \includegraphics[width=1\textwidth]{img/encoder_data.jpg}
   \centering
-  \caption{\label{fig:encoder_data} Časový průběh stavu kontaktů rotačního enkodéru při otáčení hřídelí na~obě strany}
+  \caption{\label{fig:encoder_data} Časový průběh stavu kontaktů rotačního enkodéru při~otáčení hřídelí na~obě strany}
 \end{figure}
