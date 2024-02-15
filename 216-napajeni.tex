@@ -9,7 +9,7 @@ Celkové schéma napájení je~vidět na~obrázku~\ref{fig:power-schem-full}.
 
 \subsection{Akumulátory}
 K napájení projektoru byly využity 4 Lithium-iontové akumulátory Samsung INR~18650 s~kapacitou 3~450~mAh~a jmenovitým napětím 3,7~V. Ty~byly zapojeny nejdříve po~dvojicích paralelně a~následně byly tyto dvojice zapojeny sériově. Konečný článek tedy dosahuje jmenovitého napětí 7,4~V.
-
+\
 \subsection{BMS modul}
 Na baterie byl~napojen ochranný BMS~(Battery management system) modul, který ji~chrání před následujícími stavy:
 \begin{itemize}
@@ -18,7 +18,7 @@ Na baterie byl~napojen ochranný BMS~(Battery management system) modul, který j
   \item vybití,
   \item nevybalancované články.
 \end{itemize}
-Modul články balancuje a~v případě, že nastane jiný z~nežádoucích stavů, ji~odpojí. Modul je~na~obrázku~\ref{fig:BMS}
+Modul články balancuje a~v případě, že nastane jiný z~nežádoucích stavů, ji~odpojí. Modul je~na~obrázku~\ref{fig:BMS}.
 
 
 \begin{figure}[htb]
@@ -26,7 +26,7 @@ Modul články balancuje a~v případě, že nastane jiný z~nežádoucích stav
   \begin{minipage}{0.45\textwidth}
     \centering
   \includegraphics[width=0.8\textwidth]{img/BMS.jpg}
-  \caption{\label{fig:BMS} BMS~Modul se~třemi kontakty pro~sérii baterií (0V, 4.2V a~8.4V) a~výstupními kontakty ($(+)$ a~$(-)$)~\cite{laskakit-BMS}}
+  \caption{\label{fig:BMS} BMS~Modul se~třemi kontakty pro~sérii baterií (0~V, 4,2~V a~8,4~V) a~výstupními kontakty ($(+)$ a~$(-)$)~\cite{laskakit-BMS}}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \centering
@@ -63,7 +63,7 @@ Ten se~nachází na~desce s~integrovaným obvodem, který přes port komunikuje 
   \begin{minipage}{0.35\textwidth}
     \centering
   \includegraphics[width=1\textwidth]{img/XL6009.jpg}
-  \caption{\label{fig:XL6009} step-up měnič s~čipem XL6009~\cite{laskakit-XL6009}}
+  \caption{\label{fig:XL6009} Step-up měnič s~čipem XL6009~\cite{laskakit-XL6009}}
   \end{minipage}\hfill
   \begin{minipage}{0.3\textwidth}
     \centering
@@ -87,8 +87,8 @@ Různé komponenty projektoru pracují s~různými napětími. Je~tedy potřeba 
 
 \begin{itemize}
   \item 5V --- Napětí Raspberry Pi, LCD~a relé modulu; Zajištěno step-down měničem s~čipem XL4005 (viz obrázek~\ref{fig:XL4005}.)
-  \item 12V --- Napětí Laserového modulu; Zajištěno step-up měničem s~čipem MT3608 (Viz obrázek~\ref{fig:MT3608}.)
-  \item Symetrické napětí $\pm{}15$~V~--- Napětí řídící desky galvanmetrů; Kladná větev je~zajištěna step-up měničem s~čipem XL6009 (viz obrázek~\ref{fig:XL6009}.), záporná větev je~zajištěna obvodem zdroje -15~V~na~HAT~DPS (viz kapitola~\ref{sec:negative-ps}).
+  \item 12V --- Napětí Laserového modulu; Zajištěno step-up měničem s~čipem MT3608 (viz obrázek~\ref{fig:MT3608}.)
+  \item Symetrické napětí $\pm{}15$~V~--- Napětí řídící desky galvanmetrů; Kladná větev je~zajištěna step-up měničem s~čipem XL6009 (viz obrázek~\ref{fig:XL6009}.), záporná větev je~zajištěna obvodem zdroje $-15$~V~na~HAT~DPS (viz kapitola~\ref{sec:negative-ps}).
 \end{itemize}
 
 
@@ -97,11 +97,11 @@ Různé komponenty projektoru pracují s~různými napětími. Je~tedy potřeba 
   \begin{minipage}{0.45\textwidth}
     \centering
   \includegraphics[width=0.8\textwidth]{img/XL4005.jpg}
-  \caption{\label{fig:XL4005} step-down měnič s~čipem XL4005~\cite{laskakit-XL4005}}
+  \caption{\label{fig:XL4005} Step-down měnič s~čipem XL4005~\cite{laskakit-XL4005}}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \centering
   \includegraphics[width=0.8\textwidth]{img/MT3608.jpg}
-  \caption{\label{fig:MT3608} step-up měnič s~čipem MT3608~\cite{laskakit-MT3608}}
+  \caption{\label{fig:MT3608} Step-up měnič s~čipem MT3608~\cite{laskakit-MT3608}}
   \end{minipage}
 \end{figure}

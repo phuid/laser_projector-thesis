@@ -1,4 +1,3 @@
-//server
 /* části, kde knihovna http odesílá, nebo příjmá soubory jsou přeskočeny */
 
 var zmq = require("zeromq"),

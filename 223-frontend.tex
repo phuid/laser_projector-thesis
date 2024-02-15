@@ -1,9 +1,23 @@
 \section{UI}
-Program UI~je~psaný v~jazyce C++ stejně jako program lasershow. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I2C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem. Také příjmá informace od~programů lasershow a~wifi\_manager a~posílá jim~vstup od~uživatele.
+Program UI~je~psaný v~jazyce C++ stejně jako program lasershow. Tento program ovládá OLED displej, který je~připojený na~Raspberry Pi~pomocí rozhraní I$^{2}$C, a~přijímá vstup od~uživatele čtením rotačního enkodéru s~tlačítkem. Také příjmá informace od~programů lasershow a~wifi\_manager a~posílá jim~vstup od~uživatele.
 
-Na LCD~displeji má uživatel díky tomuto programu přístup k~menu, kde~jsou zobrazeny aktuální informace o~promítání a~wifi připojení a~kde uživatel může měnit nastavení dvou backendových programů.
+Na LCD~displeji má uživatel díky tomuto programu přístup k~menu, kde~jsou zobrazeny aktuální informace o~promítání a~wifi připojení a~kde uživatel může měnit nastavení dvou backendových programů. Fotky zobrazení menu jsou na obrázcích~\ref{fig:uilcdmain},~\ref{fig:uilcdsec} a~\ref{fig:uilcdwifi}.
 
-\fxnote{TODO fotosss}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/ui_lcd_main.jpg}
+    \caption{\label{fig:uilcdmain} Úvodní obrazovka menu na LCD; Zobrazuje se odshora: procentuální poměr počtu zobrazených snímků vůči celkovému počtu snímků v projekci, číslo aktuálního snímku v sekvenci, poslední přijatá zpráva od programu lasershow a tlačítko k zastavení projekce. Napravo od obrazovky je vidět rotační enkodér se kterým uživatel interaguje.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/ui_lcd_second.jpg}
+    \caption{\label{fig:uilcdsec} Pokračování úvodní obrazovky menu na LCD; Odshora je vidět tlačítko k zastavení projekce v čase, sekundární menu pro výběr souboru, sekundární menu pro nastavení projekce a sekundární menu pro nastavení WiFi připojení.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/ui_lcd_wifi.jpg}
+    \caption{\label{fig:uilcdwifi} Sekundární menu pro nastavení WiFi připojení na LCD}
+\end{figure}
 
 \subsection{Využité knihovny}
 \subsubsection{wPi\_soft\_lcd}
@@ -30,7 +44,7 @@ Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umo�
 % \end{itemize}
 
 \subsubsection{wiringPi}
-Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu~\ref{list:wiringpi}
+Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu~\ref{list:wiringpi}.
 
 \begin{code}
     \captionof{listing}{\label{list:wiringpi} Využití knihovny wiringPi v~programu UI~k registraci přerušení (interruptů)}
@@ -46,7 +60,7 @@ Je nepraktické využívat ve~dvou programech jinou knihovnu na~interakci s~hard
 % \end{itemize}
 
 \subsubsection{cppzmq}
-Samozřejmě program také využívá knihovnu cppzmq~\cite{cppzmq} a~popsanou v~kapitole~\ref{sec:ls_cppzmq}. Program ji~používá podobně jako program lasershow, ne~však stejně.
+Samozřejmě program také využívá knihovnu cppzmq~\cite{cppzmq} popsanou v~kapitole~\ref{sec:ls_cppzmq}. Program ji~používá podobně jako program lasershow, ne~však stejně.
 
 Největším rozdílem je, že místo funkce \mintinline{cpp}{void zmq::socket_t::bind} používá funkci \mintinline{cpp}{void zmq::socket_t::connect(const char *addr_)}.
 Funkci \mintinline{cpp}{bind} je~totiž potřeba zavolat přesně jednou pro~každý socket.
@@ -66,7 +80,7 @@ Poté pokračuje registrací interruptů na~pinech, ke~kterým je~připojen enko
 V další části programu je~definováno samotné menu. To~má podobu struktury \mintinline{cpp}{menu_option}. V~ukázce kódu~\ref{list:menu_option} je~vidět, jak~je tato struktura dufinována.
 \begin{code}
     \captionof{listing}{\label{list:menu_option} Definice struktury menu\_option v~programu UI}
-    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
+    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos, breaklines]{cpp}
         template <typename T>
         struct menu_val
         {
@@ -108,10 +122,10 @@ struct menu_option
 \end{minted}
 \end{code}
 
-Díky ní je~možné definovat menu poměrně jednoduchým způsobem. 7krácený příklad je~v ukázce kódu~\ref{list:menu_def}
+Díky ní je~možné definovat menu poměrně jednoduchým způsobem. Zkrácený příklad je~v ukázce kódu~\ref{list:menu_def}.
 \begin{code}
     \captionof{listing}{\label{list:menu_def} Příklad definice menu v programu UI}
-    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{cpp}
+    \begin{minted}[breaklines, frame=lines,fontsize=\footnotesize,linenos]{cpp}
         menu_option root = {
             .name = "ROOT",
         .style = ROOT_MENU,
@@ -200,7 +214,9 @@ Díky ní je~možné definovat menu poměrně jednoduchým způsobem. 7krácený
     \end{code}
         
         Následuje nekonečný cyklus, ve~kterém program příjmá zprávy od~programů lasershow a~wifi\_manager a~volá funkci \mintinline{cpp}{bool menu_interact(lcd_t *lcd, zmq::socket_t &command_sender, menu_option &parent_menu_option, bool redraw = 0)}, která rekurzivně prochází menu následujícím způsobem.
-Vždy, pokud má atribut \mintinline{cpp}{parent_menu_option.nest_option_active} hodnotu true a~atribut \mintinline{cpp}{style} objektu \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]} je~roven \mintinline{cpp}{NESTED_MENU}, zavolá sebe samou, ale~jako argument \mintinline{cpp}{parent_menu_option} použije právě objekt \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]}.
+Vždy, pokud má atribut \\
+\mintinline{cpp}{parent_menu_option.nest_option_active} hodnotu true a~atribut \mintinline{cpp}{style} objektu \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]} je~roven \mintinline{cpp}{NESTED_MENU}, zavolá sebe samou, ale~jako argument \mintinline{cpp}{parent_menu_option} použije právě objekt \\
+\mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]}.
 \fxnote{TODO: před odevzdanim osetrit line breaks tady}
 Jakmile takto najde zrovna aktivní položku menu, přečte proměnnou, kde~je~uložená relativní pozice enkodéru oproti poslednímu čtení a~dle této proměnné se~změní proměnnou \mintinline{cpp}{parent_menu_option.nest_selected}.
 
@@ -216,23 +232,33 @@ Ten může pomocí webového prohlížeče ovládat laserový projektor pár kli
 
 Ve webovém prostředí jsou zatím konzole pro~ssh přístup k~Raspberry Pi~a~pro komunikaci s~programy wifi\_manager a~lasershow.
 Také je~v~něm formulář, kde~si~uživatel může jednoduše vybrat soubor k~projekci.
-To ve~výběrovém menu, kde~se~mu~zobrazí soubory už uložené ve~složce pro~ně určené. Dále se~ve~webovém prostředí nachází formulář, kterým uživatel do~této složky může soubor nahrát. Soubory může nahrávat ve~formátech .svg a~.ild.
-Aktuální stav webového prostředí je~vidět na~obrázku~\ref{fig:web_ui_screenshot}.
+V něm se~mu~zobrazí soubory už uložené ve~složce pro~ně určené. Dále se~ve~webovém prostředí nachází formulář, kterým uživatel do~této složky může soubor nahrát. Soubory může nahrávat ve~formátech .svg a~.ild.
+Aktuální stav webového rozhraní je~vidět na~obrázcích~\ref{fig:uisshfile} a~\ref{fig:uiwebsettings}.
 
-\fxnote{TODO: obrazk}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{img/ui_ssh-file.jpg}
+    \caption{\label{fig:uisshfile} Webové rozhraní; Napravo si uživatel vybírá soubor k projekci, nalevo je vidět odshora: formulář pro nahrání souboru, ssh konzole a základní ovládací prvky.}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{img/ui_web_settings.jpg}
+    \caption{\label{fig:uiwebsettings} Webové rozhraní; Nalevo jsou vidět nastavení a informace o stavu baterie a WiFi připojení. To vše bylo zobrazeno po kliknutí na ikonku ozubeného kola v levém dolním rohu. Barva této ikonky je nyní saturovanější. Napravo je vidět odshora: formulář pro výběr souboru k projekci, konzole programu lasershow, konzole programu wifi\_manager a úplně dole název a průběh aktuálně vykreslovaného souboru.}
+\end{figure}
 
 V blízké budoucnosti do~prostředí přibudou prvky, které mohou ovládat frontu, nastavení programů lasershow a~wifi\_manager. Později by~měla přibýt funkce kreslení v~prohlížeči, kdy~uživatel bude moct v~prohlížeči nakreslit požadovaný tvar a~projektor ho~už v~průběhu kreslení bude promítat. Tato funkce by~měla v~budoucnu být propojena s~kamerou připojenou na~Raspberry Pi. V~tu~chvíli uživatel bude mít možnost v~prohlížeči kreslit do~obrazu reálného světa.
 
 \subsection{Využité knihovny}
 \subsubsection{Http}
-Knihovna http je~využita k~jednoduchému vytvoření interaktivního http serveru, ke~kterému se~uživatel může připojit ze~svého prohlížeče. Příklad takového serveru je~vidět v~ukázce kódu~\ref{list:http}
+Knihovna http je~využita k~jednoduchému vytvoření interaktivního http serveru, ke~kterému se~uživatel může připojit ze~svého prohlížeče. Příklad takového serveru je~vidět v~ukázce kódu~\ref{list:http}.
 \begin{code}
     \captionof{listing}{\label{list:http} Příklad http serveru v~jazyce javascript s~knihovnou http}
     \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/http_static_files.js}
 \end{code}
     
 \subsubsection{Zeromq.js, ssh2, socket.io a~xterm.js}
-Http server tedy pošle prohlížeči uživatele kód, který v~tomto prohlížeči běží. Poté je~knihovna socket.io je~využita ke~komunikaci mezi kódem běžícím v~prohlížeči uživatele (klientem) a~kódem běžícím na~Raspberry Pi~(serverem).
+Http server tedy pošle prohlížeči uživatele kód, který v~tomto prohlížeči běží. Poté je~knihovna socket.io využita ke~komunikaci mezi kódem běžícím v~prohlížeči uživatele (klientem) a~kódem běžícím na~Raspberry Pi~(serverem).
 Společně s~knihovnou zeromq.js umožňují tomuto programu fungovat jako prostředník mezi klientem a~backendovými programy. Díky knihovně ssh2 také tímto spojením je~možné přímo z~prohlížeče psát do~příkazového řádku.
 
 Knihovna xterm.js běžící v~kódu klienta je~využita k~dosažení interaktivity a~vzhledu konzolí, které se~uživateli ve~webovém rozhraní zobrazují.

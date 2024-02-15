@@ -29,7 +29,7 @@ S laserem je~tedy možné vytvořit 7 barev -- červenou, zelenou, modrou, žlut
 \end{figure}
 
 Naštěstí i~zde~je~možné uplatnit jev~persistance of~vision a~sice pomocí techniky PWM~popsané v~kapitole~\ref{sec:pwm}.
-Nastavíme-li tedy střídu signálu pro~červenou diodu na~100~\% a~pro~zelenou diodu na~50~\% výsledný paprsek bude pro~lidské oko~mít barvu s~rgb hodnotou (255, 127, 0) neboli oranžovou.
+Nastavíme-li tedy střídu signálu pro~červenou diodu na~100~\% a~pro~zelenou diodu na~50~\%, výsledný paprsek bude pro~lidské oko~mít barvu s~rgb hodnotou (255, 127, 0) neboli oranžovou.
 
 I tato technologie má ovšem své limitace, řídící deska laserového modulu zvládá přijímat signál o~maximální frekvenci 35~kHz~(Raspberry Pi~je~schopno vysílat s~frekvencí až 40~kHz), což vzhledem k~rychlosti pohybu laseru v~některých případech nemusí stačit.
 Může se~stát, že při vykreslování křivky se~paprsek stihne posunout dříve, než uplyne perioda pwm~signálu. Pokud se~tak~stane, budou různé sousední části křivky mít různou barvu.

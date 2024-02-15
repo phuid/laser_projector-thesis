@@ -43,8 +43,8 @@ V~tomto odvětví zatím převládají jiné technologie. Technologie průhledov
 \end{itemize}
 
 V prvních průhledových displejích bylo využito CRT. Ale~kvůli své neskladnosti, vysoké spotřebě elektřiny a~škodlivé radiaci, byla nahrazena technologií LCD. Dnes se~v~průhledových displejích letadel využívají LCD. V~automobilech se~využívají LCD~a~VFD.
-Bohužel, VFD~jsou limitovány množstvím informací, které mohou zobrazit. LCD~průhledové displeje jsou limitovány svým maximálním jasem.
-S novou technologií OLED sice je~možné vytvořit tenký a~průhledný displej dosahující vyšího jasu, než LCD~HUD.
+Bohužel VFD~jsou limitovány množstvím informací, které mohou zobrazit. LCD~průhledové displeje jsou limitovány svým maximálním jasem.
+S novou technologií OLED sice je~možné vytvořit tenký a~průhledný displej dosahující vyšího jasu než LCD~HUD.
 I tento displej bohužel oproti vnějšímu světu má stále relativně nízký jas, také má vysokou cenu a~krátkou životnost.
 Oproti vyzařujícím a~podsvíceným displejům jsou laserové displeje nadřazené.~\cite{dev-of-laser-huds-in-driving}
 
@@ -52,8 +52,16 @@ Oproti vyzařujícím a~podsvíceným displejům jsou laserové displeje nadřaz
 Když se~laserový paprsek pohybuje dostatečně rychle, lidské oko~ho~vnímá jako spojitou linku světla -- tomuto jevu se~říká \It{persistance of~vision} nebo \It{persistance of~impression}~\cite{persistance-of-vision}.
 Čím rychleji se~paprsek pohybuje, tím méně intenzivní připadá oku~zmíněná linka. Bod~je~možné vykreslit, jestliže paprsek zůstane na~jednom místě bez~pohybu po~úrčitou dobu.~\cite{laser-projection}
 
-Vykreslení čáry je~základní a~nejjednoduší operací, jakou laserový projektor může vykonat. Například k~vykreslení Úsečky z~bodu A~do~bodu B~projektor nasměřuje laserový paprsek na~bod~A, zapne laser a~pohybuje paprskem k~bodu B.~\cite{laser-projection}
+Vykreslení čáry je~základní a~nejjednoduší operací, jakou laserový projektor může vykonat. Například k~vykreslení úsečky z~bodu A~do~bodu B~projektor nasměřuje laserový paprsek na~bod~A, zapne laser a~pohybuje paprskem k~bodu B.~\cite{laser-projection}
 
 K vykreslení složitějších obrázků jsou potřeba tzv. blank\ lines, kdy~projektor otáčí zrcátky stejně, jako kdyby vykresloval přímku, ale~laser nesvítí. Blank lines spojují každé dvě vykreslené linky, které na~sebe přímo nenavazují.~\cite{laser-projection}
 
 Nestihne-li projektor vykreslovat obraz dostatečně rychle, výsledná projekce nebude stabilní. Lidské oko~vždy uvidí pouze části obrazu v~časové návaznosti. Tomuto jevu se~říká \uv{flickering}.~\cite{laser-projection}
+
+Příklad obrazu vykresleného laserovým projektorem je vidět na obrázku~\ref{fig:gyrec}. Na tomto obrázku foto aparát zachytil i částečný \uv{flickering}, pro lidské oko ovšem nebyl viditelný.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1\textwidth]{img/gyrec.JPG}
+  \caption{\label{fig:gyrec} Ukázka projekce; doba závěrky fotoaparátu 1/30~s}
+\end{figure}

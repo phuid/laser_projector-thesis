@@ -175,7 +175,8 @@
 	{#1}
 
 	\vspace{\baselineskip}
-	\noindent Tato práce byla provedena za~finanční podpory Jihomoravského kraje.
+	\noindent Tato práce byla vypracována za
+	finanční podpory JCMM a JmK.
 	\begin{figure}[h]
 	\begin{subfigure}{.5\textwidth}
   		\includegraphics[width=.8\linewidth]{template/jmk.jpg}

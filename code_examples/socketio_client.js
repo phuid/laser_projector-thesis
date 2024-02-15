@@ -1,5 +1,4 @@
-// klient
-// knihovny jsou přiádny v html kódu
+// knihovny jsou přidány v html kódu
 
 class terminal {
   constructor(container_id) { // díky tomuto kontruktoru je jednoduché k více terminálům knihovny xterm.js přiřadit jejich html elementy a nastavit jejich vlastnosti

@@ -23,18 +23,18 @@ Narozdíl od~SPI~využívá pouze dva~vodiče (zvané SDA~a SCL) k~výměně inf
 Zároveň umožňuje fungování systémů s~několika kontrolery.~\cite{sparkfun-i2c}
 
 Dva vodiče při použití tohoto protokolu stačí i~na~výběr zařízení, se~kterým chce mikrokontroler komunikovat.
-Po začátku komunikace totiž sběrnicí\footnote{Sběrnice I$^{2}$C je~systém zařízení propojený protokolem I$^{2}$C na~dvou stejných vodičích.} mikrokontroler pošle tzv. adresu zařízení se~kterým chce komunikovat~\cite{sparkfun-i2c}.
+Po začátku komunikace totiž sběrnicí\footnote{Sběrnice I$^{2}$C je~systém zařízení propojený protokolem I$^{2}$C na~dvou stejných vodičích.} mikrokontroler pošle tzv. adresu zařízení, se~kterým chce komunikovat~\cite{sparkfun-i2c}.
 Adresa zařízení je~sestavena ze~sedmi bitů a~může tedy dosahovat 127 různých hodnot (kromě systémů s~10bitovou adresou; Ty~jsou ale~vzácné).
-Většinou je~pro~danou periferii nastavena od~výroby, ui~některých je~ale~možné ji~softwarově změnit.
+Většinou je~pro~danou periferii nastavena od~výroby, u~některých je~ale~možné ji~softwarově změnit.
 
-\section{Pull-up a~pull-down rezistory}
-\fxnote{possibly zbytecne TODO: oddelat}
-Pokud při čtení z~GPIO pinů mikrokontrolerů či jiných zařízení k~danému pinu není nic~připojeno, je~těžké předpovědět, jaký stav na~tomto pinu přečteme.
-Když tento fenomén nastane, říká se, že je~pin~floating (plovoucí)~\cite{sparkfun-pud}.
-Může nastat například, chceme-li číst stav tlačítka, přes které by~byl~pin připojen na~zem. Když tlačítko není zmáčknuté, pin~na~zem~připojen není a~tudíž je~floating.
+% \section{Pull-up a~pull-down rezistory}
+% \fxnote{possibly zbytecne TODO: oddelat}
+% Pokud při čtení z~GPIO pinů mikrokontrolerů či jiných zařízení k~danému pinu není nic~připojeno, je~těžké předpovědět, jaký stav na~tomto pinu přečteme.
+% Když tento fenomén nastane, říká se, že je~pin~floating (plovoucí)~\cite{sparkfun-pud}.
+% Může nastat například, chceme-li číst stav tlačítka, přes které by~byl~pin připojen na~zem. Když tlačítko není zmáčknuté, pin~na~zem~připojen není a~tudíž je~floating.
 
-V takových případech se~k~pinu připojuje tzv. pull-up rezistor, který zaručí, že z~pinu v~případě, že tlačítko stisknuté není, přečteme hodnotu HIGH.
-Rozdíl mezi pull-up a~pull-down rezistory je~pouze v~tom, že pull-up rezistory připojují pin~k napětí, na~kterém zařízení pracuje (často 3,3 nebo 5~V) a~pull-down rezistory rezistory připojují pin~k zemi.~\cite{sparkfun-pud}
+% V takových případech se~k~pinu připojuje tzv. pull-up rezistor, který zaručí, že z~pinu v~případě, že tlačítko stisknuté není, přečteme hodnotu HIGH.
+% Rozdíl mezi pull-up a~pull-down rezistory je~pouze v~tom, že pull-up rezistory připojují pin~k napětí, na~kterém zařízení pracuje (často 3,3 nebo 5~V) a~pull-down rezistory rezistory připojují pin~k zemi.~\cite{sparkfun-pud}
 
 \section{PWM (Pulse Width Modulation)}\label{sec:pwm}
 PWM (z~anglického Pulse Width Modulation) se~využívá jako alternativa analogového řízení v~případech, kdy~je~potřeba řídit analogovou proměnnou binárním signálem, tedy signálem nabývyjících hodnot \uv{zapnuto/vypnuto}.

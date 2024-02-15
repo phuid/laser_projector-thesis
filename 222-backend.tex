@@ -30,8 +30,6 @@ Nastavením projekcí jsou myšleny:
 \end{itemize}
 
 
-\fxnote{přidám obrázky ukazující jednotlivá nastavení}
-
 \subsection{Využité knihovny}
 \subsubsection{cppzmq}\label{sec:ls_cppzmq}
 Knihovna cppzmq~\cite{cppzmq} je~knihovna zprostředkující sockety ZeroMQ v~jazyce C++. Využití této knihovny je~vidět v~ukázce kódu~\ref{list:zmq_s_cpp}.
@@ -52,7 +50,7 @@ Knihovna cppzmq~\cite{cppzmq} je~knihovna zprostředkující sockety ZeroMQ v~ja
 % \end{itemize}
 
 \subsubsection{ADCDACPi}
-Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s~D/A převodníkem mcp4822, využitém v~generátoru signálu pro~galvanometry, viz~kapitola~\ref{sec:ilda-signal-gen}, přes rozhraní SPI. Její použití je~vidět na~ukázce kódu~\ref{list:adcdac}
+Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s~D/A převodníkem mcp4822, využitém v~generátoru signálu pro~galvanometry, viz~kapitola~\ref{sec:ilda-signal-gen}, přes rozhraní SPI. Její použití je~vidět na~ukázce kódu~\ref{list:adcdac}.
 \begin{code}
   \captionof{listing}{\label{list:adcdac} Využití knihovny ADCDACPi v~programu lasershow}
   \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/adcdac.cpp}
@@ -120,14 +118,14 @@ Program wifi\_manager je~napsaný v~jazyce JavaScript s~využitím runtime Node.
 \subsection{Funkce programu}
 Program umožňuje uživateli měnit nastavení WiFi připojení Raspberry Pi. Nastavením WiFi připojení jsou myšleny tři stavy.
 Prvním stavem je~\uv{WiFi}, kdy~Raspberry Pi~vyhledává v~okolí známé sítě, ke~kterým by~se~mohlo připojit.
-Druhým stavem \uv{Hotspot}, v~tomto stavu Raspberry Pi~vysílá vlastní WiFi síť ve~které se~stalo přístupvým bodem.
+Druhým stavem \uv{Hotspot}, v~tomto stavu Raspberry Pi~vysílá vlastní WiFi síť, ve~které se~stalo přístupovým bodem.
 A třetím stavem je~\uv{WiFi připojení vypnuto}, kdy~je~WiFi anténa Raspberry Pi~neaktivní.
 
 Program má také svůj konfiguranční soubor, kam~si, podobně jako lasershow, ukládá aktuální nastavení, aby~si~ho~\uv{pamatoval} i~po~restartu systému.
 
 \subsubsection{Služby obsluhující WiFi připojení}
-Spuštění přístupopvého bodu na~Raspberry Pi~totiž není tak~jednoduchá, je~při ní potřeba změnit nastavení dvou služeb umožňujících provoz hotspotu a~restartovat je. Tyto služby jsou hostapd a~dnsmasq.
-Hostapd je~služba umožňující využití Raspberry Pi~jako přístupového bodu. Spravuje například ověření totožnosti přijovaných zařízení~\cite{hostapd}. Dnsmasq je~služba, která umožňuje přiřazovat připojeným zařízením IP~adresy~\cite{dnsmasq}.
+Spuštění přístupopvého bodu na~Raspberry Pi~totiž není tak~jednoduché, je~při něm potřeba změnit nastavení dvou služeb umožňujících provoz hotspotu a~restartovat je. Tyto služby jsou hostapd a~dnsmasq.
+Hostapd je~služba umožňující využití Raspberry Pi~jako přístupového bodu. Spravuje například ověření totožnosti připojovaných zařízení~\cite{hostapd}. Dnsmasq je~služba, která umožňuje přiřazovat připojeným zařízením IP~adresy~\cite{dnsmasq}.
 
 Naopak při přechodu do~normálního \uv{WiFi} módu je~potřeba tyto služby deaktivovat a~spustit službu dhcpcd. Ta~se~chová jako klient pro~komunikaci s~přístupovým bodem protokolem DHCP~\cite{dhcpcd}. Umožňuje tedy přístupovému bodu dynamicky přiřadit Raspberry Pi~lokální IP~adresu.
 
@@ -143,7 +141,7 @@ Tyto služby jsou zastavovány a~spouštěny pomocí softwaru systemd a~jeho ná
 V mém kódu tudíž používám funkci \mintinline{js}{execSync} k~zastavení služeb hostapd a~dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable hostapd dnsmasq")}.
 
 \subsubsection{Zeromq.js}
-Dále je~v~programu využita knihovna zeromq.js~\cite{zeromqjs} pro~komunikaci s~ostatními programy. Jak~je~použita je~vidět v~ukázce kódu~\ref{list:zmq_s_js}.
+Dále je~v~programu využita knihovna zeromq.js~\cite{zeromqjs} pro~komunikaci s~ostatními programy. Jak~je~použita, je~vidět v~ukázce kódu~\ref{list:zmq_s_js}.
 
 \begin{code}
   \captionof{listing}{\label{list:zmq_s_js} Využití knihovny zeromq.js v~programu wifi\_manager}
@@ -154,7 +152,7 @@ Dále je~v~programu využita knihovna zeromq.js~\cite{zeromqjs} pro~komunikaci s
 
 Registruje pro~sebe dva~sockety stejně jako lasershow, jedním přijímá příkazy týkající se~nastavení WiFi a~druhým odesílá zpětnou vazbu o~aktuálním WiFi připojení. Zároveň registruje callback funkci, která se~spustí při přijetí zprávy vstupním socketem.
 
-Když příjme příkaz pro~změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu~nevyhovuje, nejdříve si~zapíše do~svého konfiguračního souboru požadovaný stav wifi připojení. Následně zastaví služby hostapd, dnsmasq a~dhcpcd, změní jim~nastavení dle~konfiguračních souborů předem uložených ve~své složce a~opět některé z~nich spustí, podle toho jakého stavu WiFi připojení se~snaží dosáhout.
+Když příjme příkaz pro~změnu připojení, zkontroluje, jestli připojení tomuto příkazu už nevyhovuje. Pokud mu~nevyhovuje, nejdříve si~zapíše do~svého konfiguračního souboru požadovaný stav wifi připojení. Následně zastaví služby hostapd, dnsmasq a~dhcpcd, změní jim~nastavení dle~konfiguračních souborů předem uložených ve~své složce a~opět některé z~nich spustí podle toho, jakého stavu WiFi připojení se~snaží dosáhout.
 Pro \uv{Hotspot} stav je~potřeba, aby~byly spuštěny služby hostapd, dnsmasq a~dhcpcd, pro~normální \uv{WiFi} stav je~potřeba spuštěná pouze služba dhcpcd.
 
 Může také příjmat příkazy, které pouze požadují hlášení o~nastavení WiFi připojení a~nechtějí toto nastavení nějak měnit. Při přijetí takového příkazu wifi\_manager přečte svůj konfigurační soubor a~pošle do~svého výstupního socketu zprávu odpovídající aktuálnímu nastavení.
