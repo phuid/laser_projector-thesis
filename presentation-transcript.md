@@ -1,0 +1,125 @@
+### Uvod (1)
+Vazena apni profesorko, mila trido, dovoluji si vam prestavit moji stredoskolskou odbornou cinnost, s nazvem rgb laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla financne podporena jihomoravskym krajem.
+
+#### Laser scanning (2)
+Laserove projektory funguji diky technologii laser scanningu, ktera spociva v rychlem pohybu laseroveho paprsku.
+
+Tato technologie se využívá například u...
+
+#### Dálkové promítání (3)
+dálkového promítání,
+#### Laser shows (4)
+laser shows pro publikum,
+#### SLA 3D tisk (5)
+v SLA 3D tiskárnách,
+#### Laserové gravírování (6)
+v laserových gravírovačkách,
+#### HUD (7)
+v head up displejích,
+#### 3D skenování (8)
+nebo také v 3d skenování prostor a zemského povrchu
+
+### Cíle (9)
+Bohužel ale neexistuje žádná uživatelsky přívětivá open-source platforma, díky které by se zájemci o laser scanning mohli s technologií seznámit.
+
+Proto jsem si vytyčil následující cíle.
+Navrhnout a sestavit laserový projektor, díky kterému by se zájemci seznámili s laser scanningem.
+Naprogramovat k tomuto projektoru sofwarove.
+
+Ten by měl umožňovat promítání, měl by mít přívětivé (jednocduché) uživatelské prostředí a mělo by být jednoduché ho nainstalovat.
+
+A nakonec software i plány projektoru nahrát na platformu github, která slouží pro sdílení open-source kódu.
+
+### Princip laserové projekce (10)
+
+Laserová púrojekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená. To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když tam žádná čára není.
+
+Tento efekt je možné pozorovat například, když roztočíme prskavku, je možné pozorovat kružnici, kterou opíše hořící bod.
+
+### Promítání (11)
+V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá paprsky ze tří diod (červené, modré a zelené) do jednoho libovolně barevného.
+
+Paprskem poté pohybuje pomocí dvou galvanometrů se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
+
+### Řídící jednotka (12)
+Jako řídící jednotku jsem si vybral jednodeskový počítač Raspberry Pi.
+V jeho odhaleném 40pinovém headeru je 27 GPIO pinů, na které můžu připojit svoje periferie.
+Raspberry Pi disponuje možností WiFi připojení, ale i připojení ethernetovým kabelem.
+Běží na něm operační systém Linux, díky kterému je možné projektor ovládat připojením monitoru a klávesnice.
+
+### LCD a enkodér (13)
+Projektor se dá ovládat i přes zabudovaný displej a rotační enkodér.
+
+### DPS -- HAT (14)
+Všechny komponenty projektoru jsou spojené deskou plošných spojů, kterou jsem nadesignoval jako takzvaný HAT.
+To znamená, že sama drží na 40 pinovém headeru Raspberry Pi a nezabírá o moc víc místa, než Raspberry Pi.
+
+Na této desce jsou kromě konektorů periferií, které jsou přímo napojeny na 40pinový konektor RPi i tři důležité obvody a sice:\
+Generátor signálu pro galvanometry,\
+zdroj symetrického napětí pro galvanometry a\
+obvod správy baterie.
+
+### Generátor signálu pro galvanometry (15)
+Z těchto obvodů stojí za to vysvětlit generátor signálu pro galvanometry.
+
+Ty příjmají dvě diferenciální analogové napětí v rozsahu -10 až +10 V,\
+kdy Každé z těchto napětí udává jednu souřadnici výsledného paprsku, X a Y.
+
+V obvodu digital to analog převodník na základě příkazů z Raspberry Pi generuje libovolné napětí v rozsahu 0 -- 5 V\
+a tento signál následně operační zesilovače transformují do požadovaného napěťového rozsahu.
+
+### Struktura softwaru (16)
+Softwarová výbava se skládá celkem z pěti programů,\
+tří frontendových (to jsou UI, web_ui a discord_bot)\
+a dvou backendových (to jsou lasershow a wifi_manager)
+
+Front-endové programy interagují s uživatelem
+a komunikují s každým back-endovým programem pomocí dvou socketů--\
+--(vstupního, kterým zasílají příkazy od uživatele
+  a výstupního, kterým příjmají informace k zobrazení uživateli).
+
+### Instalační skript (17)
+Kromě toho je součástí softwarové výbavy i instalační skript, který zajišťuje jednoduchou instalaci knihoven a závislostí mých programů
+a k tomu nastaví Raspberry Pi tak, aby se moje programy spustily při každém zapnutí.
+
+Díky němu je možné můj software nainstalovat na jakékoliv raspberry pi těmito třemi příkazy
+
+### Program lasershow – promítání (18)
+program lasershow je backendový program, který se stará o promítání.\
+Byl inspirován open-source projektem rpi-lasershow, oproti němuž má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
+ale také možnost nastavování různých vlastností projekce, které vám snad předvedu při ukázce.
+
+### Program wifi_manager (19)
+Díky programu wifi manager je možné si ve frontendových programech vybírat mezi třemi stavy wifi připojení\
+to jsou:
+- vypnutá wifi
+- zapnutá wifi, kdy se raspberry pi snaží připojit na známé sítě v okolí\
+a
+- zapnutá wifi, kdy raspberry pi vysílá vlastní wifi síť, ke které se dá připojit
+
+### Uživatelské prostředí (20)
+Přes front-endové programy může uživatel jednoduše posílat back-endovým programům příkazy\
+Uživatelské prostředí se skládá ze tří částí:
+- displeje a enkodéru přímo na zařízení
+- webového rozhraní, ke kterému se dá připojit z lokální sítě\
+a
+- bota na chattovací aplikaci discord, se kterým může uživatel interagovat odkudkoliv na světě
+
+### Výsledky (21)
+Když to shrnu,\
+v této práci jsem navrhnul a sestavil vlastní laserový projektor.\
+Naprogramoval jsem k němu jednoduché uživatelské prostředí\
+a\
+celý projekt jsem nahrál na platformu github.com, určenou ke sdílení open-source kódu
+
+V práci by se dalo pokračovat zprovozněním napájení z baterií, díky kterému by bylo možné si projektor vzít a předvést ho kdekoliv,\
+přidáním živého kreslení do webového rozhraní\
+do kterého by bylo možné implementovat i kameru.\
+v tu chvíli by bylo možné kreslit online do obrazu reality.
+
+### Poděkování (22)
+Na závěr bych rád poděkoval:
+mému externímu konzultantovi Tomáši Rohlínkovi za věcné rady a připomínky k projektu,\
+mé interní konzultantce magistře Kateřině Vídenkové za formální vedení práce,\
+JCMM a jihomoravskému kraji za finanční podpoření práce\
+a především vám za pozornost (po ukázce???)
