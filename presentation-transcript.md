@@ -36,7 +36,7 @@ Proto jsem si vytyčil následující cíle:
 
 ### Princip laserové projekce (10)
 
-Laserová púrojekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená.\
+Laserová projekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená.\
 To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když tam žádná čára není.
 
 Tento efekt je možné pozorovat například, když roztočíme prskavku.
@@ -49,7 +49,7 @@ Paprskem poté pohybuje pomocí dvou galvanometrů se zrcátky, které jsou uspo
 
 ### Řídící jednotka (12)
 Jako řídící jednotku jsem si vybral jednodeskový počítač Raspberry Pi.
-V jeho odhaleném 40pinovém headeru je 27 GPIO pinů, na které můžu připojit svoje periferie.
+V jeho odhaleném 40pinovém konektoru je 27 GPIO pinů, na které můžu připojit svoje periferie.
 Raspberry Pi disponuje možností WiFi připojení, ale i připojení ethernetovým kabelem.
 Běží na něm operační systém Linux, díky kterému je možné projektor ovládat připojením monitoru a klávesnice.
 
@@ -58,7 +58,7 @@ Projektor se dá ovládat i přes zabudovaný displej a rotační enkodér.
 
 ### DPS -- HAT (14)
 Všechny komponenty projektoru jsou spojené deskou plošných spojů, kterou jsem nadesignoval jako takzvaný HAT.
-To znamená, že sama drží na 40 pinovém headeru Raspberry Pi a nezabírá o moc víc místa, než Raspberry Pi.
+To znamená, že sama drží na 40 pinovém konektoru Raspberry Pi a nezabírá o moc víc místa, než Raspberry Pi.
 
 Na této desce jsou kromě konektorů periferií, které jsou přímo napojeny na 40pinový konektor RPi i tři důležité obvody a sice:\
 Generátor signálu pro galvanometry,\
@@ -68,7 +68,7 @@ obvod správy baterie.
 ### Generátor signálu pro galvanometry (15)
 Z těchto obvodů stojí za to vysvětlit generátor signálu pro galvanometry.
 
-Ty příjmají dvě diferenciální analogové napětí v rozsahu -10 až +10 V,\
+Galvanometry příjmají dvě diferenciální analogové napětí v rozsahu -10 až +10 V,\
 kdy Každé z těchto napětí udává jednu souřadnici výsledného paprsku, X a Y.
 
 V obvodu digital to analog převodník na základě příkazů z Raspberry Pi generuje libovolné napětí v rozsahu 0 -- 5 V\
@@ -92,7 +92,8 @@ Díky němu je možné můj software nainstalovat na jakékoliv raspberry pi tě
 
 ### Program lasershow – promítání (18)
 program lasershow je backendový program, který se stará o promítání.\
-Byl inspirován open-source projektem rpi-lasershow, oproti němuž má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
+Byl inspirován open-source projektem rpi-lasershow,\
+oproti němuž má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
 ale také možnost nastavování různých vlastností projekce, které vám snad předvedu při ukázce.
 
 ### Program wifi_manager (19)
@@ -104,7 +105,7 @@ a
 - zapnutá wifi, kdy raspberry pi vysílá vlastní wifi síť, ke které se dá připojit
 
 ### Uživatelské prostředí (20)
-Přes front-endové programy může uživatel jednoduše posílat back-endovým programům příkazy\
+Přes front-endové programy může uživatel jednoduše posílat back-endovým programům příkazy nebo nahrát soubor k promítnutí.\
 Uživatelské prostředí se skládá ze tří částí:
 - displeje a enkodéru přímo na zařízení
 - webového rozhraní, ke kterému se dá připojit z lokální sítě\
@@ -120,12 +121,18 @@ celý projekt jsem nahrál na platformu github.com, určenou ke sdílení open-s
 
 V práci by se dalo pokračovat zprovozněním napájení z baterií, díky kterému by bylo možné si projektor vzít a předvést ho kdekoliv,\
 přidáním živého kreslení do webového rozhraní\
-do kterého by bylo možné implementovat i kameru.\
-v tu chvíli by bylo možné kreslit online do obrazu reality.
+Do tohoto rozhraní by bylo možné implementovat i kameru, díky které by se dalo kreslit online do obrazu reality.
 
 ### Poděkování (22)
 Na závěr bych rád poděkoval:
 mému externímu konzultantovi Tomáši Rohlínkovi za věcné rady a připomínky k projektu,\
 mé interní konzultantce magistře Kateřině Vídenkové za formální vedení práce,\
 JCMM a jihomoravskému kraji za finanční podpoření práce\
+
+a nyní bych vám rád funkce mého projektoru ukázal.
+
+
+
+
+
 a především vám za pozornost (po ukázce???)
