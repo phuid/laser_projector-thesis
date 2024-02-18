@@ -1,13 +1,13 @@
 ### Uvod (1)
-Vazena apni profesorko, mila trido, dovoluji si vam prestavit moji stredoskolskou odbornou cinnost, s nazvem rgb laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla financne podporena jihomoravskym krajem.
+Vazena poroto, milí posluchači, rád bych vvám představil moji středoškolskou odbornou činnost, s názvem RGB Laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla finančne podpořena jihomoravským krajem.
 
 #### Laser scanning (2)
-Laserove projektory funguji diky technologii laser scanningu, ktera spociva v rychlem pohybu laseroveho paprsku.
+Laserove projektory funguji díky technologii laser scanningu, která spočívá v rychlém pohybu laserového paprsku.
 
-Tato technologie se využívá například u...
+Tato technologie se využívá například v...
 
 #### Dálkové promítání (3)
-dálkového promítání,
+dálkovém promítání,
 #### Laser shows (4)
 laser shows pro publikum,
 #### SLA 3D tisk (5)
@@ -22,19 +22,25 @@ nebo také v 3d skenování prostor a zemského povrchu
 ### Cíle (9)
 Bohužel ale neexistuje žádná uživatelsky přívětivá open-source platforma, díky které by se zájemci o laser scanning mohli s technologií seznámit.
 
-Proto jsem si vytyčil následující cíle.
-Navrhnout a sestavit laserový projektor, díky kterému by se zájemci seznámili s laser scanningem.
-Naprogramovat k tomuto projektoru sofwarove.
+Proto jsem si vytyčil následující cíle:
 
-Ten by měl umožňovat promítání, měl by mít přívětivé (jednocduché) uživatelské prostředí a mělo by být jednoduché ho nainstalovat.
+- Navrhnout a sestavit laserový projektor, díky kterému by se zájemci seznámili s laser scanningem.
+- Naprogramovat k tomuto projektoru sofwarove.
 
-A nakonec software i plány projektoru nahrát na platformu github, která slouží pro sdílení open-source kódu.
+  - Ten by měl umožňovat promítání
+  - měl by mít přívětivé (jednoduché) uživatelské prostředí\
+  a
+  - mělo by být jednoduché ho nainstalovat.
+
+- A nakonec software i plány projektoru nahrát na platformu github, která slouží pro sdílení open-source kódu.
 
 ### Princip laserové projekce (10)
 
-Laserová púrojekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená. To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když tam žádná čára není.
+Laserová púrojekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená.\
+To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když tam žádná čára není.
 
-Tento efekt je možné pozorovat například, když roztočíme prskavku, je možné pozorovat kružnici, kterou opíše hořící bod.
+Tento efekt je možné pozorovat například, když roztočíme prskavku.
+V tu chvíli je vidět kružnice, kterou opíše hořící bod.
 
 ### Promítání (11)
 V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá paprsky ze tří diod (červené, modré a zelené) do jednoho libovolně barevného.
