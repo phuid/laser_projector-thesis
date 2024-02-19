@@ -47,7 +47,7 @@ V tu chvíli je vidět kružnice, kterou opíše hořící bod.
 ### Promítání (12)
 V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá paprsky ze tří diod (červené, modré a zelené) do jednoho libovolně barevného.
 
-Pohyb paprsků poté ovládají dva galvanometry se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
+Pohyb paprsku poté ovládají dva galvanometry se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
 
 ### Řídící jednotka (13)
 Jako řídící jednotku jsem si vybral jednodeskový počítač Raspberry Pi.
