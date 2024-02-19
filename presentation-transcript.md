@@ -106,6 +106,8 @@ to jsou:
 a
 - zapnutá wifi, kdy raspberry pi vysílá vlastní wifi síť, ke které se dá připojit
 
+Dále front-endovým programům posílá aktuální informace o wifi připojení, aby je zobrazily uživateli.
+
 ### Uživatelské prostředí (21)
 Přes front-endové programy může uživatel jednoduše posílat back-endovým programům příkazy nebo nahrát soubor k promítnutí.\
 Uživatelské prostředí se skládá ze tří částí:
