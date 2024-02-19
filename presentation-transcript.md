@@ -29,8 +29,8 @@ Proto jsem si vytyčil následující cíle:
 - Navrhnout a sestavit laserový projektor, díky kterému by se zájemci seznámili s laser scanningem.
 - Naprogramovat k tomuto projektoru sofwarove.
 
-  - Ten by měl umožňovat promítání
-  - měl by mít přívětivé (jednoduché) uživatelské prostředí\
+  - který by měl umožňovat promítání
+  - měl by mít přívětivé uživatelské prostředí\
   a
   - mělo by být jednoduché ho nainstalovat.
 
