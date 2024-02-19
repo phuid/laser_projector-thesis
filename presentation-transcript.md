@@ -128,8 +128,8 @@ Do ní by bylo možné implementovat i kameru, díky které by se dalo kreslit o
 ### Poděkování (23)
 Na závěr bych rád poděkoval:
 mému externímu konzultantovi Tomáši Rohlínkovi za věcné rady a připomínky k projektu,\
-mé interní konzultantce magistře Kateřině Vídenkové za formální vedení práce,\
-JCMM a jihomoravskému kraji za finanční podpoření práce\
+mé interní konzultantce magistře Kateřině Vídenkové za pomoc s prací,\
+a JCMM a jihomoravskému kraji za finanční podpoření práce.\
 
 a nyní bych vám rád funkce mého projektoru ukázal.
 
