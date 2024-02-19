@@ -78,7 +78,7 @@ a tento signál následně operační zesilovače transformují do požadovanéh
 
 ### Struktura softwaru (17)
 Softwarová výbava se skládá celkem z pěti programů,\
-tří frontendových (to jsou UI, web_ui a discord_bot)\
+tří frontendových (to jsou LCD, web_ui a discord_bot)\
 a dvou backendových (to jsou lasershow a wifi_manager)
 
 Front-endové programy interagují s uživatelem
