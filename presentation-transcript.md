@@ -95,7 +95,7 @@ Díky němu je možné můj software nainstalovat na jakékoliv raspberry pi tě
 ### Program lasershow – promítání (19)
 program lasershow je backendový program, který se stará o promítání.\
 Byl inspirován open-source projektem rpi-lasershow.\
-Oproti němu disponuje má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
+Oproti němu má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
 ale také možnost nastavování různých vlastností projekce, které vám snad předvedu při ukázce.
 
 ### Program wifi_manager (20)
