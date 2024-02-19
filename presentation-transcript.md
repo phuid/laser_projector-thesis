@@ -60,7 +60,7 @@ Projektor se dá ovládat i přes zabudovaný displej a rotační enkodér.
 
 ### DPS -- HAT (15)
 Všechny komponenty projektoru jsou spojené deskou plošných spojů, kterou jsem nadesignoval jako takzvaný HAT.
-To znamená, že sama drží na 40 pinovém konektoru Raspberry Pi a nezabírá o moc víc místa, než Raspberry Pi.
+To znamená, že sama drží na 40 pinovém konektoru Raspberry Pi a nezabírá o moc víc místa, než samotné Raspberry Pi.
 
 Na této desce jsou kromě konektorů periferií, které jsou přímo napojeny na 40pinový konektor RPi i tři důležité obvody a sice:\
 Generátor signálu pro galvanometry,\
