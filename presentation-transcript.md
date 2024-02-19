@@ -1,5 +1,5 @@
 ### Uvod (1)
-Vazena poroto, milí posluchači, rád bych vvám představil moji středoškolskou odbornou činnost, s názvem RGB Laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla finančne podpořena jihomoravským krajem.
+Vazena poroto, milí posluchači, rád bych vám představil moji středoškolskou odbornou činnost, s názvem RGB Laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla finančne podpořena jihomoravským krajem.
 
 #### Laser scanning (2)
 Laserove projektory funguji díky technologii laser scanningu, která spočívá v rychlém pohybu laserového paprsku.
