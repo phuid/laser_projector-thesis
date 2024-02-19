@@ -121,9 +121,9 @@ Naprogramoval jsem k němu jednoduché uživatelské prostředí\
 a\
 celý projekt jsem nahrál na platformu github.com, určenou ke sdílení open-source kódu
 
-V práci by se dalo pokračovat zprovozněním napájení z baterií, díky kterému by bylo možné si projektor vzít a předvést ho kdekoliv,\
-přidáním živého kreslení do webového rozhraní\
-Do tohoto rozhraní by bylo možné implementovat i kameru, díky které by se dalo kreslit online do obrazu reality.
+V práci by se dalo pokračovat zprovozněním napájení z baterií, díky kterému by bylo možné si projektor vzít,,, a předvést ho kdekoliv.\
+Dále by se do webového rozhraní dala přidat funkce živého kreslení.\
+Do ní by bylo možné implementovat i kameru, díky které by se dalo kreslit online do obrazu reality.
 
 ### Poděkování (23)
 Na závěr bych rád poděkoval:
