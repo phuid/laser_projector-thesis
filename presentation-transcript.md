@@ -10,16 +10,18 @@ Tato technologie se využívá například v...
 dálkovém promítání,
 #### Laser shows (4)
 laser shows pro publikum,
-#### SLA 3D tisk (5)
-v SLA 3D tiskárnách,
-#### Laserové gravírování (6)
-v laserových gravírovačkách,
-#### HUD (7)
+#### HUD (5)
 v head up displejích,
-#### 3D skenování (8)
-nebo také v 3d skenování prostor a zemského povrchu
+#### 3D skenování (6)
+při 3d skenování prostor a zemského povrchu,
+#### Skenování čárových kódů (7)
+nebo skenování čárových kódů.
+#### SLA 3D tisk (8)
+dále se používá v SLA 3D tiskárnách,
+#### Laserové gravírování (9)
+nebo v laserových gravírovačkách.
 
-### Cíle (9)
+### Cíle (10)
 Bohužel ale neexistuje žádná uživatelsky přívětivá open-source platforma, díky které by se zájemci o laser scanning mohli s technologií seznámit.
 
 Proto jsem si vytyčil následující cíle:
@@ -34,7 +36,7 @@ Proto jsem si vytyčil následující cíle:
 
 - A nakonec software i plány projektoru nahrát na platformu github, která slouží pro sdílení open-source kódu.
 
-### Princip laserové projekce (10)
+### Princip laserové projekce (11)
 
 Laserová projekce je založena na principu persistance of vision, který spočívá v tom, že se světelný bod pohybuje rychleji, než lidské oko tento pohyb zaznamená.\
 To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když tam žádná čára není.
@@ -42,21 +44,21 @@ To znamená, že lidské oko vidí křivku, po které se bod pohyboval i když t
 Tento efekt je možné pozorovat například, když roztočíme prskavku.
 V tu chvíli je vidět kružnice, kterou opíše hořící bod.
 
-### Promítání (11)
+### Promítání (12)
 V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá paprsky ze tří diod (červené, modré a zelené) do jednoho libovolně barevného.
 
 Paprskem poté pohybuje pomocí dvou galvanometrů se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
 
-### Řídící jednotka (12)
+### Řídící jednotka (13)
 Jako řídící jednotku jsem si vybral jednodeskový počítač Raspberry Pi.
 V jeho odhaleném 40pinovém konektoru je 27 GPIO pinů, na které můžu připojit svoje periferie.
 Raspberry Pi disponuje možností WiFi připojení, ale i připojení ethernetovým kabelem.
 Běží na něm operační systém Linux, díky kterému je možné projektor ovládat připojením monitoru a klávesnice.
 
-### LCD a enkodér (13)
+### LCD a enkodér (14)
 Projektor se dá ovládat i přes zabudovaný displej a rotační enkodér.
 
-### DPS -- HAT (14)
+### DPS -- HAT (15)
 Všechny komponenty projektoru jsou spojené deskou plošných spojů, kterou jsem nadesignoval jako takzvaný HAT.
 To znamená, že sama drží na 40 pinovém konektoru Raspberry Pi a nezabírá o moc víc místa, než Raspberry Pi.
 
@@ -65,7 +67,7 @@ Generátor signálu pro galvanometry,\
 zdroj symetrického napětí pro galvanometry a\
 obvod správy baterie.
 
-### Generátor signálu pro galvanometry (15)
+### Generátor signálu pro galvanometry (16)
 Z těchto obvodů stojí za to vysvětlit generátor signálu pro galvanometry.
 
 Galvanometry příjmají dvě diferenciální analogové napětí v rozsahu -10 až +10 V,\
@@ -74,7 +76,7 @@ kdy Každé z těchto napětí udává jednu souřadnici výsledného paprsku, X
 V obvodu digital to analog převodník na základě příkazů z Raspberry Pi generuje libovolné napětí v rozsahu 0 -- 5 V\
 a tento signál následně operační zesilovače transformují do požadovaného napěťového rozsahu.
 
-### Struktura softwaru (16)
+### Struktura softwaru (17)
 Softwarová výbava se skládá celkem z pěti programů,\
 tří frontendových (to jsou UI, web_ui a discord_bot)\
 a dvou backendových (to jsou lasershow a wifi_manager)
@@ -84,19 +86,19 @@ a komunikují s každým back-endovým programem pomocí dvou socketů--\
 --(vstupního, kterým zasílají příkazy od uživatele
   a výstupního, kterým příjmají informace k zobrazení uživateli).
 
-### Instalační skript (17)
+### Instalační skript (18)
 Kromě toho je součástí softwarové výbavy i instalační skript, který zajišťuje jednoduchou instalaci knihoven a závislostí mých programů
 a k tomu nastaví Raspberry Pi tak, aby se moje programy spustily při každém zapnutí.
 
 Díky němu je možné můj software nainstalovat na jakékoliv raspberry pi těmito třemi příkazy
 
-### Program lasershow – promítání (18)
+### Program lasershow – promítání (19)
 program lasershow je backendový program, který se stará o promítání.\
 Byl inspirován open-source projektem rpi-lasershow,\
 oproti němuž má navíc například promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
 ale také možnost nastavování různých vlastností projekce, které vám snad předvedu při ukázce.
 
-### Program wifi_manager (19)
+### Program wifi_manager (20)
 Díky programu wifi manager je možné si ve frontendových programech vybírat mezi třemi stavy wifi připojení\
 to jsou:
 - vypnutá wifi
@@ -104,7 +106,7 @@ to jsou:
 a
 - zapnutá wifi, kdy raspberry pi vysílá vlastní wifi síť, ke které se dá připojit
 
-### Uživatelské prostředí (20)
+### Uživatelské prostředí (21)
 Přes front-endové programy může uživatel jednoduše posílat back-endovým programům příkazy nebo nahrát soubor k promítnutí.\
 Uživatelské prostředí se skládá ze tří částí:
 - displeje a enkodéru přímo na zařízení
@@ -112,7 +114,7 @@ Uživatelské prostředí se skládá ze tří částí:
 a
 - bota na chattovací aplikaci discord, se kterým může uživatel interagovat odkudkoliv na světě
 
-### Výsledky (21)
+### Výsledky (22)
 Když to shrnu,\
 v této práci jsem navrhnul a sestavil vlastní laserový projektor.\
 Naprogramoval jsem k němu jednoduché uživatelské prostředí\
@@ -123,7 +125,7 @@ V práci by se dalo pokračovat zprovozněním napájení z baterií, díky kter
 přidáním živého kreslení do webového rozhraní\
 Do tohoto rozhraní by bylo možné implementovat i kameru, díky které by se dalo kreslit online do obrazu reality.
 
-### Poděkování (22)
+### Poděkování (23)
 Na závěr bych rád poděkoval:
 mému externímu konzultantovi Tomáši Rohlínkovi za věcné rady a připomínky k projektu,\
 mé interní konzultantce magistře Kateřině Vídenkové za formální vedení práce,\
