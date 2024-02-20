@@ -71,7 +71,7 @@ obvod správy baterie.
 Z těchto obvodů stojí za to vysvětlit generátor signálu pro galvanometry.
 
 Galvanometry příjmají dvě diferenciální analogové napětí v rozsahu -10 až +10 V,\
-kdy Každé z těchto napětí udává jednu souřadnici výsledného paprsku, X a Y.
+kdy Každé z těchto napětí udává jednu souřadnici paprsku, X a Y.
 
 V obvodu digital to analog převodník na základě příkazů z Raspberry Pi generuje libovolné napětí v rozsahu 0 -- 5 V\
 a tento signál následně operační zesilovače transformují do požadovaného napěťového rozsahu.
