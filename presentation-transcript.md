@@ -26,7 +26,7 @@ Bohužel ale neexistuje žádná uživatelsky přívětivá open-source platform
 
 Proto jsem si vytyčil následující cíle:
 
-- Navrhnout a sestavit laserový projektor, díky kterému by se zájemci seznámili s laser scanningem.
+- Navrhnout a sestavit laserový projektor, který si mohou sestavit zájemci o laser scanning
 - Naprogramovat k tomuto projektoru sofwarove.
 
   - který by měl umožňovat promítání
