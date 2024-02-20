@@ -52,7 +52,7 @@ Pohyb paprsku poté ovládají dva galvanometry se zrcátky, které jsou uspoř�
 ### Řídící jednotka (13)
 Jako řídící jednotku jsem si vybral jednodeskový počítač Raspberry Pi.
 V jeho odhaleném 40pinovém konektoru je 27 GPIO pinů, na které můžu připojit svoje periferie.\
-Raspberry Pi také disponuje možností WiFi připojení.
+Raspberry Pi také disponuje možností WiFi připojení a
 Běží na něm operační systém Linux, díky kterému je možné projektor ovládat i připojením monitoru a klávesnice.
 
 ### LCD a enkodér (14)
