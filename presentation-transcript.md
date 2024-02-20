@@ -45,7 +45,7 @@ Tento efekt je možné pozorovat například, když roztočíme prskavku.
 V tu chvíli je vidět kružnice, kterou opíše hořící bod.
 
 ### Promítání (12)
-V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá paprsky ze tří diod (červené, modré a zelené) do jednoho libovolně barevného.
+V laserovém promítání je tímto světelným bodem samozřejmě laserový paprsek. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá tři paprsky (červený, modrý a zelený) do jednoho libovolně barevného.
 
 Pohyb paprsku poté ovládají dva galvanometry se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
 
