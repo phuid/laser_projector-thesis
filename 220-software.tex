@@ -8,7 +8,7 @@ Programy wifi\_manager a~lasershow se~dají označit za~backendové programy, pr
 V neposlední řadě popisuje také instalační skript, který výrazně zjednodušuje instalaci všech zmíněných programů a~jejich závislostí.
 
 Program lasershow umí číst projekční soubory ve~formátu .ild.
-Uživatel může takový soubor vytvořit například v~softwaru Laserworld Showeditor V7~\cite{showeditor} nebo může do~frontendových programů nahrát soubor v~populárním vektorovém formátu .svg a~frontendové programy využijí skript svg2ild.py dostupný~z~\cite{svg2ild}.
+Uživatel může takový soubor vytvořit například v~softwaru Laserworld Showeditor V7~\cite{showeditor} nebo může do~frontendových programů nahrát soubor v~populárním vektorovém formátu .svg a~frontendové programy využijí skript svg2ild.py~\cite{svg2ild}, aby tento soubor převedloi do formátu .ild.
 
 % O~řízení galvanometrů se~stará program lasershow, který je~psaný v~jazyce C++ pro~maximální rychlost. Tento program běží na~pozadí a~čeká na~příkazy od~programů určených k~interakci s~uživatelem. Na~tento program se~zaměřuje kapitola lasershow. \fxnote{TODO: odkaz}
 
@@ -29,12 +29,14 @@ Ten je~psaný v~příkazovém jazyce bash, který odpovídá sekvenci příkazů
 Instalační skript umožňuje instalaci celého projektu pouze třemi příkazy, viz~ukázka kódu~\ref{list:installcmds}.
 
 \begin{code}
+\begin{minipage}{\textwidth{}}
   \captionof{listing}{\label{list:installcmds} Příkazy potřebné k~instalaci projektu}
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{shell}
   git clone https://github.com/phuid/laser_projector.git
   cd laser_projector
   bash install.sh
 \end{minted}
+\end{minipage}
 \end{code}
 
 Instalační skript stáhne a~nainstaluje veškeré závislosti a~knihovny ostatních programů. Stáhne také samotný interpreter Node.js.

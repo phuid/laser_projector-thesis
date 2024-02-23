@@ -21,12 +21,7 @@ Na LCD~displeji má uživatel díky tomuto programu přístup k~menu, kde~jsou z
 
 \subsection{Využité knihovny}
 \subsubsection{wPi\_soft\_lcd}
-Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umožňuje jednoduchou komunikaci s~LCD prostřednictvím I$^{2}$C převodníku. Její použití je~vidět v~ukázce kódu~\ref{list:soft_lcd}.
-
-\begin{code}
-    \captionof{listing}{\label{list:soft_lcd} Využití knihovny wPi\_soft\_lcd v~programu UI~ke komunikaci s~LCD}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/soft_lcd.cpp}
-\end{code}
+Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umožňuje jednoduchou komunikaci s~LCD prostřednictvím I$^{2}$C převodníku. Její použití je~vidět v~ukázce kódu v~příloze~\ref{list:soft_lcd}.
 
 % Mezi nejdůležitější funkce této knihovny, které používám ve~svém kódu patří:
 % \begin{itemize}
@@ -44,12 +39,7 @@ Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umo�
 % \end{itemize}
 
 \subsubsection{wiringPi}
-Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu~\ref{list:wiringpi}.
-
-\begin{code}
-    \captionof{listing}{\label{list:wiringpi} Využití knihovny wiringPi v~programu UI~k registraci přerušení (interruptů)}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/wiringpi_isr.cpp}
-\end{code}
+Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu v~příloze~\ref{list:wiringpi}.
 
 Je nepraktické využívat ve~dvou programech jinou knihovnu na~interakci s~hardwarem, proto v~budoucnu budou knihovna wPi\_soft\_lcd a~celý tento program přepsány tak, aby~využívaly modernější knihovnu pigpio popsanou v~kapitole~\ref{sec:ls_pigpio} stejně jako program lasershow.
 
@@ -66,154 +56,17 @@ Největším rozdílem je, že místo funkce \mintinline{cpp}{void zmq::socket_t
 Funkci \mintinline{cpp}{bind} je~totiž potřeba zavolat přesně jednou pro~každý socket.
 Jestliže ji~už pro~sockety zavolal program lasershow, popřípadě wifi\_manager a~socket tedy už je~registrovaný k~danému portu, je~třeba zavolat funkci \mintinline{cpp}{connect}.
 
-Dále samozřejmě stejně jako všechny frontendové programy do~vstupního socketu zprávy posílá a~z výstupního socketu zprávy čte. Celková ukázka využití knihovny frontendovým programem v~jazyce C++ je~v ukázce kódu~\ref{list:zmq_c_cpp}.
-
-\begin{code}
-    \captionof{listing}{\label{list:zmq_c_cpp} Využití knihovny cppzmq v~programu UI}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_client.cpp}
-\end{code}
+Dále samozřejmě stejně jako všechny frontendové programy do~vstupního socketu zprávy posílá a~z výstupního socketu zprávy čte. Celková ukázka využití knihovny frontendovým programem v~jazyce C++ je~v ukázce kódu v~příloze~\ref{list:zmq_c_cpp}.
 
 \subsection{Struktura programu}
 Program začne inicializací komunikace s~LCD.
 Poté pokračuje registrací interruptů na~pinech, ke~kterým je~připojen enkodér. A~následně se~připojí k~socketům aplikací lasershow a~wifi\_manager.
 
-V další části programu je~definováno samotné menu. To~má podobu struktury \mintinline{cpp}{menu_option}. V~ukázce kódu~\ref{list:menu_option} je~vidět, jak~je tato struktura dufinována.
-\begin{code}
-    \captionof{listing}{\label{list:menu_option} Definice struktury menu\_option v~programu UI}
-    \begin{minted}[frame=lines,fontsize=\footnotesize,linenos, breaklines]{cpp}
-        template <typename T>
-        struct menu_val
-        {
-             T num;
-   T min;
-   T max;
-   T change_by = 1;
-  };
-  
-  enum menu_option_style
-{
-    NESTED_MENU = 0,
-    VALUE,
-    SELECTION, // all childrem are style text, nest_selected is written to value after button is pressed
-    TEXT,
-    ROOT_MENU,
-  UNDEFINED
-};
+V další části programu je~definováno samotné menu. To~má podobu struktury \mintinline{cpp}{menu_option}. V~ukázce kódu v~příloze~\ref{list:menu_option} je~vidět, jak~je tato struktura dufinována.
 
-struct menu_option
-{
-  std::string name; // Text zobrazený uživateli
+Díky ní je~možné definovat menu poměrně jednoduchým způsobem. Zkrácený příklad je~v ukázce kódu v~příloze~\ref{list:menu_def}.
 
-  std::string command_name; // interní název položky pro komunikaci s backendovými programy
-
-  menu_option_style style = UNDEFINED; // Typ položky; od něj se odvíjí přístup k položce
-
-  std::vector<menu_option> nested_menu_options = {}; // Podpoložky této položky
-  uint8_t nest_selected = 0; // Vybraná podpoložka
-  uint8_t nest_scroll = 0; // Interní hodnota; Úrčuje které podpoložky mají zrovna být vykresleny
-  bool nest_option_active = 0; // Úrčuje, jestli je zrovna vybraná podpoložka aktivní
-  bool redraw = 0; // Vlajka indikující, zda má být obsah položky znovu vykreslen, například pokud se změnil
-
-  menu_val<float> value; // hodnota položky, například u položek typu VALUE
-
-  bool has_function = 0;
-  void (*function)(zmq::socket_t &, menu_option &);
-  };
-\end{minted}
-\end{code}
-
-Díky ní je~možné definovat menu poměrně jednoduchým způsobem. Zkrácený příklad je~v ukázce kódu~\ref{list:menu_def}.
-\begin{code}
-    \captionof{listing}{\label{list:menu_def} Příklad definice menu v programu UI}
-    \begin{minted}[breaklines, frame=lines,fontsize=\footnotesize,linenos]{cpp}
-        menu_option root = {
-            .name = "ROOT",
-        .style = ROOT_MENU,
-        .nested_menu_options = {
-            {
-                .name = "progress%",
-            .command_name = "progress",
-            .style = VALUE,
-            .value = {0, 0, 100, 0.5},
-        },
-        {
-            .name = "current_frame",
-            .command_name = "current_frame",
-            .style = VALUE,
-            .value = {1, 1, 1, 1},
-            },
-            {
-                .name = "-no out received-",
-            .style = TEXT
-        },
-        {
-            .name = "STOP",
-            .command_name = "STOP",
-            .style = TEXT,
-            .has_function = 1,
-            .function = send_option_command
-        },
-        {
-            .name = "PAUSE",
-            .command_name = "PAUSE",
-            .style = TEXT,
-            .has_function = 1,
-            .function = send_option_command
-            },
-        {
-            .name = "PROJECT",
-            .style = NESTED_MENU,
-            .has_function = 1,
-            .function = fill_with_files,
-        },
-        {
-            .name = "options",
-            .style = NESTED_MENU,
-            .nested_menu_options = {
-                {
-                    .name = "screen brightness",
-                    .command_name = "screen_brightness",
-                    .style = VALUE,
-                    .value = {50, 0, 100},
-                },
-                {
-                    .name = "repeat",
-                    .command_name = "repeat",
-                    .style = VALUE,
-                    .value = {0, 0, 1, 1},
-                },
-                {
-                    .name = "point_delay",
-                    .command_name = "point_delay",
-                    .style = VALUE,
-                    .value = {0, 0, 10000, 10},
-                    },
-                    {
-                    .name = "target_frame_time",
-                    .command_name = "target_frame_time",
-                    .style = VALUE,
-                    .value = {0, 0, 10000, 1},
-                },
-                {
-                    .name = "trapezoid_horizontal",
-                    .command_name = "trapezoid_horizontal",
-                    .style = VALUE,
-                    .value = {0, -1.f, 1.f, 0.05},
-                },
-                {
-                    .name = "trapezoid_vertical",
-                    .command_name = "trapezoid_vertical",
-                    .style = VALUE,
-                    .value = {0, -1.f, 1.f, 0.05},
-                },
-            },
-            .has_function = 1,
-            .function = read_options,
-            }}};
-        \end{minted}
-    \end{code}
-        
-        Následuje nekonečný cyklus, ve~kterém program příjmá zprávy od~programů lasershow a~wifi\_manager a~volá funkci \mintinline{cpp}{bool menu_interact(lcd_t *lcd, zmq::socket_t &command_sender, menu_option &parent_menu_option, bool redraw = 0)}, která rekurzivně prochází menu následujícím způsobem.
+Následuje nekonečný cyklus, ve~kterém program příjmá zprávy od~programů lasershow a~wifi\_manager a~volá funkci \mintinline{cpp}{bool menu_interact(lcd_t *lcd, zmq::socket_t &command_sender, menu_option &parent_menu_option, bool redraw = 0)}, která rekurzivně prochází menu následujícím způsobem.
 Vždy, pokud má atribut \\
 \mintinline{cpp}{parent_menu_option.nest_option_active} hodnotu true a~atribut \mintinline{cpp}{style} objektu \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]} je~roven \mintinline{cpp}{NESTED_MENU}, zavolá sebe samou, ale~jako argument \mintinline{cpp}{parent_menu_option} použije právě objekt \\
 \mintinline{cpp}{parent_menu_option.nested_menu_options[nest_selected]}.
@@ -251,11 +104,7 @@ V blízké budoucnosti do~prostředí přibudou prvky, které mohou ovládat fro
 
 \subsection{Využité knihovny}
 \subsubsection{Http}
-Knihovna http je~využita k~jednoduchému vytvoření interaktivního http serveru, ke~kterému se~uživatel může připojit ze~svého prohlížeče. Příklad takového serveru je~vidět v~ukázce kódu~\ref{list:http}.
-\begin{code}
-    \captionof{listing}{\label{list:http} Příklad http serveru v~jazyce javascript s~knihovnou http}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/http_static_files.js}
-\end{code}
+Knihovna http je~využita k~jednoduchému vytvoření interaktivního http serveru, ke~kterému se~uživatel může připojit ze~svého prohlížeče. Příklad takového serveru je~vidět v~ukázce kódu v~příloze~\ref{list:http}.
     
 \subsubsection{Zeromq.js, ssh2, socket.io a~xterm.js}
 Http server tedy pošle prohlížeči uživatele kód, který v~tomto prohlížeči běží. Poté je~knihovna socket.io využita ke~komunikaci mezi kódem běžícím v~prohlížeči uživatele (klientem) a~kódem běžícím na~Raspberry Pi~(serverem).
@@ -263,15 +112,7 @@ Společně s~knihovnou zeromq.js umožňují tomuto programu fungovat jako prost
 
 Knihovna xterm.js běžící v~kódu klienta je~využita k~dosažení interaktivity a~vzhledu konzolí, které se~uživateli ve~webovém rozhraní zobrazují.
 
-V ukázkách kódu~\ref{list:socketio_s} a~\ref{list:socketio_c} je~vidět, jak~server předává klientovi data od~backendových programů a~jak je~klient uživateli vykresluje.
-\begin{code}
-    \captionof{listing}{\label{list:socketio_s} Kód programu web\_ui běžící na~serveru. Ten~příjmá informace pomocí knihovny zeromq.js a~předává je~klientovi pomocí knihovny socket.io.}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_server.js}
-\end{code}
-\begin{code}
-    \captionof{listing}{\label{list:socketio_c} Kód programu web\_ui běžící v~prohlížeči. Ten~příjmá informace od~serveru knihovny socket.io a~zobrazuje je~uživateli kromě jiného pomocí knihovny xterm.js.}
-    \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_client.js}
-\end{code}
+V ukázkách kódu v~přílohách~\ref{list:socketio_s} a~\ref{list:socketio_c} je~vidět, jak~server předává klientovi data od~backendových programů a~jak je~klient uživateli vykresluje.
 
 % \subsubsection{}
 % Stejně jako program UI~za~pomoci knihovny ZeroMQ tento program odebírá z~výstupního socketu zprávy o~průběhu vykreslování od~programu lasershow a~odesílá mu~pokyny uživatele na~vstupní socket.

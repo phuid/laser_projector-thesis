@@ -32,11 +32,7 @@ Nastavením projekcí jsou myšleny:
 
 \subsection{Využité knihovny}
 \subsubsection{cppzmq}\label{sec:ls_cppzmq}
-Knihovna cppzmq~\cite{cppzmq} je~knihovna zprostředkující sockety ZeroMQ v~jazyce C++. Využití této knihovny je~vidět v~ukázce kódu~\ref{list:zmq_s_cpp}.
-\begin{code}
-  \captionof{listing}{\label{list:zmq_s_cpp} Využití knihovny cppzmq v~programu lasershow}
-  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_server.cpp}
-\end{code}
+Knihovna cppzmq~\cite{cppzmq} je~knihovna zprostředkující sockety ZeroMQ v~jazyce C++. Využití této knihovny je~vidět v~ukázce kódu v~příloze~\ref{list:zmq_s_cpp}.
 
 % Mezi nejdůležitější mnou využité funkce této knihovny patří:
 % \begin{itemize}
@@ -50,11 +46,7 @@ Knihovna cppzmq~\cite{cppzmq} je~knihovna zprostředkující sockety ZeroMQ v~ja
 % \end{itemize}
 
 \subsubsection{ADCDACPi}
-Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s~D/A převodníkem mcp4822, využitém v~generátoru signálu pro~galvanometry, viz~kapitola~\ref{sec:ilda-signal-gen}, přes rozhraní SPI. Její použití je~vidět na~ukázce kódu~\ref{list:adcdac}.
-\begin{code}
-  \captionof{listing}{\label{list:adcdac} Využití knihovny ADCDACPi v~programu lasershow}
-  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/adcdac.cpp}
-\end{code}
+Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s~D/A převodníkem mcp4822, využitém v~generátoru signálu pro~galvanometry, viz~kapitola~\ref{sec:ilda-signal-gen}, přes rozhraní SPI. Její použití je~vidět na~ukázce kódu v~příloze~\ref{list:adcdac}.
 
 % Mezi nejdůležitější mnou využité funkce této knihovny patří:
 % \begin{itemize}
@@ -63,12 +55,7 @@ Knihovna ADCDACPi~\cite{ADCDACPi} zjednodušuje komunikaci s~D/A převodníkem m
 %   \item \mintinline{cpp}{void ADCDACPi::close_dac()} --- Funkce deinicializuje SPI~komunikaci s~D/A převodníkem. Měla by~být zavolána před ukončením programu.
 % \end{itemize}
 \subsubsection{pigpio}\label{sec:ls_pigpio}
-Knihovna pigpio~\cite{pigpio} umožňuje ovládání GPIO pinů Raspberry Pi. Je~využita k~posílání PWM~signálu do~laserového modulu. Příklad využití PWM~funkcí knihovny je~vidět v~ukázce kódu~\ref{list:pigpio_pwm}.
-
-\begin{code}
-  \captionof{listing}{\label{list:pigpio_pwm} Využití PWM~funkcí knihovny pigpio v~programu lasershow}
-  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/pigpio_pwm.cpp}
-\end{code}
+Knihovna pigpio~\cite{pigpio} umožňuje ovládání GPIO pinů Raspberry Pi. Je~využita k~posílání PWM~signálu do~laserového modulu. Příklad využití PWM~funkcí knihovny je~vidět v~ukázce kódu v~příloze~\ref{list:pigpio_pwm}.
 
 % Mezi nejdůležitější mnou využité funkce této knihovny patří:
 % \begin{itemize}
@@ -84,18 +71,19 @@ Knihovna pigpio~\cite{pigpio} umožňuje ovládání GPIO pinů Raspberry Pi. Je
 \subsection{Struktura programu}
 Struktura programu je~vidět ve~zjedonušeném obrázku~\ref{fig:lasershow-flowchart} a~je~popsána na~dalších stránkách.
 
-% \newgeometry{top=0mm, bottom=0mm, left=0mm, right=0mm}
+\newgeometry{top=1.5cm, bottom=1.5cm, left=0mm, right=0mm}
+\thispagestyle{empty}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth{}, trim=0 600 0 0, clip]{img/lasershow_flowchart.jpg}
-  \caption{\label{fig:lasershow-flowchart} Diagram programu lasershow; Pokračuje na~další stránce.}
+  \includegraphics[height=(\textheight{}-2cm), trim=0 0 0 0, clip]{img/lasershow_flowchart.jpg}
+  \caption{\label{fig:lasershow-flowchart} Diagram programu lasershow}
 \end{figure}
-\clearpage
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth{}, trim=0 0 0 350, clip]{img/lasershow_flowchart.jpg}\clearpage
-\end{figure}
+% \clearpage
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\textwidth{}, trim=0 0 0 350, clip]{img/lasershow_flowchart.jpg}\clearpage
+% \end{figure}
 
 
 \restoregeometry
@@ -141,12 +129,7 @@ Tyto služby jsou zastavovány a~spouštěny pomocí softwaru systemd a~jeho ná
 V mém kódu tudíž používám funkci \mintinline{js}{execSync} k~zastavení služeb hostapd a~dnsmasq následovně \mintinline{js}{execSync("sudo systemctl disable hostapd dnsmasq")}.
 
 \subsubsection{Zeromq.js}
-Dále je~v~programu využita knihovna zeromq.js~\cite{zeromqjs} pro~komunikaci s~ostatními programy. Jak~je~použita, je~vidět v~ukázce kódu~\ref{list:zmq_s_js}.
-
-\begin{code}
-  \captionof{listing}{\label{list:zmq_s_js} Využití knihovny zeromq.js v~programu wifi\_manager}
-  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/zmq_server.js}
-\end{code}
+Dále je~v~programu využita knihovna zeromq.js~\cite{zeromqjs} pro~komunikaci s~ostatními programy. Jak~je~použita, je~vidět v~ukázce kódu v~příloze~\ref{list:zmq_s_js}.
 
 \subsection{Struktura programu}
 

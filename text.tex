@@ -129,7 +129,7 @@ literate=%
 \field{10}
 \school{Gymnázium Brno-Řečkovice, p.~o., Terezy Novákové 2, 621 00 Brno}
 \mentor{Tomáš Rohlínek a~Mgr.~Kateřina Vídenková}
-\mentorstatement{Tomáše Rohlínka a~Mgr.~Kateřiny vídenkové}
+\mentorstatement{Tomáše Rohlínka a~Mgr.~Kateřiny Vídenkové}
 
 
 % Změňte, pokud se~liší
@@ -223,15 +223,210 @@ Raspberry Pi; open-source; laser scanning; laser projection; galvanometer; JavaS
 % \listoflistedequation
 % \addcontentsline{toc}{chapter}{Seznam rovnic}
 
-\renewcommand\lstlistlistingname{Seznam ukázek kódu}
-\addcontentsline{toc}{chapter}{Seznam ukázek kódu}
-\lstlistoflistings % Now~typeset the~list
+% \renewcommand\lstlistlistingname{Seznam ukázek kódu}
+% \addcontentsline{toc}{chapter}{Seznam ukázek kódu}
+% \lstlistoflistings % Now~typeset the~list
 
 % \chapter*{Přílohy}
 
 % \newgeometry{top=0pt, bottom=0pt, left=0pt, right=0pt}
 
+% přílohy - schem a ukazky kodu
+% ma byt před tim nadpis?
+
+\renewcommand\listingname{Ukázka kódu -- Příloha}
+
+% \newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Ukázka kódu -- Příloha}
+
 \includepdf[pages=-]{img/pcb-schem-full.pdf}
 \addcontentsline{toc}{chapter}{Přílohy}
+\pagestyle{empty}
+\setcounter{chapter}{7}
+\setcounter{listing}{1}
+
+% ukazky kodu
+\begin{code}
+  \captionof{listing}{\label{list:zmq_s_cpp} Využití knihovny cppzmq v~programu lasershow}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_server.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:adcdac} Využití knihovny ADCDACPi v~programu lasershow}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/adcdac.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:pigpio_pwm} Využití PWM~funkcí knihovny pigpio v~programu lasershow}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/pigpio_pwm.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:zmq_s_js} Využití knihovny zeromq.js v~programu wifi\_manager}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/zmq_server.js}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:soft_lcd} Využití knihovny wPi\_soft\_lcd v~programu UI~ke komunikaci s~LCD}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/soft_lcd.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:wiringpi} Využití knihovny wiringPi v~programu UI~k registraci přerušení (interruptů)}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/wiringpi_isr.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:zmq_c_cpp} Využití knihovny cppzmq v~programu UI}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{cpp}{code_examples/zmq_client.cpp}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:menu_option} Definice struktury menu\_option v~programu UI}
+  \begin{minted}[frame=lines,fontsize=\footnotesize,linenos, breaklines]{cpp}
+template <typename T>
+struct menu_val
+{
+  T num;
+  T min;
+  T max;
+  T change_by = 1;
+};
+
+enum menu_option_style
+{
+  NESTED_MENU = 0,
+  VALUE,
+  SELECTION, // all childrem are style text, nest_selected is written to value after button is pressed
+  TEXT,
+  ROOT_MENU,
+  UNDEFINED
+};
+
+struct menu_option
+{
+  std::string name; // Text zobrazený uživateli
+
+  std::string command_name; // interní název položky pro komunikaci s backendovými programy
+
+  menu_option_style style = UNDEFINED; // Typ položky; od něj se odvíjí přístup k položce
+
+  std::vector<menu_option> nested_menu_options = {}; // Podpoložky této položky
+  uint8_t nest_selected = 0; // Vybraná podpoložka
+  uint8_t nest_scroll = 0; // Interní hodnota; Úrčuje které podpoložky mají zrovna být vykresleny
+  bool nest_option_active = 0; // Úrčuje, jestli je zrovna vybraná podpoložka aktivní
+  bool redraw = 0; // Vlajka indikující, zda má být obsah položky znovu vykreslen, například pokud se změnil
+
+  menu_val<float> value; // hodnota položky, například u položek typu VALUE
+
+  bool has_function = 0;
+  void (*function)(zmq::socket_t &, menu_option &);
+};
+\end{minted}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:menu_def} Příklad definice menu v programu UI}
+  \begin{minted}[breaklines, frame=lines,fontsize=\footnotesize,linenos]{cpp}
+menu_option root = {
+  .name = "ROOT",
+  .style = ROOT_MENU,
+  .nested_menu_options = {
+    {
+    .name = "progress%",
+    .command_name = "progress",
+    .style = VALUE,
+    .value = {0, 0, 100, 0.5},
+  },
+  {
+    .name = "current_frame",
+    .command_name = "current_frame",
+    .style = VALUE,
+    .value = {1, 1, 1, 1},
+    },
+    {
+    .name = "-no out received-",
+    .style = TEXT
+  },
+  {
+    .name = "STOP",
+    .command_name = "STOP",
+    .style = TEXT,
+    .has_function = 1,
+    .function = send_option_command
+  },
+  {
+    .name = "PAUSE",
+    .command_name = "PAUSE",
+    .style = TEXT,
+    .has_function = 1,
+    .function = send_option_command
+    },
+  {
+    .name = "PROJECT",
+    .style = NESTED_MENU,
+    .has_function = 1,
+    .function = fill_with_files,
+  },
+  {
+    .name = "options",
+    .style = NESTED_MENU,
+    .nested_menu_options = {
+        {
+            .name = "screen brightness",
+            .command_name = "screen_brightness",
+            .style = VALUE,
+            .value = {50, 0, 100},
+        },
+        {
+            .name = "repeat",
+            .command_name = "repeat",
+            .style = VALUE,
+            .value = {0, 0, 1, 1},
+        },
+        {
+            .name = "point_delay",
+            .command_name = "point_delay",
+            .style = VALUE,
+            .value = {0, 0, 10000, 10},
+            },
+            {
+            .name = "target_frame_time",
+            .command_name = "target_frame_time",
+            .style = VALUE,
+            .value = {0, 0, 10000, 1},
+        },
+        {
+            .name = "trapezoid_horizontal",
+            .command_name = "trapezoid_horizontal",
+            .style = VALUE,
+            .value = {0, -1.f, 1.f, 0.05},
+        },
+        {
+            .name = "trapezoid_vertical",
+            .command_name = "trapezoid_vertical",
+            .style = VALUE,
+            .value = {0, -1.f, 1.f, 0.05},
+        },
+    },
+    .has_function = 1,
+    .function = read_options,
+  }}};
+  \end{minted}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:http} Příklad http serveru v~jazyce javascript s~knihovnou http}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/http_static_files.js}
+\end{code}
+
+\begin{code}
+  \captionof{listing}{\label{list:socketio_s} Kód programu web\_ui běžící na~serveru. Ten~příjmá informace pomocí knihovny zeromq.js a~předává je~klientovi pomocí knihovny socket.io.}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_server.js}
+\end{code}
+\begin{code}
+  \captionof{listing}{\label{list:socketio_c} Kód programu web\_ui běžící v~prohlížeči. Ten~příjmá informace od~serveru knihovny socket.io a~zobrazuje je~uživateli kromě jiného pomocí knihovny xterm.js.}
+  \inputminted[frame=lines,fontsize=\footnotesize{}, linenos, breaklines]{js}{code_examples/socketio_client.js}
+\end{code}
 
 \end{document}
