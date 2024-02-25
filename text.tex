@@ -211,11 +211,12 @@ Raspberry Pi; open-source; laser scanning; laser projection; galvanometer; JavaS
 \input{9999-zaver.tex}
 
 \newpage
-\printbibliography[title=Literatura]
 \addcontentsline{toc}{chapter}{Literatura}
+\printbibliography[title=Literatura]
 
-\listoffigures
+\newpage
 \addcontentsline{toc}{chapter}{Seznam obrázků}
+\listoffigures
 
 % \listoftables
 % \addcontentsline{toc}{chapter}{Seznam tabulek}
@@ -235,12 +236,14 @@ Raspberry Pi; open-source; laser scanning; laser projection; galvanometer; JavaS
 % ma byt před tim nadpis?
 
 \renewcommand\listingname{Ukázka kódu -- Příloha}
-
-% \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Ukázka kódu -- Příloha}
+% \newenvironment{code}{\captionsetup{type=listing}}{}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Přílohy}
+\part*{Přílohy}
 
 \includepdf[pages=-]{img/pcb-schem-full.pdf}
-\addcontentsline{toc}{chapter}{Přílohy}
 \pagestyle{empty}
 \setcounter{chapter}{7}
 \setcounter{listing}{1}

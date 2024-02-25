@@ -1,0 +1,433 @@
+\babel@toc {czech}{}\relax 
+\thispagestyle {empty}
+\contentsline {chapter}{Úvod}{6}{chapter*.10}%
+\contentsline {chapter}{\numberline {1}Laser scanning}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Akusticko-optické skenery}{8}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Hranolové skenery}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Galvanometrové skenery}{10}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Galvanometr}{10}{subsection.1.3.1}%
+\contentsline {chapter}{\numberline {2}Laserová projekce}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Využití laserové projekce v~průhledových displejích~(HUD)}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Princip laserové projekce}{14}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Použité technologie, techniky, pojmy}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}GitHub}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Node.js}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}SPI}{17}{section.3.3}%
+\contentsline {section}{\numberline {3.4}I$^{2}$C}{17}{section.3.4}%
+\contentsline {section}{\numberline {3.5}PWM (Pulse Width Modulation)}{18}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Přerušení (Interrupt)}{18}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Hardware}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Řídící jednotka -- Raspberry Pi}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Set galvanometrů se~zrcátky}{21}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Výběr skeneru}{21}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Zapojení galvanometrového setu}{22}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Bipolární diferenciální analogový signál}{22}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Zahřívání čipů řídící desky galvanometrů}{23}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}RGB laserový modul}{24}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Dichroická zrcadla}{25}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Zapojení laserového modulu}{25}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Tvorba barev s~laserovým modulem}{25}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Displej z~tekutých krystalů (LCD)}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Rotační enkodér}{26}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Čtení pozice z~rotačního enkodéru}{28}{subsection.4.5.1}%
+\contentsline {section}{\numberline {4.6}HAT deska plošných spojů}{28}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Zdroj $-15$~V}{29}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Generátor analogového signálu}{31}{subsection.4.6.2}%
+\contentsline {subsubsection}{D/A převodník}{32}{section*.32}%
+\contentsline {subsubsection}{Operační zesilovače}{32}{section*.33}%
+\contentsline {subsection}{\numberline {4.6.3}Voltmetr baterií}{32}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Napájení}{34}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Akumulátory}{34}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}BMS modul}{34}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Relé modul}{34}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Nabíjecí obvod}{36}{subsection.4.7.4}%
+\contentsline {subsubsection}{Power Delivery (PD) trigger deska}{36}{section*.39}%
+\contentsline {subsubsection}{Step up~měnič s~čipem XL6009}{36}{section*.41}%
+\contentsline {subsubsection}{TP5100}{36}{section*.42}%
+\contentsline {subsection}{\numberline {4.7.5}Vypínač}{37}{subsection.4.7.5}%
+\contentsline {subsection}{\numberline {4.7.6}Napěťové větve}{37}{subsection.4.7.6}%
+\contentsline {section}{\numberline {4.8}Pouzdro}{38}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Priority designu}{39}{subsection.4.8.1}%
+\contentsline {subsubsection}{Chlazení}{39}{section*.44}%
+\contentsline {subsubsection}{Přístup k~portům Raspberry Pi}{39}{section*.45}%
+\contentsline {subsubsection}{Modularita, jednoduchá konstrukce}{39}{section*.46}%
+\contentsline {subsection}{\numberline {4.8.2}Konstrukce}{40}{subsection.4.8.2}%
+\contentsline {chapter}{\numberline {5}Software}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Komunikace mezi programy}{44}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Lasershow}{45}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Inspirace open-source}{45}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Funkce programu}{45}{subsection.5.2.2}%
+\contentsline {subsubsection}{Spouštění projekcí}{46}{section*.51}%
+\contentsline {subsubsection}{Nastavení projekce}{46}{section*.52}%
+\contentsline {subsection}{\numberline {5.2.3}Využité knihovny}{46}{subsection.5.2.3}%
+\contentsline {subsubsection}{cppzmq}{46}{section*.53}%
+\contentsline {subsubsection}{ADCDACPi}{47}{section*.54}%
+\contentsline {subsubsection}{pigpio}{47}{section*.55}%
+\contentsline {subsection}{\numberline {5.2.4}Struktura programu}{47}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}wifi\_manager}{49}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Funkce programu}{49}{subsection.5.3.1}%
+\contentsline {subsubsection}{Služby obsluhující WiFi připojení}{50}{section*.57}%
+\contentsline {subsection}{\numberline {5.3.2}Využité knihovny}{50}{subsection.5.3.2}%
+\contentsline {subsubsection}{child\_process}{50}{section*.58}%
+\contentsline {subsubsection}{Zeromq.js}{51}{section*.59}%
+\contentsline {subsection}{\numberline {5.3.3}Struktura programu}{51}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}UI}{51}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Využité knihovny}{53}{subsection.5.4.1}%
+\contentsline {subsubsection}{wPi\_soft\_lcd}{53}{section*.63}%
+\contentsline {subsubsection}{wiringPi}{54}{section*.64}%
+\contentsline {subsubsection}{cppzmq}{54}{section*.65}%
+\contentsline {subsection}{\numberline {5.4.2}Struktura programu}{54}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}web\_ui}{55}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Využité knihovny}{57}{subsection.5.5.1}%
+\contentsline {subsubsection}{Http}{57}{section*.68}%
+\contentsline {subsubsection}{Zeromq.js, ssh2, socket.io a~xterm.js}{57}{section*.69}%
+\contentsline {section}{\numberline {5.6}discord bot}{58}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Instalační skript}{58}{section.5.7}%
+\contentsline {chapter}{Diskuze}{60}{chapter*.71}%
+\contentsline {chapter}{Závěr}{62}{chapter*.72}%
+\contentsline {chapter}{Literatura}{63}{chapter*.72}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\contentsline {chapter}{Seznam obrázků}{70}{chapter*.73}%
+\contentsline {chapter}{Přílohy}{71}{chapter*.75}%
+\ttl@starttoc {sections@1}
+\contentsline {section}{\numberline {8}Some title}{73}{section.7.8}%
+\contentsline {section}{\numberline {9}bla title}{73}{section.7.9}%
+\contentsline {subsection}{\numberline {9.1}foo title}{73}{subsection.7.9.1}%
+\contentsfinish 

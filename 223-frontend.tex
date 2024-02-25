@@ -39,7 +39,7 @@ Hlavní využitou knihovnou je~wPi\_soft\_lcd~\cite{wpi-lcd}. Tato knihovna umo�
 % \end{itemize}
 
 \subsubsection{wiringPi}
-Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Abych nepřidával do~jednoho programu dvě knihovny interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu v~příloze~\ref{list:wiringpi}.
+Předchozí popsaná knihovna pro~posílání signálu I$^{2}$C sběrnicí používá knihovnu wiringPi, která umožňuje ovládání GPIO pinů. Aby nebyla přidána  do~jednoho programu druhá knihovna interagující s~hardwarem, stejnou knihovnu využívám i~pro čtení dat~z enkodéru. Její využití k~detekci změn na~pinech enkodéru je~vidět na~ukázce kódu v~příloze~\ref{list:wiringpi}.
 
 Je nepraktické využívat ve~dvou programech jinou knihovnu na~interakci s~hardwarem, proto v~budoucnu budou knihovna wPi\_soft\_lcd a~celý tento program přepsány tak, aby~využívaly modernější knihovnu pigpio popsanou v~kapitole~\ref{sec:ls_pigpio} stejně jako program lasershow.
 
