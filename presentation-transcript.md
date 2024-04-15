@@ -1,8 +1,8 @@
 ### Uvod (1)
-Vazena poroto, milí posluchači, rád bych vám představil moji středoškolskou odbornou činnost, s názvem RGB Laserovy projektor, ktera spada do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla finančne podpořena jihomoravským krajem.
+Dobrý den, jmenuji se Šimon Hrouda a rád bych vám představil moji středoškolskou odbornou činnost s názvem RGB Laserovy projektor, která spadá do oboru 10 -- elektrotechnika, elektronika a telekomunikace a byla finančne podpořena jihomoravským krajem.
 
 #### Laser scanning (2)
-Laserove projektory funguji díky technologii laser scanningu, která spočívá v rychlém pohybu laserového paprsku.
+Laserove projektory fungují díky technologii laser scanningu, která spočívá v rychlém pohybu laserového paprsku.
 
 Tato technologie se využívá například v...
 
@@ -62,7 +62,7 @@ Projektor se dá ovládat i přes zabudovaný displej a rotační enkodér.
 Všechny komponenty projektoru jsou spojené deskou plošných spojů, kterou jsem nadesignoval jako takzvaný HAT.
 To znamená, že sama drží na 40 pinovém konektoru Raspberry Pi a nezabírá o moc víc místa, než samotné Raspberry Pi.
 
-Na této desce jsou kromě konektorů periferií, které jsou přímo napojeny na 40pinový konektor RPi i tři důležité obvody a sice:\
+Na této desce jsou kromě konektorů periferií, které jsou přímo napojeny na 40pinový konektor Raspberry Pi i tři důležité obvody a sice:\
 Generátor signálu pro galvanometry,\
 zdroj symetrického napětí pro galvanometry a\
 obvod správy baterie.
@@ -96,7 +96,7 @@ Díky němu je možné můj software nainstalovat na jakékoliv raspberry pi tě
 program lasershow je backendový program, který se stará o promítání.\
 Byl inspirován open-source projektem rpi-lasershow.\
 Oproti němu má ale navíc například funkce promítání barevných projekcí, samozřejmě komunikaci s frontendovými programy,\
-ale také možnost nastavování různých vlastností projekce, které vám snad předvedu při ukázce.
+ale také možnost nastavování různých vlastností projekce, které vám ukážu na konci videa.
 
 ### Program wifi_manager (20)
 Díky programu wifi manager je možné si ve frontendových programech vybírat mezi třemi stavy wifi připojení\
