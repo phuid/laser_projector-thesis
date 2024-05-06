@@ -37,7 +37,7 @@ Proto jsem si vytyčil následující cíle:
 - A nakonec software i plány projektoru nahrát na platformu github, která slouží pro sdílení open-source kódu.
 
 ### Promítání (12)
-V laserové projektory potřebují umět rychle pohybovat světelným paprskem. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá tři paprsky (červený, modrý a zelený) do jednoho libovolně barevného.
+Laserové projektory potřebují umět rychle pohybovat světelným paprskem. V mém projektoru tento paprsek vytváří RGB laserový modul, který pomocí polopropustných zrcátek skládá tři paprsky (červený, modrý a zelený) do jednoho libovolně barevného.
 
 Pohyb paprsku poté ovládají dva galvanometry se zrcátky, které jsou uspořádané tak, aby každý ovládal jednu osu pohybu.
 
