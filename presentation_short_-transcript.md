@@ -115,4 +115,4 @@ Na závěr bych rád poděkoval:
 mému externímu konzultantovi Tomáši Rohlínkovi za věcné rady a připomínky k projektu,\
 mé interní konzultantce magistře Kateřině Vídenkové za pomoc s prací,\
 JCMM a jihomoravskému kraji za finanční podpoření práce,\
-a především vám za pozornost (po ukázce???)
+a především vám za pozornost
